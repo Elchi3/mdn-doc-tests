@@ -1,0 +1,18 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.5;
+  color: #4D4E53;
+}
+
+.test {
+  width: 100%;
+  color: #fff;
+}
+
+.red {
+  background: #EA3B28;
+}
+
+.green {
+  background: #70A300;
+}

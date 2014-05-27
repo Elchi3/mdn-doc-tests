@@ -1,0 +1,9 @@
+{
+  "name": "mdn-doc-tests",
+  "title": "MDN documentation tester",
+  "id": "jid1-YPMGPOe6wZc76A",
+  "description": "Checks MDN docs against some tests and cleanup tasks while editing",
+  "author": "Florian Scholz",
+  "license": "MPL 2.0",
+  "version": "0.1"
+}
