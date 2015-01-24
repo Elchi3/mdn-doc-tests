@@ -20,5 +20,20 @@ exports["test doc regexp languagesMacro"] = function(assert) {
   assert.ok(1 == test.length , "test that the {{languages}} macro is matched");
 };
 
+exports["test doc regexp emptyBrackets"] = function(assert) {
+  var str = '{{ foo() }} {{bar()}} {{foobar("abc")}} {{baz}}';
+  var test = str.match(new RegExp(docTests[3].regex, 'gi'));
+  assert.ok(2 == test.length , "test that {{foo()}} macros are matched");
+};
+
+exports["test doc regexp styleAttribute"] = function(assert) {
+  var str = '<span style=""></span>' +
+            '<div style="margin-top:5%"></div>' +
+            '<section style="background:#fff; color: rgb(234, 234, 234);"></section>' +
+            '<b style=\'padding: 5px !important\'>test</b>' +
+            '<span style="font-family: \'Open Sans\', serif; line-height: 1.5"></span>'
+  var test = str.match(new RegExp(docTests[4].regex, 'gi'));
+  assert.ok(5 == test.length , "test that style= attributes are matched");
+};
 
 require("sdk/test").run(exports);

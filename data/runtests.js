@@ -1,5 +1,6 @@
-//var content = document.getElementById("id_content");
-var content = document.querySelectorAll("iframe")[1].contentDocument.body.innerHTML || "";
+var iframe = document.querySelectorAll("iframe.cke_wysiwyg_frame")[0];
+iframe.contentDocument.body.setAttribute("spellcheck", "true");
+var content = iframe.contentDocument.body.innerHTML || "";
 
 var runTest = function(testObj) {
   var contentTest = content.match(new RegExp(testObj.regex, 'gi')) || [];

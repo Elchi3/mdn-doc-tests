@@ -18,9 +18,26 @@
 
 {
   "id": "languagesMacro",
-  "name": "languages macro",
+  "name": "Languages macro",
   "desc": "{{languages()}}",
-  "regex": "{{\\slanguages\\(",
+  "regex": "{{\\s*languages\\s*",
+  "count": 0
+},
+
+
+{
+  "id": "emptyBrackets",
+  "name": "Empty brackets",
+  "desc": "{{foo()}}",
+  "regex": "{{\\s*[a-z]*\\(\\)\\s*}}",
+  "count": 0
+},
+
+{
+  "id": "styleAttribute",
+  "name": "Style attributes",
+  "desc": "style=",
+  "regex": "style=[\"'][a-zA-Z0-9:#!%;'\\.\\s\\(\\)\\-\\,]*['\"]",
   "count": 0
 }
 
