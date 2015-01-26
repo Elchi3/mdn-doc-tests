@@ -36,4 +36,13 @@ exports["test doc regexp styleAttribute"] = function(assert) {
   assert.ok(5 == test.length , "test that style= attributes are matched");
 };
 
+exports["test doc regexp spanCount"] = function(assert) {
+  var str = '<span>what?</span>' +
+            '<p>nope</p>' +
+            '<span class="foo" style="font:10px">bar</span>' +
+            '<span><dt>foobar</dt></span>';
+  var test = str.match(new RegExp(docTests[5].regex, 'gi'));
+  assert.ok(3 == test.length , "test that <span> elements are found");
+};
+
 require("sdk/test").run(exports);

@@ -39,6 +39,14 @@
   "desc": "style=",
   "regex": "style=[\"'][a-zA-Z0-9:#!%;'\\.\\s\\(\\)\\-\\,]*['\"]",
   "count": 0
+},
+
+{
+  "id": "spanCount",
+  "name": "# of &lt;span&gt; elements",
+  "desc": "<span></span>",
+  "regex": "(<span[^>]*>).*?<\\/span>",
+  "count": 0
 }
 
 ]
