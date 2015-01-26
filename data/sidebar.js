@@ -3,6 +3,10 @@ btn.onclick = function(event) {
     addon.port.emit("runTests");
 };
 
+setInterval(function() {
+  addon.port.emit("runTests");
+}, 10000);
+
 addon.port.on("test", function(test) {
   var tests = document.getElementById("tests");
   var status = test.count > 0 ? "red": "green";

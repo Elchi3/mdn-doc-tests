@@ -13,3 +13,21 @@ self.port.on("runTests", function(docTests) {
     runTest(docTests[i]);
   }
 });
+
+var btns = document.querySelectorAll(".btn-save, .btn-save-and-edit");
+var comment = document.querySelectorAll("#page-comment #id_comment")[0];
+
+
+var disableBtns = function(bool) {
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].disabled = bool;
+  }
+};
+
+if (comment.value === '') {
+  disableBtns(true);
+}
+
+comment.addEventListener("change", function() {
+  disableBtns(false);
+});
