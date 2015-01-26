@@ -9,9 +9,10 @@ exports["test doc regexp oldURLs"] = function(assert) {
 };
 
 exports["test doc regexp emptyElem"] = function(assert) {
-  var str = '<p></p>';
+  var str = '<p> </p>' +
+            "<p> \n\r </p>";
   var test = str.match(new RegExp(docTests[1].regex, 'gi'));
-  assert.ok(1 == test.length , "test that empty <p></p> are matched");
+  assert.ok(2 == test.length , "test that empty <p></p> are matched");
 };
 
 exports["test doc regexp languagesMacro"] = function(assert) {
@@ -43,6 +44,16 @@ exports["test doc regexp spanCount"] = function(assert) {
             '<span><dt>foobar</dt></span>';
   var test = str.match(new RegExp(docTests[5].regex, 'gi'));
   assert.ok(3 == test.length , "test that <span> elements are found");
+};
+
+exports["test doc regexp preWithoutClass"] = function(assert) {
+  var str = '<pre class="brush: js"></pre>' +
+            '<pre>foobar;</pre>' +
+            '<pre class="syntaxbox"></pre>' +
+            '<pre id="foo"></pre>' +
+            "<pre> \n\r foo</pre>";
+  var test = str.match(new RegExp(docTests[6].regex, 'gi'));
+  assert.ok(3 == test.length , "test that <pre> elements w/o syntax highlighter are found");
 };
 
 require("sdk/test").run(exports);

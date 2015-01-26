@@ -12,7 +12,7 @@
   "id": "emptyElem",
   "name": "Empty elements",
   "desc": "E.g. <p></p>",
-  "regex": "(<(?!\\/)[^>]+>)+(<\\/[^>]+>)+",
+  "regex": "(<(?!\\/)[^>]+>)+([\\s]*?)(<\\/[^>]+>)+",
   "count": 0
 },
 
@@ -46,6 +46,14 @@
   "name": "# of &lt;span&gt; elements",
   "desc": "<span></span>",
   "regex": "(<span[^>]*>).*?<\\/span>",
+  "count": 0
+},
+
+{
+  "id": "preWithoutClass",
+  "name": "&lt;pre&gt; w/o class",
+  "desc": "<pre></pre> (no syntax highlighter)",
+  "regex": "(<pre(?=\\s|>)(?!(?:[^>=]|=(['\"])(?:(?!\\1).)*\\1)*?class=['\"])[^>]*>[\\S\\s]*?<\\/pre>)",
   "count": 0
 }
 
