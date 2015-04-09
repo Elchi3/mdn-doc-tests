@@ -74,4 +74,14 @@ exports["test doc regexp summaryHeading"] = function(assert) {
   assert.ok(4 == test.length , "test that Summary headings are matched");
 };
 
+exports["test doc regexp jsRefWithParams"] = function(assert) {
+  var str = '{{JSRef()}}' +
+            '{{JSRef("Global_Objects")}}' +
+            '{{JSRef("Global_Objects", "Math")}}' +
+            '{{JSRef}}';
+  var test = str.match(new RegExp(docTests[9].regex, 'gi'));
+  assert.ok(3 == test.length , "test that JSRef macros with parameters are matched");
+};
+
+
 require("sdk/test").run(exports);

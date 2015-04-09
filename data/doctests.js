@@ -71,6 +71,14 @@
   "desc": "<hx>Summary</hx>",
   "regex": "<h[0-6]?(?!\\/)[^>]+>Summary</h[0-6]>",
   "count": 0
+},
+
+{
+  "id": "jsRefWithParams",
+  "name": "JSRef params",
+  "desc": "Paremeters are obsolete now, e.g. {{JSRef(\"Global_Objects\", \"Math\")}}",
+  "regex": "{{s*JSRef\\(s*",
+  "count": 0
 }
 
 ]
