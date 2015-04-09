@@ -83,5 +83,15 @@ exports["test doc regexp jsRefWithParams"] = function(assert) {
   assert.ok(3 == test.length , "test that JSRef macros with parameters are matched");
 };
 
+exports["test doc regexp ExampleColonHeading"] = function(assert) {
+  var str = '<h2>Example</h2>' +
+            '<h3 id="Example">Example</h3>' +
+            '<h3 id="Example:_Foo">Example: Foo</h3>' +
+            '<h3 id="Example:_Using_Math.sin">Example: Using <code>Math.sin</code></h3>' +
+            '<h2 id="Example:_Foo">Example: Foo</h2>';
+  var test = str.match(new RegExp(docTests[10].regex, 'gi'));
+  console.log(docTests[10]);
+  assert.ok(3 == test.length , "test that headings with _Example:_ are matched");
+};
 
 require("sdk/test").run(exports);

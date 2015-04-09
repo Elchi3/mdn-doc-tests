@@ -69,15 +69,23 @@
   "id": "SummaryHeading",
   "name": "Summary heading",
   "desc": "<hx>Summary</hx>",
-  "regex": "<h[0-6]?(?!\\/)[^>]+>Summary</h[0-6]>",
+  "regex": "<h[0-6]?(?!\\/)[^>]+>Summary<\\/h[0-6]>",
   "count": 0
 },
 
 {
   "id": "jsRefWithParams",
   "name": "JSRef params",
-  "desc": "Paremeters are obsolete now, e.g. {{JSRef(\"Global_Objects\", \"Math\")}}",
+  "desc": "Paremeters are obsolete now, e.g. {{JSRef('Global_Objects', 'Math')}}",
   "regex": "{{s*JSRef\\(s*",
+  "count": 0
+},
+
+{
+  "id": "ExampleColonHeading",
+  "name": "'Example:' heading",
+  "desc": "<h3>Example: Foobar</h3> just use <h3>Foobar</h3>",
+  "regex": "<h[0-6]?(?!\\/)[^>]+>Example:.*?<\\/h[0-6]>",
   "count": 0
 }
 
