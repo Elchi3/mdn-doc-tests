@@ -32,9 +32,18 @@ exports["test doc regexp styleAttribute"] = function(assert) {
             '<div style="margin-top:5%"></div>' +
             '<section style="background:#fff; color: rgb(234, 234, 234);"></section>' +
             '<b style=\'padding: 5px !important\'>test</b>' +
-            '<span style="font-family: \'Open Sans\', serif; line-height: 1.5"></span>'
+            '<span style="font-family: \'Open Sans\', serif; line-height: 1.5"></span>';
   var test = str.match(new RegExp(docTests[4].regex, 'gi'));
   assert.ok(5 == test.length , "test that style= attributes are matched");
+};
+
+exports["test doc regexp nameAttribute"] = function(assert) {
+  var str = '<span name=""></span>' +
+            '<div name="foo"></div>' +
+            '<h2 id="foo" name="foo">foo</h2>' +
+            '<h3 name=\'baz\'>baz</h3>';
+  var test = str.match(new RegExp(docTests[5].regex, 'gi'));
+  assert.ok(4 == test.length , "test that name= attributes are matched");
 };
 
 exports["test doc regexp spanCount"] = function(assert) {
@@ -42,7 +51,7 @@ exports["test doc regexp spanCount"] = function(assert) {
             '<p>nope</p>' +
             '<span class="foo" style="font:10px">bar</span>' +
             '<span><dt>foobar</dt></span>';
-  var test = str.match(new RegExp(docTests[5].regex, 'gi'));
+  var test = str.match(new RegExp(docTests[6].regex, 'gi'));
   assert.ok(3 == test.length , "test that <span> elements are found");
 };
 
@@ -52,7 +61,7 @@ exports["test doc regexp preWithoutClass"] = function(assert) {
             '<pre class="syntaxbox"></pre>' +
             '<pre id="foo"></pre>' +
             "<pre> \n\r foo</pre>";
-  var test = str.match(new RegExp(docTests[6].regex, 'gi'));
+  var test = str.match(new RegExp(docTests[7].regex, 'gi'));
   assert.ok(3 == test.length , "test that <pre> elements w/o syntax highlighter are found");
 };
 

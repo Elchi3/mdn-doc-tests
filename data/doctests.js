@@ -42,6 +42,14 @@
 },
 
 {
+  "id": "nameAttribute",
+  "name": "Name attributes",
+  "desc": "name=",
+  "regex": "name=[\"'][a-zA-Z0-9:#!%;'\\.\\s\\(\\)\\-\\,]*['\"]",
+  "count": 0
+},
+
+{
   "id": "spanCount",
   "name": "# of &lt;span&gt; elements",
   "desc": "<span></span>",
