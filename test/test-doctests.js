@@ -65,4 +65,13 @@ exports["test doc regexp preWithoutClass"] = function(assert) {
   assert.ok(3 == test.length , "test that <pre> elements w/o syntax highlighter are found");
 };
 
+exports["test doc regexp summaryHeading"] = function(assert) {
+  var str = '<h2>Summary</h2>' +
+            '<h2 id="Summary" name="Summary">Summary</h2>' +
+            '<h2 id="Summary" name="foo">Summary</h2>' +
+            '<h3 id="Summary">Summary</h3>';
+  var test = str.match(new RegExp(docTests[8].regex, 'gi'));
+  assert.ok(4 == test.length , "test that Summary headings are matched");
+};
+
 require("sdk/test").run(exports);

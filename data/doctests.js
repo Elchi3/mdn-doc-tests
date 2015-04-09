@@ -63,6 +63,14 @@
   "desc": "<pre></pre> (no syntax highlighter)",
   "regex": "(<pre(?=\\s|>)(?!(?:[^>=]|=(['\"])(?:(?!\\1).)*\\1)*?class=['\"])[^>]*>[\\S\\s]*?<\\/pre>)",
   "count": 0
+},
+
+{
+  "id": "SummaryHeading",
+  "name": "Summary heading",
+  "desc": "<hx>Summary</hx>",
+  "regex": "<h[0-6]?(?!\\/)[^>]+>Summary</h[0-6]>",
+  "count": 0
 }
 
 ]
