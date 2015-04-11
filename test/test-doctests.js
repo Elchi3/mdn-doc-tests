@@ -41,9 +41,10 @@ exports["test doc regexp nameAttribute"] = function(assert) {
   var str = '<span name=""></span>' +
             '<div name="foo"></div>' +
             '<h2 id="foo" name="foo">foo</h2>' +
+            '<h2 id="foo_bar" name="foo_bar">foo bar</h2>' +
             '<h3 name=\'baz\'>baz</h3>';
   var test = str.match(new RegExp(docTests[5].regex, 'gi'));
-  assert.ok(4 == test.length , "test that name= attributes are matched");
+  assert.ok(5 == test.length , "test that name= attributes are matched");
 };
 
 exports["test doc regexp spanCount"] = function(assert) {

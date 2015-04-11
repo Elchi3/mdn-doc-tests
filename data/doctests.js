@@ -45,7 +45,7 @@
   "id": "nameAttribute",
   "name": "Name attributes",
   "desc": "name=",
-  "regex": "name=[\"'][a-zA-Z0-9:#!%;'\\.\\s\\(\\)\\-\\,]*['\"]",
+  "regex": "name=[\"'][a-zA-Z0-9:#!%;'_\\.\\s\\(\\)\\-\\,]*['\"]",
   "count": 0
 },
 
