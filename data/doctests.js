@@ -95,6 +95,14 @@
   "desc": "Don't use alert, print, eval, document.write in code samples",
   "regex": "(alert|print|eval|document\\.write)",
   "count": 0
+},
+
+{
+  "id": "htmlComments",
+  "name": "HTML comments",
+  "desc": "HTML comments are not visible in wysiwyg mode and in reading mode. Not meant to comment the documentation",
+  "regex": "<!--[\\s\\S]*?-->",
+  "count": 0
 }
 
 ]
