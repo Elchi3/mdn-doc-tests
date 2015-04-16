@@ -87,6 +87,14 @@
   "desc": "<h3>Example: Foobar</h3> just use <h3>Foobar</h3>",
   "regex": "<h[0-6]?(?!\\/)[^>]+>Example:.*?<\\/h[0-6]>",
   "count": 0
+},
+
+{
+  "id": "alertPrintInCode",
+  "name": "alert, print, eval, d.write",
+  "desc": "Don't use alert, print, eval, document.write in code samples",
+  "regex": "(alert|print|eval|document\\.write)",
+  "count": 0
 }
 
 ]

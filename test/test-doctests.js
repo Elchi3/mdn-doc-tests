@@ -91,8 +91,17 @@ exports["test doc regexp ExampleColonHeading"] = function(assert) {
             '<h3 id="Example:_Using_Math.sin">Example: Using <code>Math.sin</code></h3>' +
             '<h2 id="Example:_Foo">Example: Foo</h2>';
   var test = str.match(new RegExp(docTests[10].regex, 'gi'));
-  console.log(docTests[10]);
   assert.ok(3 == test.length , "test that headings with _Example:_ are matched");
+};
+
+exports["test doc regexp alertPrintInCode"] = function(assert) {
+  var str = '<pre>alert("foo")</pre>' +
+            '<pre class="syntaxbox">print("bar")</pre>' +
+            '<pre>var someOthercode = baz; ' +
+            'alert("hello world"); \n var moreCode;</pre>' +
+            '<pre>document.write("foobar");</pre>';
+  var test = str.match(new RegExp(docTests[11].regex, 'gi'));
+  assert.ok(4 == test.length , "test that alert, print, eval and d.write statements matched");
 };
 
 require("sdk/test").run(exports);
