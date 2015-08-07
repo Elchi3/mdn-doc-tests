@@ -103,6 +103,14 @@
   "desc": "HTML comments are not visible in wysiwyg mode and in reading mode. Not meant to comment the documentation",
   "regex": "<!--[\\s\\S]*?-->",
   "count": 0
+},
+
+{
+  "id": "fontElement",
+  "name": "&lt;font&gt; element",
+  "desc": "Using <font> elements is obsolete. Either the tag should be removed completely or replaced by CSS.",
+  "regex": "<font.*?>",
+  "count": 0
 }
 
 ]

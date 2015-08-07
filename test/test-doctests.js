@@ -104,13 +104,19 @@ exports["test doc regexp alertPrintInCode"] = function(assert) {
   assert.ok(4 == test.length , "test that alert, print, eval and d.write statements are matched");
 };
 
-
 exports["test doc regexp htmlComments"] = function(assert) {
   var str = '<!-- -->' +
             '<!-- <span>foo</span> -->' +
             '<!-- hello \n world -->';
   var test = str.match(new RegExp(docTests[12].regex, 'gi'));
   assert.ok(3 == test.length , "test that html comments are matched");
+};
+
+exports["test doc regexp fontElement"] = function(assert) {
+  var str = '<font>' +
+            '<font face="Open Sans, sans-serif">';
+  var test = str.match(new RegExp(docTests[13].regex, "gi"));
+  assert.ok(2 === test.length, "test that <font> tags are matched");
 };
 
 require("sdk/test").run(exports);
