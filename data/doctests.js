@@ -68,7 +68,7 @@
 {
   "id": "SummaryHeading",
   "name": "Summary heading",
-  "desc": "<hx>Summary</hx>",
+  "desc": "According to the article style guide there shouldn't be a <hx>Summary</hx> heading.",
   "regex": "<h[0-6]?(?!\\/)[^>]+>Summary<\\/h[0-6]>",
   "count": 0
 },
