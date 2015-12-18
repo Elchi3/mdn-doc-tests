@@ -1,9 +1,13 @@
 {
   "name": "mdn-doc-tests",
   "title": "MDN documentation tester",
-  "id": "jid1-YPMGPOe6wZc76A",
+  "id": "{5a141ee1-024b-424b-b778-cff2bfab50ca}",
   "description": "Checks MDN docs against some tests and cleanup tasks while editing",
   "author": "Florian Scholz",
+  "contributors": [
+    "Sebastian Zartner"
+  ],
   "license": "MPL 2.0",
-  "version": "0.1"
+  "main": "lib/main.js",
+  "version": "0.2.0"
 }
