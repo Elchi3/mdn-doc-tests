@@ -45,7 +45,16 @@ var docTests = [
     id: "spanCount",
     name: "# of &lt;span&gt; elements",
     desc: "<span></span>",
-    regex: "(<span[^>]*>).*?<\\/span>",
+    check: function check(content) {
+      var matches = content.match(/<span.*?>.*?<\/span>/gi);
+      for (var i = 0; i < matches.length; i++) {
+        if (matches[i].match(/<span[^>]*?class="seoSummary"/)) {
+          matches.splice(i, 1);
+        }
+      }
+
+      return matches;
+    },
     count: 0
   },
   {
