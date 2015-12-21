@@ -8,8 +8,8 @@ var runTest = function(testObj) {
   self.port.emit("test", testObj);
 };
 
-self.port.on("runTests", function(docTests) {
-  for (var i = 0; i <= docTests.length; i++) {
+self.port.on("runTests", function() {
+  for (var i = 0; i < docTests.length; i++) {
     runTest(docTests[i]);
   }
 });
