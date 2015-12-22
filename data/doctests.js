@@ -88,8 +88,20 @@ var docTests = [
   {
     id: "alertPrintInCode",
     name: "alert, print, eval, d.write",
-    desc: "Don't use alert, print, eval, document.write in code samples",
-    regex: "(alert|print|eval|document\\.write)",
+    desc: "Don't use alert(), print(), eval() or document.write() in code samples",
+    check: function check(content) {
+      var codeSamples = content.match(/<pre(?:\s.*)?>(?:.|\n)*?<\/pre>/gi) || [];
+      var matches = [];
+      for (var i = 0; i < codeSamples.length; i++) {
+        var codeSampleMatches = codeSamples[i].match(/(?:alert|print|eval|document\.write)\s*\((?:.|\n)+?\)/gi);
+        if (codeSampleMatches) {
+          matches = matches.concat(codeSampleMatches);
+        }
+      }
+
+      return matches;
+    },
+    regex: "",
     count: 0
   },
   {
