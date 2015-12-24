@@ -1,6 +1,6 @@
-var testFile = require("sdk/self").data.load("doctests.js");
+var testFile = require("sdk/self").data.load("doctests.js")
 
-var docTests = JSON.parse(testFile);
+eval(testFile);
 
 exports["test doc regexp oldURLs"] = function(assert) {
   var str = '<a href="/en/Web">Web</a><a href="/En/Mozilla">Mozilla</a>';
@@ -51,8 +51,9 @@ exports["test doc regexp spanCount"] = function(assert) {
   var str = '<span>what?</span>' +
             '<p>nope</p>' +
             '<span class="foo" style="font:10px">bar</span>' +
-            '<span><dt>foobar</dt></span>';
-  var test = str.match(new RegExp(docTests[6].regex, 'gi'));
+            '<span><dt>foobar</dt></span>' +
+            '<span class="seoSummary">seoseoseo</span>';
+  var test = docTests[6].check(str);
   assert.ok(3 == test.length , "test that <span> elements are found");
 };
 
