@@ -101,7 +101,7 @@ exports["test doc regexp alertPrintInCode"] = function(assert) {
             '<pre>var someOthercode = baz; ' +
             'alert("hello world"); \n var moreCode;</pre>' +
             '<pre>document.write("foobar");</pre>';
-  var test = str.match(new RegExp(docTests[11].regex, 'gi'));
+  var test = docTests[11].check(str);
   assert.ok(4 == test.length , "test that alert, print, eval and d.write statements are matched");
 };
 
