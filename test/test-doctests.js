@@ -171,4 +171,13 @@ exports["test doc wrongHighlightedLine"] = function(assert) {
   assert.ok(test.length === 5, "test that highlighted code line number is valid " + test.length);
 };
 
+exports["test doc headlinesWording"] = function(assert) {
+  var str = '<h2 id="Syntax">Syntax</h2>' +
+            '<h3>Errors</h3>' +
+            '<h3>Returns</h3>' +
+            '<h3>Parameters</h3>';
+  var test = docTests[17].check(str);
+  assert.ok(test.length === 4, "test that wrong Syntax sub-headings and a order of them is recognized");
+};
+
 require("sdk/test").run(exports);
