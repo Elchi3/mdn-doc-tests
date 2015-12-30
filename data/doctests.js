@@ -10,7 +10,16 @@ var docTests = [
     id: "emptyElem",
     name: "Empty elements",
     desc: "E.g. <p></p>",
-    regex: /(<(?!\/)[^>]+>)+([\s]*?)(<\/[^>]+>)+/gi,
+    check: function check(content) {
+      var matches = content.match(/<[^\/][^>]*?>([\s\r\n]|&nbsp;|<br\/?>)*<\/.*?>/gi) || [];
+      for (var i = matches.length - 1; i >= 0; i--) {
+        if (matches[i].match(/^<(?:link|track|param|area|command|col|base|meta|hr|source|img|keygen|br|wbr|input)/)) {
+          matches.splice(i, 1);
+        }
+      }
+
+      return matches;
+    },
     count: 0
   },
   {
