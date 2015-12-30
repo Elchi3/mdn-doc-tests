@@ -156,6 +156,7 @@ var docTests = [
     id: "macroSyntaxError",
     name: "Macro syntax error",
     desc: "A macro has a syntax error like a missing closing bracket, e.g. {{jsxref(\"Array\"}}.",
+<<<<<<< Upstream, based on branch 'issue-13' of https://github.com/SebastianZ/mdn-doc-tests.git
     check: function macroSyntaxErrorCheck(content) {
       function validateStringParams(macro) {
         var paramListStartIndex = macro.indexOf("(") + 1;
@@ -202,6 +203,9 @@ var docTests = [
 
       return errors;
     },
+=======
+    regex: /\{\{[^\(]*?\([^\)]*?\}\}|\{\{[^\}]*?\}(?=[^\}])/gi,
+>>>>>>> 825316a Added test for macro syntax errors (issue #13)
     count: 0
   }
 ];
