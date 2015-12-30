@@ -7,7 +7,7 @@ var runTest = function(testObj) {
   if (testObj.check) {
     contentTest = testObj.check(content);
   } else {
-    contentTest = content.match(new RegExp(testObj.regex, 'gi')) || [];
+    contentTest = content.match(testObj.regex) || [];
   }
   testObj.count = contentTest.length;
   self.port.emit("test", testObj);
