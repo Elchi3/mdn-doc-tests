@@ -249,11 +249,13 @@ var docTests = [
       var order = [];
       var errors = [];
       if (syntaxSection.length === 2) {
-        var container = document.createElement("div");
-        container.innerHTML = syntaxSection[1];
-        var subHeadings = container.querySelectorAll("h3");
+        var subHeadings = [];
+        var reSubHeadings = /<h3.*?>(.*?)<\/h3>/gi;
+        while (match = reSubHeadings.exec(syntaxSection[1])) {
+          subHeadings.push(match[1]);
+        }
         for (var i = 0; i < subHeadings.length; i++) {
-          var subHeading = subHeadings[i].textContent.toLowerCase();
+          var subHeading = subHeadings[i].toLowerCase();
           for (var j = 0; j < validOrder.length; j++) {
             var heading = validOrder[j];
             if (heading.has(subHeading)) {
@@ -262,7 +264,7 @@ var docTests = [
           }
 
           if (disallowedNames.has(subHeading)) {
-            errors.push("Invalid name " + subHeadings[i].textContent);
+            errors.push("Invalid name '" + subHeading + "'");
           }
         }
 
