@@ -151,5 +151,12 @@ var docTests = [
     regex: /<a[^>]+href="http:\/\//gi,
     type: WARNING, 
     count: 0
+  },
+  {
+    id: "macroSyntaxError",
+    name: "Macro syntax error",
+    desc: "A macro has a syntax error like a missing closing bracket, e.g. {{jsxref(\"Array\"}}.",
+    regex: /\{\{[^\(]*?\([^\)]*?\}\}|\{\{[^\}]*?\}(?=[^\}])/gi,
+    count: 0
   }
 ];
