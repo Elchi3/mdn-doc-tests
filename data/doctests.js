@@ -1,9 +1,13 @@
+const ERROR = 1;
+const WARNING = 2;
+
 var docTests = [
   {
     id: "oldURLs",
     name: "Old 'en/' URLs",
     desc: "en/ -> /en-US/docs/",
     regex: /\shref=\"\/*en*\//gi,
+    type: ERROR, 
     count: 0
   },
   {
@@ -20,6 +24,7 @@ var docTests = [
 
       return matches;
     },
+    type: ERROR, 
     count: 0
   },
   {
@@ -27,6 +32,7 @@ var docTests = [
     name: "Languages macro",
     desc: "{{languages()}}",
     regex: /{{\s*languages\s*/gi,
+    type: ERROR, 
     count: 0
   },
   {
@@ -34,6 +40,7 @@ var docTests = [
     name: "Empty brackets",
     desc: "{{foo()}}",
     regex: /{{\s*[a-z]*\(\)\s*}}/gi,
+    type: ERROR, 
     count: 0
   },
   {
@@ -41,6 +48,7 @@ var docTests = [
     name: "Style attributes",
     desc: "style=",
     regex: /style=["'][a-zA-Z0-9:#!%;'\.\s\(\)\-\,]*['"]/gi,
+    type: ERROR, 
     count: 0
   },
   {
@@ -48,6 +56,7 @@ var docTests = [
     name: "Name attributes",
     desc: "name=",
     regex: /name=["'][a-zA-Z0-9:#!%;'_\.\s\(\)\-\,]*['"]/gi,
+    type: ERROR, 
     count: 0
   },
   {
@@ -64,6 +73,7 @@ var docTests = [
 
       return matches;
     },
+    type: ERROR, 
     count: 0
   },
   {
@@ -71,6 +81,7 @@ var docTests = [
     name: "&lt;pre&gt; w/o class",
     desc: "<pre></pre> (no syntax highlighter)",
     regex: /(<pre(?=\s|>)(?!(?:[^>=]|=(['"])(?:(?!\1).)*\1)*?class=['"])[^>]*>[\S\s]*?<\/pre>)/gi,
+    type: ERROR, 
     count: 0
   },
   {
@@ -78,6 +89,7 @@ var docTests = [
     name: "Summary heading",
     desc: "According to the article style guide there shouldn't be a <hx>Summary</hx> heading.",
     regex: /<h[0-6]?(?!\/)[^>]+>Summary<\/h[0-6]>/gi,
+    type: ERROR, 
     count: 0
   },
   {
@@ -85,6 +97,7 @@ var docTests = [
     name: "JSRef params",
     desc: "Paremeters are obsolete now, e.g. {{JSRef('Global_Objects', 'Math')}}",
     regex: /{{s*JSRef\(s*/gi,
+    type: ERROR, 
     count: 0
   },
   {
@@ -92,6 +105,7 @@ var docTests = [
     name: "'Example:' heading",
     desc: "<h3>Example: Foobar</h3> just use <h3>Foobar</h3>",
     regex: /<h[0-6]?(?!\/)[^>]+>Example:.*?<\/h[0-6]>/gi,
+    type: ERROR, 
     count: 0
   },
   {
@@ -111,6 +125,7 @@ var docTests = [
       return matches;
     },
     regex: "",
+    type: ERROR, 
     count: 0
   },
   {
@@ -118,6 +133,7 @@ var docTests = [
     name: "HTML comments",
     desc: "HTML comments are not visible in wysiwyg mode and in reading mode. Not meant to comment the documentation",
     regex: /<!--[\s\S]*?-->/gi,
+    type: ERROR, 
     count: 0
   },
   {
@@ -125,6 +141,15 @@ var docTests = [
     name: "&lt;font&gt; element",
     desc: "Using <font> elements is obsolete. Either the tag should be removed completely or replaced by CSS.",
     regex: /<font.*?>/gi,
+    type: ERROR, 
+    count: 0
+  },
+  {
+    id: "httpLinks",
+    name: "HTTP links",
+    desc: "URLs to external resources should use HTTPS when possible",
+    regex: /<a[^>]+href="http:\/\//gi,
+    type: WARNING, 
     count: 0
   }
 ];
