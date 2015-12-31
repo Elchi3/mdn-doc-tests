@@ -206,10 +206,33 @@ var docTests = [
     count: 0
   },
   {
-    id: "macroSyntaxError",
-    name: "Macro syntax error",
-    desc: "A macro has a syntax error like a missing closing bracket, e.g. {{jsxref(\"Array\"}}.",
-    regex: /\{\{[^\(]*?\([^\)]*?\}\}|\{\{[^\}]*?\}(?=[^\}])/gi,
+    id: "wrongHighlightedLine",
+    name: "Wrong highlighted line",
+    desc: "A code block has a line highlighted that is outside the range of lines of code.",
+    check: function checkWrongHighlightedLine(content) {
+      var reCodeSample = /<pre(?:\s[^>]*class="[^"]*?highlight\[(-?\d+)\][^"]*?")>((?:.|\n)*?)<\/pre>/gi;
+      var errors = [];
+      var match = null;
+      while (match = reCodeSample.exec(content)) {
+        console.log(match);
+        var highlightedLineNumber = Number(match[1]);
+        if (highlightedLineNumber <= 0) {
+          errors.push("Highlighted line number must be positive.");
+        }
+
+        var lineBreaks = match[2].match(/<br\s*\/?>|\n/gi);
+        if (lineBreaks) {
+          var lineCount = lineBreaks.length + 1;
+          if (highlightedLineNumber > lineCount) {
+            errors.push("Highlighted line number " + highlightedLineNumber +
+                " exceeds the line count of " + lineCount);
+          }
+        }
+      }
+
+      return errors;
+    },
+    type: ERROR,
     count: 0
   }
 ];
