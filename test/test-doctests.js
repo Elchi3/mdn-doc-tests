@@ -10,9 +10,15 @@ exports["test doc regexp oldURLs"] = function(assert) {
 
 exports["test doc regexp emptyElem"] = function(assert) {
   var str = '<p> </p>' +
-            "<p> \n\r </p>";
-  var test = str.match(docTests[1].regex);
-  assert.ok(2 == test.length , "test that empty <p></p> are matched");
+            '<p> \n\r </p>' +
+            '<p> &nbsp;</p>' +
+            '<p><br><br/></p>' +
+            '<img src="http://example.com/image.png">' +
+            '<input value="test"/>' +
+            '<p><span>some text</span></p>' +
+            '<p>some text</p>';
+  var test = docTests[1].check(str);
+  assert.ok(test.length === 4, "test that empty elements are matched");
 };
 
 exports["test doc regexp languagesMacro"] = function(assert) {
