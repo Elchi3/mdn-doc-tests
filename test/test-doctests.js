@@ -135,4 +135,27 @@ exports["test doc httpLinks"] = function(assert) {
   assert.ok(test.length === 1, "test that HTTP links are matched");
 };
 
+exports["test doc macroSyntaxError"] = function(assert) {
+  var str = '{{macro}}' +
+            '{{macro("param")}}' +
+            '{{macro(123)}}' +
+            '{{macro(123, "param")}}' +
+            '{{macro(\'param\', 123, "param")}}' +
+            '{{macro("param)}}' + // Missing closing double quote
+            '{{macro(\'param)}}' + // Missing closing single quote
+            '{{macro(param)}}' + // Missing quotes
+            '{{macro(param")}}' + // Missing opening double quote
+            '{{macro(param\')}}' + // Missing opening single quote
+            '{{macro(\'param\', 123, "param)}}' + // Missing closing double quote, multiple parameters
+            '{{macro("param"))}}' + // Double closing parameter list bracket
+            '{{macro("param")}' + // Missing closing macro curly brace after double quoted parameter
+            '{{macro(\'param\')}' + // Missing closing macro curly brace after single quoted parameter
+            '{{macro("param"}}' + // Missing closing parameter list bracket after double quoted parameter
+            '{{macro(\'param\'}}' + // Missing closing parameter list bracket after single quoted parameter
+            '{{macro(param"}}' + // Missing opening double quote and missing closing parameter list bracket
+            '{{macro(param"))}}'; // Missing opening double quote and double closing parameter list bracket
+  var test = docTests[15].check(str);
+  assert.ok(test.length === 15, "test that macro syntax errors are recognized " + test.length);
+};
+
 require("sdk/test").run(exports);

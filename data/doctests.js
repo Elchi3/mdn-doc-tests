@@ -151,5 +151,65 @@ var docTests = [
     regex: /<a[^>]+href="http:\/\//gi,
     type: WARNING, 
     count: 0
+  },
+  {
+    id: "macroSyntaxError",
+    name: "Macro syntax error",
+    desc: "A macro has a syntax error like a missing closing bracket, e.g. {{jsxref(\"Array\"}}.",
+    check: function macroSyntaxErrorCheck(content) {
+      function validateStringParams(macro) {
+        var paramListStartIndex = macro.indexOf("(") + 1;
+        var paramListEndMatch = macro.match(/\)*\}{1,2}$/);
+        var paramListEndIndex = macro.length - paramListEndMatch[0].length;
+        var stringParamQuote = "";
+        for (var i = paramListStartIndex; i < paramListEndIndex; i++) {
+          if (macro[i] === "\"") {
+            if (stringParamQuote === "") {
+              stringParamQuote = "\"";
+            } else if (stringParamQuote === "\"" && macro[i - 1] !== "\\") {
+              stringParamQuote = "";
+            }
+          } else if (macro[i] === "'") {
+            if (stringParamQuote === "") {
+              stringParamQuote = "'";
+            } else if (stringParamQuote === "'" && macro[i - 1] !== "\\") {
+              stringParamQuote = "";
+            }
+          } else if (stringParamQuote === "" && macro[i].match(/[^\s,\d\-\.]/)) {
+            return false;
+          }
+        }
+
+        return stringParamQuote === "";
+      }
+
+      var macros = content.match(/\{\{[^\(\}]*\([^\}]*\}\}|\{\{[^\}]*?\}(?=[^\}])/gi) || [];
+      var errors = [];
+      macros.forEach(macro => {
+        if (macro.match(/[^\}]\}$/)) {
+          errors.push("Macro is missing a closing curly brace: " + macro);
+        }
+        if (macro.match(/^\{\{[^\(]+\([^\)]*\}\}$/)) {
+          errors.push("Parameters list is missing a closing bracket: " + macro);
+        }
+        if (!validateStringParams(macro)) {
+          errors.push("String parameter is not quoted correctly: " + macro);
+        }
+        if (macro.match(/\){2,}\}{1,2}$/)) {
+          errors.push("Macro has additional closing bracket(s): " + macro);
+        }
+      });
+
+      return errors;
+    },
+    type: ERROR,
+    count: 0
+  },
+  {
+    id: "macroSyntaxError",
+    name: "Macro syntax error",
+    desc: "A macro has a syntax error like a missing closing bracket, e.g. {{jsxref(\"Array\"}}.",
+    regex: /\{\{[^\(]*?\([^\)]*?\}\}|\{\{[^\}]*?\}(?=[^\}])/gi,
+    count: 0
   }
 ];
