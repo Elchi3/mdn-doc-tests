@@ -27,6 +27,10 @@ h2 {
   background-color: #CB000F;
 }
 
+.hasWarnings {
+  background-color: #DBB40F;
+}
+
 .ok {
   background-color: #00882D;
 }

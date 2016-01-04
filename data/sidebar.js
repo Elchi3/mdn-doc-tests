@@ -1,10 +1,15 @@
+const WARNING = 2;
+
 addon.port.on("test", function(test) {
   var tests = document.getElementById("tests");
-  var status = test.count > 0 ? "hasErrors": "ok";
+  var status = "ok";
+  if (test.count > 0) {
+    status = test.type === WARNING ? "hasWarnings" : "hasErrors";
+  }
   var testElem = document.getElementById(test.id);
   if (tests.contains(testElem)) {
     testElem.getElementsByClassName("errorCount")[0].textContent = test.count;
-    testElem.classList.remove("hasErrors", "ok");
+    testElem.classList.remove("hasErrors", "hasWarnings", "ok");
     testElem.classList.add(status);
   } else {
     tests.innerHTML += "<li class=\"test " + status + "\" id=\"" + test.id +
