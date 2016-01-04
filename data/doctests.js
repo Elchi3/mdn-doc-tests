@@ -155,7 +155,7 @@ var docTests = [
   {
     id: "macroSyntaxError",
     name: "Macro syntax error",
-    desc: "A macro has a syntax error like a missing closing bracket, e.g. {{jsxref(\"Array\"}}.",
+    desc: "A macro has a syntax error like a missing closing bracket, e.g. {{jsxref('Array'}}.",
     check: function macroSyntaxErrorCheck(content) {
       function validateStringParams(macro) {
         var paramListStartIndex = macro.indexOf("(") + 1;
