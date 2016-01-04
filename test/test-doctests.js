@@ -135,4 +135,27 @@ exports["test doc httpLinks"] = function(assert) {
   assert.ok(test.length === 1, "test that HTTP links are matched");
 };
 
+exports["test doc macroSyntaxError"] = function(assert) {
+  var str = '{{macro}}' +
+            '{{macro("param")}}' +
+            '{{macro(123)}}' +
+            '{{macro(123, "param")}}' +
+            '{{macro(\'param\', 123, "param")}}' +
+            '{{macro("param)}}' +
+            '{{macro(\'param)}}' +
+            '{{macro(param)}}' +
+            '{{macro(param")}}' +
+            '{{macro(param\')}}' +
+            '{{macro(\'param\', 123, "param)}}' +
+            '{{macro("param"))}}' +
+            '{{macro("param")}' +
+            '{{macro(\'param\')}' +
+            '{{macro("param"}}' +
+            '{{macro(\'param\'}}' +
+            '{{macro(param"}}' +
+            '{{macro(param"))}}';
+  var test = docTests[15].check(str);
+  assert.ok(test.length === 15, "test that macro syntax errors are recognized " + test.length);
+};
+
 require("sdk/test").run(exports);
