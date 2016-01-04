@@ -23,7 +23,7 @@ addon.port.on("test", function(test) {
   var errors = testElem.getElementsByClassName("errors")[0];
   errors.innerHTML = "";
   test.errors.forEach(function(error) {
-    errors.innerHTML += "<li>" + error.replace("<", "&lt;").replace(">", "&gt;") + "</li>";
+    errors.innerHTML += "<li>" + error.replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</li>";
   });
 });
 
@@ -50,7 +50,7 @@ window.addEventListener("DOMContentLoaded", function() {
   var tests = document.getElementById("tests");
   tests.addEventListener("click", (evt) => {
     var testElem = getParentByClassName(evt.originalTarget, "test");
-    if (testElem.classList.contains("hasErrors")) {
+    if (testElem.classList.contains("hasErrors") || testElem.classList.contains("hasWarnings")) {
       testElem.getElementsByClassName("errors")[0].classList.toggle("show");
     }
   });
