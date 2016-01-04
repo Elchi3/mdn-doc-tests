@@ -18,9 +18,13 @@ addon.port.on("test", function(test) {
                        "class=\"testName\">" + test.name + "</span>: " +
                        "<span class=\"errorCount\">" + errorsCount + "</span>" +
                        "</div><ul class=\"errors\"></ul></div>";
+    testElem = document.getElementById(test.id);
   }
 
   var errors = testElem.getElementsByClassName("errors")[0];
+  if (status === "ok") {
+    errors.classList.remove("show");
+  }
   errors.innerHTML = "";
   test.errors.forEach(function(error) {
     errors.innerHTML += "<li>" + error.replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</li>";
