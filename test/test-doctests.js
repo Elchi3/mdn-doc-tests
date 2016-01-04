@@ -122,8 +122,17 @@ exports["test doc regexp htmlComments"] = function(assert) {
 exports["test doc regexp fontElement"] = function(assert) {
   var str = '<font>' +
             '<font face="Open Sans, sans-serif">';
-  var test = str.match(new RegExp(docTests[13].regex, "gi"));
+  var test = str.match(docTests[13].regex);
   assert.ok(2 === test.length, "test that <font> tags are matched");
+};
+
+exports["test doc httpLinks"] = function(assert) {
+  var str = '<a href="https://somepage.com">some page</a>' +
+            '<a href="ftp://somepage.com">some page</a>' +
+            '<a href="https://somepage.com?url=http://anotherpage.com">some page</a>' +
+            '<a href="http://somepage.com">some page</a>';
+  var test = str.match(docTests[14].regex);
+  assert.ok(test.length === 1, "test that HTTP links are matched");
 };
 
 require("sdk/test").run(exports);
