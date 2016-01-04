@@ -158,4 +158,17 @@ exports["test doc macroSyntaxError"] = function(assert) {
   assert.ok(test.length === 15, "test that macro syntax errors are recognized " + test.length);
 };
 
+exports["test doc wrongHighlightedLine"] = function(assert) {
+  var str = '<pre class="brush: js; highlight[2];">bla\nblubb</pre>' +
+            '<pre class="brush:js;">bla\nblubb</pre>' +
+            '<pre class="highlight[1]; brush:js;">bla\nblubb</pre>' +
+            '<pre class="brush: js; highlight[0];">bla\nblubb</pre>' +
+            '<pre class="brush: js; highlight[-1];">bla\nblubb</pre>' +
+            '<pre class="brush: js; highlight[3];">bla\nblubb</pre>' +
+            '<pre class="brush: js; highlight[3];">bla<br>blubb</pre>' +
+            '<pre class="brush: js; highlight[3];">bla<br/>blubb</pre>';
+  var test = docTests[16].check(str);
+  assert.ok(test.length === 5, "test that highlighted code line number is valid " + test.length);
+};
+
 require("sdk/test").run(exports);
