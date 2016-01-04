@@ -137,7 +137,6 @@ exports["test doc httpLinks"] = function(assert) {
 
 exports["test doc macroSyntaxError"] = function(assert) {
   var str = '{{macro}}' +
-<<<<<<< Upstream, based on branch 'issue-13' of https://github.com/SebastianZ/mdn-doc-tests.git
             '{{macro("param")}}' +
             '{{macro(123)}}' +
             '{{macro(123, "param")}}' +
@@ -157,17 +156,6 @@ exports["test doc macroSyntaxError"] = function(assert) {
             '{{macro(param"))}}';
   var test = docTests[15].check(str);
   assert.ok(test.length === 15, "test that macro syntax errors are recognized " + test.length);
-=======
-            '{{macro()}}' +
-            '{{macro("param")}}' +
-            '{{macro(\'param\')}}' +
-            '{{macro("param1", "param2")}}' +
-            '{{macro(1)}}' +
-            '{{macro("param")}' +
-            '{{macro("param"}}';
-  var test = str.match(docTests[15].regex);
-  assert.ok(test.length === 2, "test that macro syntax errors are recognized");
->>>>>>> 32a0d67 Added unit test for macro syntax errors test (issue #13)
 };
 
 require("sdk/test").run(exports);
