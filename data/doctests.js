@@ -6,7 +6,7 @@ var docTests = [
     id: "oldURLs",
     name: "Old 'en/' URLs",
     desc: "en/ -> /en-US/docs/",
-    regex: /\shref=\"\/*en*\//gi,
+    regex: /\shref=\"\/en\/.*?"/gi,
     type: ERROR, 
     errors: []
   },
@@ -31,7 +31,7 @@ var docTests = [
     id: "languagesMacro",
     name: "Languages macro",
     desc: "{{languages()}}",
-    regex: /{{\s*languages\s*/gi,
+    regex: /\{\{\s*languages.*?\}\}/gi,
     type: ERROR, 
     errors: []
   },
@@ -39,7 +39,7 @@ var docTests = [
     id: "emptyBrackets",
     name: "Empty brackets",
     desc: "{{foo()}}",
-    regex: /{{\s*[a-z]*\(\)\s*}}/gi,
+    regex: /\{\{\s*[a-z]*\(\)\s*?\}\}/gi,
     type: ERROR, 
     errors: []
   },
@@ -96,7 +96,7 @@ var docTests = [
     id: "jsRefWithParams",
     name: "JSRef params",
     desc: "Paremeters are obsolete now, e.g. {{JSRef('Global_Objects', 'Math')}}",
-    regex: /{{s*JSRef\(s*/gi,
+    regex: /\{\{s*JSRef\(.*?\}\}/gi,
     type: ERROR, 
     errors: []
   },
