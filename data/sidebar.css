@@ -35,7 +35,8 @@ li {
   background-color: #CB000F;
 }
 
-.hasErrors > div {
+.hasErrors > div,
+.hasWarnings > div {
   cursor: pointer;
 }
 
@@ -60,6 +61,7 @@ li {
 .errors {
   display: none;
   padding-inline-start: 1.5em;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .show {
