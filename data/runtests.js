@@ -9,7 +9,7 @@ var runTest = function(testObj) {
   } else {
     contentTest = content.match(testObj.regex) || [];
   }
-  testObj.count = contentTest.length;
+  testObj.errors = contentTest;
   self.port.emit("test", testObj);
 };
 

@@ -9,6 +9,10 @@ h2 {
   font-size: 1em;
 }
 
+li {
+  list-style-type: none;
+}
+
 #tests {
   width: 100%;
   margin-block-start: 0;
@@ -17,14 +21,23 @@ h2 {
 }
 
 .test {
-  display: flex;
   width: 100%;
   color: #FFF;
   margin-block-end: 1px;
+  cursor: default;
+}
+
+.test > div {
+  display: flex;
 }
 
 .hasErrors {
   background-color: #CB000F;
+}
+
+.hasErrors > div,
+.hasWarnings > div {
+  cursor: pointer;
 }
 
 .hasWarnings {
@@ -43,4 +56,14 @@ h2 {
   flex-grow: 1;
   padding-inline-end: 0.5em;
   text-align: end;
+}
+
+.errors {
+  display: none;
+  padding-inline-start: 1.5em;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.show {
+  display: inherit;
 }

@@ -6,9 +6,9 @@ var docTests = [
     id: "oldURLs",
     name: "Old 'en/' URLs",
     desc: "en/ -> /en-US/docs/",
-    regex: /\shref=\"\/*en*\//gi,
+    regex: /\shref=\"\/en\/.*?"/gi,
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "emptyElem",
@@ -25,23 +25,23 @@ var docTests = [
       return matches;
     },
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "languagesMacro",
     name: "Languages macro",
     desc: "{{languages()}}",
-    regex: /{{\s*languages\s*/gi,
+    regex: /\{\{\s*languages.*?\}\}/gi,
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "emptyBrackets",
     name: "Empty brackets",
     desc: "{{foo()}}",
-    regex: /{{\s*[a-z]*\(\)\s*}}/gi,
+    regex: /\{\{\s*[a-z]*\(\)\s*?\}\}/gi,
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "styleAttribute",
@@ -49,7 +49,7 @@ var docTests = [
     desc: "style=",
     regex: /style=["'][a-zA-Z0-9:#!%;'\.\s\(\)\-\,]*['"]/gi,
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "nameAttribute",
@@ -57,7 +57,7 @@ var docTests = [
     desc: "name=",
     regex: /name=["'][a-zA-Z0-9:#!%;'_\.\s\(\)\-\,]*['"]/gi,
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "spanCount",
@@ -74,7 +74,7 @@ var docTests = [
       return matches;
     },
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "preWithoutClass",
@@ -82,7 +82,7 @@ var docTests = [
     desc: "<pre></pre> (no syntax highlighter)",
     regex: /(<pre(?=\s|>)(?!(?:[^>=]|=(['"])(?:(?!\1).)*\1)*?class=['"])[^>]*>[\S\s]*?<\/pre>)/gi,
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "SummaryHeading",
@@ -90,15 +90,15 @@ var docTests = [
     desc: "According to the article style guide there shouldn't be a <hx>Summary</hx> heading.",
     regex: /<h[0-6]?(?!\/)[^>]+>Summary<\/h[0-6]>/gi,
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "jsRefWithParams",
     name: "JSRef params",
     desc: "Paremeters are obsolete now, e.g. {{JSRef('Global_Objects', 'Math')}}",
-    regex: /{{s*JSRef\(s*/gi,
+    regex: /\{\{s*JSRef\(.*?\}\}/gi,
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "ExampleColonHeading",
@@ -106,7 +106,7 @@ var docTests = [
     desc: "<h3>Example: Foobar</h3> just use <h3>Foobar</h3>",
     regex: /<h[0-6]?(?!\/)[^>]+>Example:.*?<\/h[0-6]>/gi,
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "alertPrintInCode",
@@ -124,9 +124,8 @@ var docTests = [
 
       return matches;
     },
-    regex: "",
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "htmlComments",
@@ -134,7 +133,7 @@ var docTests = [
     desc: "HTML comments are not visible in wysiwyg mode and in reading mode. Not meant to comment the documentation",
     regex: /<!--[\s\S]*?-->/gi,
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "fontElement",
@@ -142,7 +141,7 @@ var docTests = [
     desc: "Using <font> elements is obsolete. Either the tag should be removed completely or replaced by CSS.",
     regex: /<font.*?>/gi,
     type: ERROR, 
-    count: 0
+    errors: []
   },
   {
     id: "httpLinks",
@@ -150,7 +149,7 @@ var docTests = [
     desc: "URLs to external resources should use HTTPS when possible",
     regex: /<a[^>]+href="http:\/\//gi,
     type: WARNING, 
-    count: 0
+    errors: []
   },
   {
     id: "macroSyntaxError",
@@ -203,7 +202,7 @@ var docTests = [
       return errors;
     },
     type: ERROR,
-    count: 0
+    errors: []
   },
   {
     id: "wrongHighlightedLine",
