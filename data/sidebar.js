@@ -1,24 +1,24 @@
 const WARNING = 2;
 
-addon.port.on("test", function(test) {
+addon.port.on("test", function(test, id) {
   var tests = document.getElementById("tests");
   var errorsCount = test.errors.length;
   var status = "ok";
   if (errorsCount > 0) {
     status = test.type === WARNING ? "hasWarnings" : "hasErrors";
   }
-  var testElem = document.getElementById(test.id);
+  var testElem = document.getElementById(id);
   if (tests.contains(testElem)) {
     testElem.getElementsByClassName("errorCount")[0].textContent = errorsCount;
     testElem.classList.remove("hasErrors", "hasWarnings", "ok");
     testElem.classList.add(status);
   } else {
-    tests.innerHTML += "<li class=\"test " + status + "\" id=\"" + test.id +
+    tests.innerHTML += "<li class=\"test " + status + "\" id=\"" + id +
                        "\" title=\"" + test.desc + "\"><div><span " +
                        "class=\"testName\">" + test.name + "</span>: " +
                        "<span class=\"errorCount\">" + errorsCount + "</span>" +
                        "</div><ul class=\"errors\"></ul></div>";
-    testElem = document.getElementById(test.id);
+    testElem = document.getElementById(id);
   }
 
   var errors = testElem.getElementsByClassName("errors")[0];
