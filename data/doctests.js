@@ -233,5 +233,50 @@ var docTests = [
     },
     type: ERROR,
     count: 0
+  },
+  {
+    id: "headlinesWording",
+    name: "API syntax headlines",
+    desc: "API syntax headlines must be 'Parameters', 'Return value' and 'Exceptions', in that order, not 'Returns', 'Errors' or 'Errors thrown'",
+    check: function checkHeadlinesWording(content) {
+      const disallowedNames = new Set(["returns", "errors", "errors thrown"]);
+      const validOrder = [
+        new Set(["parameters"]),
+        new Set(["return value", "returns"]),
+        new Set(["exceptions", "errors", "errors thrown"])
+      ];
+      var syntaxSection = content.match(/<h2.*?>Syntax<\/h2>((?:.|\n)*?)(?:<h2|$)/i) || [];
+      var order = [];
+      var errors = [];
+      if (syntaxSection.length === 2) {
+        var subHeadings = [];
+        var reSubHeadings = /<h3.*?>(.*?)<\/h3>/gi;
+        while (match = reSubHeadings.exec(syntaxSection[1])) {
+          subHeadings.push(match[1]);
+        }
+        for (var i = 0; i < subHeadings.length; i++) {
+          var subHeading = subHeadings[i].toLowerCase();
+          for (var j = 0; j < validOrder.length; j++) {
+            var heading = validOrder[j];
+            if (heading.has(subHeading)) {
+              order.push(j);
+            }
+          }
+
+          if (disallowedNames.has(subHeading)) {
+            errors.push("Invalid name '" + subHeading + "'");
+          }
+        }
+
+        for (var i = 1; i < order.length; i++) {
+          if (order[i] < order[i - 1]) {
+            errors.push("Invalid order");
+          }
+        }
+      }
+
+      return errors;
+    },
+    count: 0
   }
 ];
