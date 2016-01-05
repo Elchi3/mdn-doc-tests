@@ -1,7 +1,7 @@
 {
   "name": "mdn-doc-tests",
   "title": "MDN documentation tester",
-  "id": "{5a141ee1-024b-424b-b778-cff2bfab50ca}",
+  "id": "{826e8996-b3c2-11e5-9f22-ba0be0483c18}",
   "description": "Checks MDN docs against some tests and cleanup tasks while editing",
   "author": "Florian Scholz",
   "contributors": [
