@@ -206,8 +206,8 @@ var docTests = {
     check: function checkWrongHighlightedLine(content) {
       var reCodeSample = /<pre(?:\s[^>]*class="[^"]*?highlight\[(-?\d+)\][^"]*?")>((?:.|\n)*?)<\/pre>/gi;
       var errors = [];
-      var match = null;
-      while (match = reCodeSample.exec(content)) {
+      var match = reCodeSample.exec(content);
+      while (match) {
         var highlightedLineNumber = Number(match[1]);
         if (highlightedLineNumber <= 0) {
           errors.push("Highlighted line number must be positive.");
@@ -220,6 +220,8 @@ var docTests = {
                 " exceeds the line count of " + lineCount);
           }
         }
+
+        match = reCodeSample.exec(content);
       }
       return errors;
     },
@@ -243,8 +245,10 @@ var docTests = {
       if (syntaxSection.length === 2) {
         var subHeadings = [];
         var reSubHeadings = /<h3.*?>(.*?)<\/h3>/gi;
-        while (match = reSubHeadings.exec(syntaxSection[1])) {
+        var match = reSubHeadings.exec(syntaxSection[1]);
+        while (match) {
           subHeadings.push(match[1]);
+          match = reSubHeadings.exec(syntaxSection[1]);
         }
         for (var i = 0; i < subHeadings.length; i++) {
           var subHeading = subHeadings[i].toLowerCase();
