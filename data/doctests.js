@@ -1,17 +1,17 @@
 const ERROR = 1;
 const WARNING = 2;
 
-var docTests = [
-  {
-    id: "oldURLs",
+var docTests = {
+
+  "oldURLs": {
     name: "Old 'en/' URLs",
     desc: "en/ -> /en-US/docs/",
     regex: /\shref=\"\/en\/.*?"/gi,
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "emptyElem",
+
+  "emptyElem": {
     name: "Empty elements",
     desc: "E.g. <p></p>",
     check: function check(content) {
@@ -21,46 +21,45 @@ var docTests = [
           matches.splice(i, 1);
         }
       }
-
       return matches;
     },
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "languagesMacro",
+
+  "languagesMacro": {
     name: "Languages macro",
     desc: "{{languages()}}",
     regex: /\{\{\s*languages.*?\}\}/gi,
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "emptyBrackets",
+
+  "emptyBrackets": {
     name: "Empty brackets",
     desc: "{{foo()}}",
     regex: /\{\{\s*[a-z]*\(\)\s*?\}\}/gi,
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "styleAttribute",
+
+  "styleAttribute": {
     name: "Style attributes",
     desc: "style=",
     regex: /style=["'][a-zA-Z0-9:#!%;'\.\s\(\)\-\,]*['"]/gi,
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "nameAttribute",
+
+  "nameAttribute": {
     name: "Name attributes",
     desc: "name=",
     regex: /name=["'][a-zA-Z0-9:#!%;'_\.\s\(\)\-\,]*['"]/gi,
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "spanCount",
+
+  "spanCount": {
     name: "# of &lt;span&gt; elements",
     desc: "<span></span>",
     check: function check(content) {
@@ -70,46 +69,45 @@ var docTests = [
           matches.splice(i, 1);
         }
       }
-
       return matches;
     },
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "preWithoutClass",
+
+  "preWithoutClass": {
     name: "&lt;pre&gt; w/o class",
     desc: "<pre></pre> (no syntax highlighter)",
     regex: /(<pre(?=\s|>)(?!(?:[^>=]|=(['"])(?:(?!\1).)*\1)*?class=['"])[^>]*>[\S\s]*?<\/pre>)/gi,
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "SummaryHeading",
+
+  "summaryHeading": {
     name: "Summary heading",
     desc: "According to the article style guide there shouldn't be a <hx>Summary</hx> heading.",
     regex: /<h[0-6]?(?!\/)[^>]+>Summary<\/h[0-6]>/gi,
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "jsRefWithParams",
+
+  "jsRefWithParams": {
     name: "JSRef params",
     desc: "Paremeters are obsolete now, e.g. {{JSRef('Global_Objects', 'Math')}}",
     regex: /\{\{s*JSRef\(.*?\}\}/gi,
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "ExampleColonHeading",
+
+  "exampleColonHeading": {
     name: "'Example:' heading",
     desc: "<h3>Example: Foobar</h3> just use <h3>Foobar</h3>",
     regex: /<h[0-6]?(?!\/)[^>]+>Example:.*?<\/h[0-6]>/gi,
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "alertPrintInCode",
+
+  "alertPrintInCode": {
     name: "alert, print, eval, d.write",
     desc: "Don't use alert(), print(), eval() or document.write() in code samples",
     check: function check(content) {
@@ -121,38 +119,37 @@ var docTests = [
           matches = matches.concat(codeSampleMatches);
         }
       }
-
       return matches;
     },
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "htmlComments",
+
+  "htmlComments": {
     name: "HTML comments",
     desc: "HTML comments are not visible in wysiwyg mode and in reading mode. Not meant to comment the documentation",
     regex: /<!--[\s\S]*?-->/gi,
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "fontElement",
+
+  "fontElement": {
     name: "&lt;font&gt; element",
     desc: "Using <font> elements is obsolete. Either the tag should be removed completely or replaced by CSS.",
     regex: /<font.*?>/gi,
-    type: ERROR, 
+    type: ERROR,
     errors: []
   },
-  {
-    id: "httpLinks",
+
+  "httpLinks": {
     name: "HTTP links",
     desc: "URLs to external resources should use HTTPS when possible",
     regex: /<a[^>]+href="http:\/\//gi,
-    type: WARNING, 
+    type: WARNING,
     errors: []
   },
-  {
-    id: "macroSyntaxError",
+
+  "macroSyntaxError": {
     name: "Macro syntax error",
     desc: "A macro has a syntax error like a missing closing bracket, e.g. {{jsxref('Array'}}.",
     check: function macroSyntaxErrorCheck(content) {
@@ -178,7 +175,6 @@ var docTests = [
             return false;
           }
         }
-
         return stringParamQuote === "";
       }
 
@@ -198,14 +194,13 @@ var docTests = [
           errors.push("Macro has additional closing bracket(s): " + macro);
         }
       });
-
       return errors;
     },
     type: ERROR,
     errors: []
   },
-  {
-    id: "wrongHighlightedLine",
+
+  "wrongHighlightedLine": {
     name: "Wrong highlighted line",
     desc: "A code block has a line highlighted that is outside the range of lines of code.",
     check: function checkWrongHighlightedLine(content) {
@@ -213,12 +208,10 @@ var docTests = [
       var errors = [];
       var match = null;
       while (match = reCodeSample.exec(content)) {
-        console.log(match);
         var highlightedLineNumber = Number(match[1]);
         if (highlightedLineNumber <= 0) {
           errors.push("Highlighted line number must be positive.");
         }
-
         var lineBreaks = match[2].match(/<br\s*\/?>|\n/gi);
         if (lineBreaks) {
           var lineCount = lineBreaks.length + 1;
@@ -228,14 +221,13 @@ var docTests = [
           }
         }
       }
-
       return errors;
     },
     type: ERROR,
     count: 0
   },
-  {
-    id: "headlinesWording",
+
+  "headlinesWording": {
     name: "API syntax headlines",
     desc: "API syntax headlines must be 'Parameters', 'Return value' and 'Exceptions', in that order, not 'Returns', 'Errors' or 'Errors thrown'",
     check: function checkHeadlinesWording(content) {
@@ -262,21 +254,19 @@ var docTests = [
               order.push(j);
             }
           }
-
           if (disallowedNames.has(subHeading)) {
             errors.push("Invalid name '" + subHeading + "'");
           }
         }
-
         for (var i = 1; i < order.length; i++) {
           if (order[i] < order[i - 1]) {
             errors.push("Invalid order");
           }
         }
       }
-
       return errors;
     },
     count: 0
   }
-];
+
+};

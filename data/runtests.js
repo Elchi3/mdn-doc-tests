@@ -2,7 +2,7 @@ var iframe = document.querySelectorAll("iframe.cke_wysiwyg_frame")[0];
 iframe.contentDocument.body.setAttribute("spellcheck", "true");
 var content = iframe.contentDocument.body.innerHTML || "";
 
-var runTest = function(testObj) {
+var runTest = function(testObj, id) {
   var contentTest = [];
   if (testObj.check) {
     contentTest = testObj.check(content);
@@ -10,12 +10,12 @@ var runTest = function(testObj) {
     contentTest = content.match(testObj.regex) || [];
   }
   testObj.errors = contentTest;
-  self.port.emit("test", testObj);
+  self.port.emit("test", testObj, id);
 };
 
 self.port.on("runTests", function() {
-  for (var i = 0; i < docTests.length; i++) {
-    runTest(docTests[i]);
+  for (var prop in docTests) {
+    runTest(docTests[prop], prop);
   }
 });
 
