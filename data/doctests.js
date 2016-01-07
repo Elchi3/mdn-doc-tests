@@ -155,7 +155,7 @@ var docTests = {
     check: function macroSyntaxErrorCheck(content) {
       function validateStringParams(macro) {
         var paramListStartIndex = macro.indexOf("(") + 1;
-        var paramListEndMatch = macro.match(/\)*\}{1,2}$/);
+        var paramListEndMatch = macro.match(/\)*\s*\}{1,2}$/);
         var paramListEndIndex = macro.length - paramListEndMatch[0].length;
         var stringParamQuote = "";
         for (var i = paramListStartIndex; i < paramListEndIndex; i++) {
