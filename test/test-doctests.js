@@ -182,4 +182,14 @@ exports["test doc headlinesWording"] = function(assert) {
   assert.ok(test.length === 4, "test that wrong Syntax sub-headings and a order of them is recognized");
 };
 
+exports["test doc codeInPre"] = function(assert) {
+  var str = '<pre>no code</pre>' +
+            '<pre class="brush:js">no code</pre>' +
+            '<pre class="brush:js"><code>some code</code></pre>' +
+            '<pre class="brush:js"><code>some code</code><code>some more inline code</code></pre>' +
+            '<pre class="brush:js">foo\n<code>some code</code>\nbar<br>\n<code>some code with\nline break</code>\nbaz</pre>';
+  var test = docTests["codeInPre"].check(str);
+  assert.ok(test.length === 5, "test that <code> elements within <pre> blocks are matched");
+};
+
 require("sdk/test").run(exports);
