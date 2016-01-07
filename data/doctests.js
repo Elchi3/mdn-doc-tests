@@ -270,7 +270,28 @@ var docTests = {
       }
       return errors;
     },
+    type: ERROR,
+    count: 0
+  },
+
+  "codeInPre": {
+    name: "&lt;code&gt; in &lt;pre&gt;",
+    desc: "&lt;code&gt; tags should not be used within &lt;pre&gt; blocks, because they break syntax highlighting.",
+    check: function checkCodeInPre(content) {
+      var rePre = /<pre.*?>((?:.|\n)*?)<\/pre>/gi;
+      var errors = [];
+      var match = rePre.exec(content);
+      while (match) {
+        var codeBlocks = match[1].match(/<code.*?>(?:.|\n)*?<\/code>/gi);
+        if (codeBlocks) {
+          errors = errors.concat(codeBlocks);
+        }
+
+        match = rePre.exec(content);
+      }
+      return errors;
+    },
+    type: ERROR,
     count: 0
   }
-
 };
