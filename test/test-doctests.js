@@ -137,7 +137,9 @@ exports["test doc httpLinks"] = function(assert) {
 
 exports["test doc macroSyntaxError"] = function(assert) {
   var str = '{{macro}}' +
+            '{{ macro }}' +
             '{{macro("param")}}' +
+            '{{ macro("param") }}' +
             '{{macro(123)}}' +
             '{{macro(123, "param")}}' +
             '{{macro(\'param\', 123, "param")}}' +
@@ -155,7 +157,7 @@ exports["test doc macroSyntaxError"] = function(assert) {
             '{{macro(param"}}' + // Missing opening double quote and missing closing parameter list bracket
             '{{macro(param"))}}'; // Missing opening double quote and double closing parameter list bracket
   var test = docTests["macroSyntaxError"].check(str);
-  assert.ok(test.length === 15, "test that macro syntax errors are recognized " + test.length);
+  assert.ok(test.length === 15, "test that macro syntax errors are recognized");
 };
 
 exports["test doc wrongHighlightedLine"] = function(assert) {
