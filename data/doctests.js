@@ -4,16 +4,16 @@ const WARNING = 2;
 var docTests = {
 
   "oldURLs": {
-    name: "Old 'en/' URLs",
-    desc: "en/ -> /en-US/docs/",
+    name: "old_en_urls",
+    desc: "old_en_urls_desc",
     regex: /\shref=\"\/en\/.*?"/gi,
     type: ERROR,
     errors: []
   },
 
   "emptyElem": {
-    name: "Empty elements",
-    desc: "E.g. <p></p>",
+    name: "empty_elements",
+    desc: "empty_elements_desc",
     check: function check(content) {
       var matches = content.match(/<[^\/][^>]*?>([\s\r\n]|&nbsp;|<br\/?>)*<\/.*?>/gi) || [];
       for (var i = matches.length - 1; i >= 0; i--) {
@@ -28,40 +28,40 @@ var docTests = {
   },
 
   "languagesMacro": {
-    name: "Languages macro",
-    desc: "{{languages()}}",
+    name: "languages_macro",
+    desc: "languages_macro_desc",
     regex: /\{\{\s*languages.*?\}\}/gi,
     type: ERROR,
     errors: []
   },
 
   "emptyBrackets": {
-    name: "Empty brackets",
-    desc: "{{foo()}}",
+    name: "empty_brackets",
+    desc: "empty_brackets_desc",
     regex: /\{\{\s*[a-z]*\(\)\s*?\}\}/gi,
     type: ERROR,
     errors: []
   },
 
   "styleAttribute": {
-    name: "Style attributes",
-    desc: "style=",
+    name: "style_attributes",
+    desc: "style_attributes_desc",
     regex: /style=["'][a-zA-Z0-9:#!%;'\.\s\(\)\-\,]*['"]/gi,
     type: ERROR,
     errors: []
   },
 
   "nameAttribute": {
-    name: "Name attributes",
-    desc: "name=",
+    name: "name_attributes",
+    desc: "name_attributes_desc",
     regex: /name=["'][a-zA-Z0-9:#!%;'_\.\s\(\)\-\,]*['"]/gi,
     type: ERROR,
     errors: []
   },
 
   "spanCount": {
-    name: "# of &lt;span&gt; elements",
-    desc: "<span></span>",
+    name: "span_elements",
+    desc: "span_elements_desc",
     check: function check(content) {
       var matches = content.match(/<span.*?>.*?<\/span>/gi) || [];
       for (var i = 0; i < matches.length; i++) {
@@ -76,40 +76,40 @@ var docTests = {
   },
 
   "preWithoutClass": {
-    name: "&lt;pre&gt; w/o class",
-    desc: "<pre></pre> (no syntax highlighter)",
+    name: "pre_without_class",
+    desc: "pre_without_class_desc",
     regex: /(<pre(?=\s|>)(?!(?:[^>=]|=(['"])(?:(?!\1).)*\1)*?class=['"])[^>]*>[\S\s]*?<\/pre>)/gi,
     type: ERROR,
     errors: []
   },
 
   "summaryHeading": {
-    name: "Summary heading",
-    desc: "According to the article style guide there shouldn't be a <hx>Summary</hx> heading.",
+    name: "summary_heading",
+    desc: "summary_heading_desc",
     regex: /<h[0-6]?(?!\/)[^>]+>Summary<\/h[0-6]>/gi,
     type: ERROR,
     errors: []
   },
 
   "jsRefWithParams": {
-    name: "JSRef params",
-    desc: "Paremeters are obsolete now, e.g. {{JSRef('Global_Objects', 'Math')}}",
+    name: "jsref_params",
+    desc: "jsref_params_desc",
     regex: /\{\{s*JSRef\(.*?\}\}/gi,
     type: ERROR,
     errors: []
   },
 
   "exampleColonHeading": {
-    name: "'Example:' heading",
-    desc: "<h3>Example: Foobar</h3> just use <h3>Foobar</h3>",
+    name: "example_headings",
+    desc: "example_headings_desc",
     regex: /<h[0-6]?(?!\/)[^>]+>Example:.*?<\/h[0-6]>/gi,
     type: ERROR,
     errors: []
   },
 
   "alertPrintInCode": {
-    name: "alert, print, eval, d.write",
-    desc: "Don't use alert(), print(), eval() or document.write() in code samples",
+    name: "alert_print_in_code",
+    desc: "alert_print_in_code_desc",
     check: function check(content) {
       var codeSamples = content.match(/<pre(?:\s.*)?>(?:.|\n)*?<\/pre>/gi) || [];
       var matches = [];
@@ -126,32 +126,32 @@ var docTests = {
   },
 
   "htmlComments": {
-    name: "HTML comments",
-    desc: "HTML comments are not visible in wysiwyg mode and in reading mode. Not meant to comment the documentation",
+    name: "html_comments",
+    desc: "html_comments_desc",
     regex: /<!--[\s\S]*?-->/gi,
     type: ERROR,
     errors: []
   },
 
-  "fontElement": {
-    name: "&lt;font&gt; element",
-    desc: "Using <font> elements is obsolete. Either the tag should be removed completely or replaced by CSS.",
+  "fontElements": {
+    name: "font_elements",
+    desc: "font_elements_desc",
     regex: /<font.*?>/gi,
     type: ERROR,
     errors: []
   },
 
   "httpLinks": {
-    name: "HTTP links",
-    desc: "URLs to external resources should use HTTPS when possible",
+    name: "http_links",
+    desc: "http_links_desc",
     regex: /<a[^>]+href="http:\/\//gi,
     type: WARNING,
     errors: []
   },
 
   "macroSyntaxError": {
-    name: "Macro syntax error",
-    desc: "A macro has a syntax error like a missing closing bracket, e.g. {{jsxref('Array'}}.",
+    name: "macro_syntax_error",
+    desc: "macro_syntax_error_desc",
     check: function macroSyntaxErrorCheck(content) {
       function validateStringParams(macro) {
         var paramListStartIndex = macro.indexOf("(") + 1;
@@ -201,8 +201,8 @@ var docTests = {
   },
 
   "wrongHighlightedLine": {
-    name: "Wrong highlighted line",
-    desc: "A code block has a line highlighted that is outside the range of lines of code.",
+    name: "wrong_highlighted_line",
+    desc: "wrong_highlighted_line_desc",
     check: function checkWrongHighlightedLine(content) {
       var reCodeSample = /<pre(?:\s[^>]*class="[^"]*?highlight\[(-?\d+)\][^"]*?")>((?:.|\n)*?)<\/pre>/gi;
       var errors = [];
@@ -230,8 +230,8 @@ var docTests = {
   },
 
   "headlinesWording": {
-    name: "API syntax headlines",
-    desc: "API syntax headlines must be 'Parameters', 'Return value' and 'Exceptions', in that order, not 'Returns', 'Errors' or 'Errors thrown'",
+    name: "api_syntax_headlines",
+    desc: "api_syntax_headlines_desc",
     check: function checkHeadlinesWording(content) {
       const disallowedNames = new Set(["returns", "errors", "errors thrown"]);
       const validOrder = [
@@ -275,8 +275,8 @@ var docTests = {
   },
 
   "codeInPre": {
-    name: "&lt;code&gt; in &lt;pre&gt;",
-    desc: "&lt;code&gt; tags should not be used within &lt;pre&gt; blocks, because they break syntax highlighting.",
+    name: "code_in_pre",
+    desc: "code_in_pre_desc",
     check: function checkCodeInPre(content) {
       var rePre = /<pre.*?>((?:.|\n)*?)<\/pre>/gi;
       var errors = [];

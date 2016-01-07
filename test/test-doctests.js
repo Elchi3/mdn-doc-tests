@@ -119,10 +119,10 @@ exports["test doc regexp htmlComments"] = function(assert) {
   assert.ok(3 == test.length , "test that html comments are matched");
 };
 
-exports["test doc regexp fontElement"] = function(assert) {
+exports["test doc regexp fontElements"] = function(assert) {
   var str = '<font>' +
             '<font face="Open Sans, sans-serif">';
-  var test = str.match(docTests["fontElement"].regex);
+  var test = str.match(docTests["fontElements"].regex);
   assert.ok(2 === test.length, "test that <font> tags are matched");
 };
 
