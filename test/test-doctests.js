@@ -192,4 +192,14 @@ exports["test doc codeInPre"] = function(assert) {
   assert.ok(test.length === 5, "test that <code> elements within <pre> blocks are matched");
 };
 
+exports["test doc preLineTooLong"] = function(assert) {
+  var str = '<pre>11111111111111111111111 11111111111111111111111 111111111111 111111111111111 1</pre>' +
+            '<pre class="brush:js">short\nstuff</pre>' +
+            '<pre class="brush:js">foo\nsome code\nbar<br>\n' +
+            'some code with\nline break\nbaz' +
+            '11111111111 111111111111 function{ foo(); 11111111111111 bar 1111111111111111 111</pre>';
+  var test = docTests["preLineTooLong"].check(str);
+  assert.ok(test.length === 2, "test that long lines within <pre> blocks are matched");
+};
+
 require("sdk/test").run(exports);

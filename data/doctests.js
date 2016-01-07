@@ -293,5 +293,25 @@ var docTests = {
     },
     type: ERROR,
     count: 0
+  },
+
+  "preLineTooLong": {
+    name: "pre_line_too_long",
+    desc: "pre_line_too_long_desc",
+    check: function checkLineLengthInPre(content) {
+      var rePre = /<pre.*?>((?:.|\n)*?)<\/pre>/gi;
+      var errors = [];
+      var match = rePre.exec(content);
+      while (match) {
+        var codeBlocks = match[1].match(/^(?:[^\r\n]|\r(?!\n)){78,}$/gm);
+        if (codeBlocks) {
+          errors = errors.concat(codeBlocks);
+        }
+        match = rePre.exec(content);
+      }
+      return errors;
+    },
+    type: WARNING,
+    count: 0
   }
 };
