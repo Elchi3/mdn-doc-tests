@@ -46,7 +46,7 @@ addon.port.on("test", function(test, id) {
   }
   test.errors.forEach(function(error) {
     var errorContainer = document.createElement("li");
-    errorContainer.textContent = error;
+    errorContainer.textContent = error.msg;
     errors.appendChild(errorContainer);
   });
 });

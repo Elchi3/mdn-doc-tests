@@ -21,7 +21,10 @@ var docTests = {
           matches.splice(i, 1);
         }
       }
-      return matches;
+
+      return matches.map(match => {
+        return {msg: match};
+      });
     },
     type: ERROR,
     errors: []
@@ -69,7 +72,10 @@ var docTests = {
           matches.splice(i, 1);
         }
       }
-      return matches;
+
+      return matches.map(match => {
+        return {msg: match};
+      });
     },
     type: ERROR,
     errors: []
@@ -119,7 +125,10 @@ var docTests = {
           matches = matches.concat(codeSampleMatches);
         }
       }
-      return matches;
+
+      return matches.map(match => {
+        return {msg: match};
+      });
     },
     type: ERROR,
     errors: []
@@ -182,16 +191,24 @@ var docTests = {
       var errors = [];
       macros.forEach(macro => {
         if (macro.match(/[^\}]\}$/)) {
-          errors.push("Macro is missing a closing curly brace: " + macro);
+          errors.push({
+            msg: "Macro is missing a closing curly brace: " + macro
+          });
         }
         if (macro.match(/^\{\{[^\(]+\([^\)]*\}\}$/)) {
-          errors.push("Parameters list is missing a closing bracket: " + macro);
+          errors.push({
+            msg: "Parameters list is missing a closing bracket: " + macro
+          });
         }
         if (!validateStringParams(macro)) {
-          errors.push("String parameter is not quoted correctly: " + macro);
+          errors.push({
+            msg: "String parameter is not quoted correctly: " + macro
+          });
         }
         if (macro.match(/\){2,}\}{1,2}$/)) {
-          errors.push("Macro has additional closing bracket(s): " + macro);
+          errors.push({
+            msg: "Macro has additional closing bracket(s): " + macro
+          });
         }
       });
       return errors;
@@ -210,14 +227,18 @@ var docTests = {
       while (match) {
         var highlightedLineNumber = Number(match[1]);
         if (highlightedLineNumber <= 0) {
-          errors.push("Highlighted line number must be positive.");
+          errors.push({
+            msg: "Highlighted line number must be positive."
+          });
         }
         var lineBreaks = match[2].match(/<br\s*\/?>|\n/gi);
         if (lineBreaks) {
           var lineCount = lineBreaks.length + 1;
           if (highlightedLineNumber > lineCount) {
-            errors.push("Highlighted line number " + highlightedLineNumber +
-                " exceeds the line count of " + lineCount);
+            errors.push({
+              msg: "Highlighted line number " + highlightedLineNumber +
+                  " exceeds the line count of " + lineCount
+            });
           }
         }
 
@@ -260,12 +281,16 @@ var docTests = {
             }
           }
           if (disallowedNames.has(subHeading.toLowerCase())) {
-            errors.push("Invalid name '" + subHeading + "'");
+            errors.push({
+              msg: "Invalid name '" + subHeading + "'"
+            });
           }
         }
         for (var i = 1; i < order.length; i++) {
           if (order[i] < order[i - 1]) {
-            errors.push("Invalid order");
+            errors.push({
+              msg: "Invalid order"
+            });
           }
         }
       }
@@ -290,7 +315,10 @@ var docTests = {
 
         match = rePre.exec(content);
       }
-      return errors;
+
+      return errors.map(match => {
+        return {msg: match};
+      });
     },
     type: ERROR,
     count: 0
@@ -310,7 +338,10 @@ var docTests = {
         }
         match = rePre.exec(content);
       }
-      return errors;
+
+      return errors.map(match => {
+        return {msg: match};
+      });
     },
     type: WARNING,
     count: 0
