@@ -35,7 +35,7 @@ exports["test doc regexp emptyElem"] = function(assert) {
 
   assert.equal(matches.length, expected.length, "Number of empty element matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for empty element match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for empty element match must be correct");
   });
 };
 
@@ -126,7 +126,7 @@ exports["test doc regexp spanCount"] = function(assert) {
 
   assert.equal(matches.length, expected.length, "Number of <span> matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for <span> match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for <span> match must be correct");
   });
 };
 
@@ -221,7 +221,7 @@ exports["test doc regexp alertPrintInCode"] = function(assert) {
 
   assert.equal(matches.length, expected.length, "Number of alert()/print()/eval()/document.write() matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for alert()/print()/eval()/document.write() match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for alert()/print()/eval()/document.write() match must be correct");
   });
 };
 
@@ -295,27 +295,73 @@ exports["test doc macroSyntaxError"] = function(assert) {
               '{{macro(param"}}' + // Missing opening double quote and missing closing parameter list bracket
               '{{macro(param"))}}'; // Missing opening double quote and double closing parameter list bracket
   const expected = [
-    'String parameter is not quoted correctly: {{macro("param)}}',
-    'String parameter is not quoted correctly: {{macro(\'param)}}',
-    'String parameter is not quoted correctly: {{macro(param)}}',
-    'String parameter is not quoted correctly: {{macro(param")}}',
-    'String parameter is not quoted correctly: {{macro(param\')}}',
-    'String parameter is not quoted correctly: {{macro(\'param\', 123, "param)}}',
-    'Macro has additional closing bracket(s): {{macro("param"))}}',
-    'Macro is missing a closing curly brace: {{macro("param")}',
-    'Macro is missing a closing curly brace: {{macro(\'param\')}',
-    'Parameters list is missing a closing bracket: {{macro("param"}}',
-    'Parameters list is missing a closing bracket: {{macro(\'param\'}}',
-    'Parameters list is missing a closing bracket: {{macro(param"}}',
-    'String parameter is not quoted correctly: {{macro(param"}}',
-    'String parameter is not quoted correctly: {{macro(param"))}}',
-    'Macro has additional closing bracket(s): {{macro(param"))}}'
+    {
+      msg: "string_parameter_incorrectly_quoted",
+      msgParams: ['{{macro("param)}}']
+    },
+    {
+      msg: "string_parameter_incorrectly_quoted",
+      msgParams: ["{{macro('param)}}"]
+    },
+    {
+      msg: "string_parameter_incorrectly_quoted",
+      msgParams: ["{{macro(param)}}"]
+    },
+    {
+      msg: "string_parameter_incorrectly_quoted",
+      msgParams: ['{{macro(param")}}']
+    },
+    {
+      msg: "string_parameter_incorrectly_quoted",
+      msgParams: ["{{macro(param')}}"]
+    },
+    {
+      msg: "string_parameter_incorrectly_quoted",
+      msgParams: ["{{macro('param', 123, \"param)}}"]
+    },
+    {
+      msg: "additional_closing_bracket",
+      msgParams: ['{{macro("param"))}}']
+    },
+    {
+      msg: "missing_closing_curly_brace",
+      msgParams: ['{{macro("param")}']
+    },
+    {
+      msg: "missing_closing_curly_brace",
+      msgParams: ["{{macro(\'param\')}"]
+    },
+    {
+      msg: "missing_closing_bracket",
+      msgParams: ['{{macro("param"}}']
+    },
+    {
+      msg: "missing_closing_bracket",
+      msgParams: ["{{macro(\'param\'}}"]
+    },
+    {
+      msg: "missing_closing_bracket",
+      msgParams: ['{{macro(param"}}']
+    },
+    {
+      msg: "string_parameter_incorrectly_quoted",
+      msgParams: ['{{macro(param"}}']
+    },
+    {
+      msg: "string_parameter_incorrectly_quoted",
+      msgParams: ['{{macro(param"))}}']
+    },
+    {
+      msg: "additional_closing_bracket",
+      msgParams: ['{{macro(param"))}}']
+    }
   ];
   var matches = docTests["macroSyntaxError"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of macro syntax error matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for macro syntax error match must be correct");
+    assert.equal(match.msg, expected[i].msg, "Error message for macro syntax error match must be correct");
+    assert.deepEqual(match.msgParams, expected[i].msgParams, "Error message params for macro syntax error match must be correct");
   });
 };
 
@@ -329,17 +375,31 @@ exports["test doc wrongHighlightedLine"] = function(assert) {
               '<pre class="brush: js; highlight[3];">bla<br>blubb</pre>' +
               '<pre class="brush: js; highlight[3];">bla<br/>blubb</pre>';
   const expected = [
-    'Highlighted line number must be positive.',
-    'Highlighted line number must be positive.',
-    'Highlighted line number 3 exceeds the line count of 2',
-    'Highlighted line number 3 exceeds the line count of 2',
-    'Highlighted line number 3 exceeds the line count of 2'
+    {
+      msg: "highlighted_line_number_not_positive"
+    },
+    {
+      msg: "highlighted_line_number_not_positive"
+    },
+    {
+      msg: "highlighted_line_number_too_big",
+      msgParams: ["3", "2"]
+    },
+    {
+      msg: "highlighted_line_number_too_big",
+      msgParams: ["3", "2"]
+    },
+    {
+      msg: "highlighted_line_number_too_big",
+      msgParams: ["3", "2"]
+    }
   ];
   var matches = docTests["wrongHighlightedLine"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of wrong highlighted line matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for wrong highlighted line match must be correct");
+    assert.equal(match.msg, expected[i].msg, "Error message for wrong highlighted line match must be correct");
+    assert.deepEqual(match.msgParams, expected[i].msgParams, "Error message params for wrong highlighted line match must be correct");
   });
 };
 
@@ -349,16 +409,27 @@ exports["test doc headlinesWording"] = function(assert) {
               '<h3>Returns</h3>' +
               '<h3>Parameters</h3>';
   const expected = [
-    "Invalid name 'Errors'",
-    "Invalid name 'Returns'",
-    'Invalid order',
-    'Invalid order'
+    {
+      msg: "invalid_headline_name",
+      msgParams: ["Errors"]
+    },
+    {
+      msg: "invalid_headline_name",
+      msgParams: ["Returns"]
+    },
+    {
+      msg: "invalid_headline_order",
+    },
+    {
+      msg: "invalid_headline_order",
+    }
   ];
   var matches = docTests["headlinesWording"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of API syntax headline errors must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for API syntax headline errors must be correct");
+    assert.equal(match.msg, expected[i].msg, "Error message for API syntax headline errors must be correct");
+    assert.deepEqual(match.msgParams, expected[i].msgParams, "Error message params for API syntax headline errors must be correct");
   });
 };
 
@@ -379,7 +450,7 @@ exports["test doc codeInPre"] = function(assert) {
 
   assert.equal(matches.length, expected.length, "Number of <code> in <pre> errors must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for <code> in <pre> errors must be correct");
+    assert.equal(match.msg, expected[i], "Error message for <code> in <pre> errors must be correct");
   });
 };
 
@@ -397,7 +468,7 @@ exports["test doc preLineTooLong"] = function(assert) {
 
   assert.equal(matches.length, expected.length, "Number of too long line in <pre> errors must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for too long line in <pre> errors must be correct");
+    assert.equal(match.msg, expected[i], "Error message for too long line in <pre> errors must be correct");
   });
 };
 
