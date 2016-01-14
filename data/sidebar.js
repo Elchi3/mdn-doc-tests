@@ -2,22 +2,38 @@ const WARNING = 2;
 
 addon.port.on("test", function(test, id) {
   var tests = document.getElementById("tests");
-  var errorsCount = test.errors.length;
+  var errorCount = test.errors.length;
   var status = "ok";
-  if (errorsCount > 0) {
+  if (errorCount > 0) {
     status = test.type === WARNING ? "hasWarnings" : "hasErrors";
   }
   var testElem = document.getElementById(id);
   if (tests.contains(testElem)) {
-    testElem.getElementsByClassName("errorCount")[0].textContent = errorsCount;
+    testElem.getElementsByClassName("errorCount")[0].textContent = errorCount;
     testElem.classList.remove("hasErrors", "hasWarnings", "ok");
     testElem.classList.add(status);
   } else {
-    tests.innerHTML += "<li class=\"test " + status + "\" id=\"" + id +
-                       "\" title=\"" + test.desc + "\"><div><span " +
-                       "class=\"testName\">" + test.name + "</span>: " +
-                       "<span class=\"errorCount\">" + errorsCount + "</span>" +
-                       "</div><ul class=\"errors\"></ul></div>";
+    var testContainer = document.createElement("li");
+    testContainer.setAttribute("class", "test " + status);
+    testContainer.setAttribute("id", id);
+    testContainer.setAttribute("title", test.desc);
+    var testHeadingContainer = document.createElement("div");
+    var testHeading = document.createElement("span");
+    testHeading.setAttribute("class", "testName");
+    testHeading.textContent = test.name;
+    testHeadingContainer.appendChild(testHeading);
+    var errorCounter = document.createElement("span");
+    errorCounter.setAttribute("class", "errorCount");
+    errorCounter.textContent = errorCount;
+    testHeadingContainer.appendChild(errorCounter);
+    testContainer.appendChild(testHeadingContainer);
+
+    var errorList = document.createElement("ul");
+    errorList.setAttribute("class", "errors");
+    testContainer.appendChild(errorList);
+
+    tests.appendChild(testContainer);
+
     testElem = document.getElementById(id);
   }
 
@@ -25,9 +41,13 @@ addon.port.on("test", function(test, id) {
   if (status === "ok") {
     errors.classList.remove("show");
   }
-  errors.innerHTML = "";
+  while (errors.firstChild) {
+    errors.removeChild(errors.firstChild);
+  }
   test.errors.forEach(function(error) {
-    errors.innerHTML += "<li>" + error.replace(/</g, "&lt;").replace(/>/g, "&gt;") + "</li>";
+    var errorContainer = document.createElement("li");
+    errorContainer.textContent = error;
+    errors.appendChild(errorContainer);
   });
 });
 
