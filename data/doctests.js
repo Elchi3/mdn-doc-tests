@@ -251,14 +251,15 @@ var docTests = {
           match = reSubHeadings.exec(syntaxSection[1]);
         }
         for (var i = 0; i < subHeadings.length; i++) {
-          var subHeading = subHeadings[i].toLowerCase();
+          // While editing it happens that there are <br>s added to the headings
+          var subHeading = subHeadings[i].replace(/<br\/?>/g, "");
           for (var j = 0; j < validOrder.length; j++) {
             var heading = validOrder[j];
-            if (heading.has(subHeading)) {
+            if (heading.has(subHeading.toLowerCase())) {
               order.push(j);
             }
           }
-          if (disallowedNames.has(subHeading)) {
+          if (disallowedNames.has(subHeading.toLowerCase())) {
             errors.push("Invalid name '" + subHeading + "'");
           }
         }
