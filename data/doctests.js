@@ -337,9 +337,12 @@ var docTests = {
       var errors = [];
       var match = rePre.exec(content);
       while (match) {
-        var codeBlocks = match[1].match(/^(?:[^\r\n]|\r(?!\n)){78,}$/gm);
-        if (codeBlocks) {
-          errors = errors.concat(codeBlocks);
+        // While editing it happens that there are <br>s added instead of line break characters
+        // Those need to be replaced by line breaks to correctly recognize long lines
+        var codeBlock = match[1].replace(/<br\/?>/g, "\n");
+        var longLines = codeBlock.match(/^(?:[^\r\n]|\r(?!\n)){78,}$/gm);
+        if (longLines) {
+          errors = errors.concat(longLines);
         }
         match = rePre.exec(content);
       }
