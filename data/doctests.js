@@ -192,22 +192,26 @@ var docTests = {
       macros.forEach(macro => {
         if (macro.match(/[^\}]\}$/)) {
           errors.push({
-            msg: "Macro is missing a closing curly brace: " + macro
+            msg: "missing_closing_curly_brace",
+            msgParams: [macro]
           });
         }
         if (macro.match(/^\{\{[^\(]+\([^\)]*\}\}$/)) {
           errors.push({
-            msg: "Parameters list is missing a closing bracket: " + macro
+            msg: "missing_closing_bracket",
+            msgParams: [macro]
           });
         }
         if (!validateStringParams(macro)) {
           errors.push({
-            msg: "String parameter is not quoted correctly: " + macro
+            msg: "string_parameter_incorrectly_quoted",
+            msgParams: [macro]
           });
         }
         if (macro.match(/\){2,}\}{1,2}$/)) {
           errors.push({
-            msg: "Macro has additional closing bracket(s): " + macro
+            msg: "additional_closing_bracket",
+            msgParams: [macro]
           });
         }
       });
@@ -228,7 +232,7 @@ var docTests = {
         var highlightedLineNumber = Number(match[1]);
         if (highlightedLineNumber <= 0) {
           errors.push({
-            msg: "Highlighted line number must be positive."
+            msg: "highlighted_line_number_not_positive"
           });
         }
         var lineBreaks = match[2].match(/<br\s*\/?>|\n/gi);
@@ -236,8 +240,8 @@ var docTests = {
           var lineCount = lineBreaks.length + 1;
           if (highlightedLineNumber > lineCount) {
             errors.push({
-              msg: "Highlighted line number " + highlightedLineNumber +
-                  " exceeds the line count of " + lineCount
+              msg: "highlighted_line_number_too_big",
+              msgParams: [String(highlightedLineNumber), String(lineCount)]
             });
           }
         }
@@ -282,14 +286,15 @@ var docTests = {
           }
           if (disallowedNames.has(subHeading.toLowerCase())) {
             errors.push({
-              msg: "Invalid name '" + subHeading + "'"
+              msg: "invalid_headline_name",
+              msgParams: [subHeadings[i]]
             });
           }
         }
         for (var i = 1; i < order.length; i++) {
           if (order[i] < order[i - 1]) {
             errors.push({
-              msg: "Invalid order"
+              msg: "invalid_headline_order"
             });
           }
         }
