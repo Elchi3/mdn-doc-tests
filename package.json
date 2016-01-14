@@ -9,5 +9,11 @@
   ],
   "license": "MPL 2.0",
   "main": "lib/main.js",
-  "version": "0.3.0"
+  "version": "0.3.0",
+  "preferences": [{
+    "name": "autoExpandErrors",
+    "title": "Automatically expand errors",
+    "type": "bool",
+    "value": false
+  }]
 }

@@ -1,6 +1,6 @@
 const WARNING = 2;
 
-addon.port.on("test", function(test, id) {
+addon.port.on("test", function(test, id, autoExpandErrors) {
   var tests = document.getElementById("tests");
   var errorCount = test.errors.length;
   var status = "ok";
@@ -35,6 +35,10 @@ addon.port.on("test", function(test, id) {
     tests.appendChild(testContainer);
 
     testElem = document.getElementById(id);
+
+    if (autoExpandErrors && status !== "ok") {
+      testElem.getElementsByClassName("errors")[0].classList.add("show");
+    }
   }
 
   var errors = testElem.getElementsByClassName("errors")[0];
