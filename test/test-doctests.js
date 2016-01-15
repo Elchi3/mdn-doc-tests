@@ -135,17 +135,19 @@ exports["test doc regexp preWithoutClass"] = function(assert) {
               '<pre>foobar;</pre>' +
               '<pre class="syntaxbox"></pre>' +
               '<pre id="foo"></pre>' +
+              '<pre class="">foo</pre>' +
               '<pre> \n\r foo</pre>';
   const expected = [
     '<pre>foobar;</pre>',
     '<pre id="foo"></pre>',
+    '<pre class="">foo</pre>',
     '<pre> \n\r foo</pre>'
   ];
-  var matches = str.match(docTests["preWithoutClass"].regex);
+  var matches = docTests["preWithoutClass"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of <pre> w/o class matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for <pre> w/o class match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for <pre> w/o class match must be correct");
   });
 };
 
