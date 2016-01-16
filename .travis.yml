@@ -12,3 +12,5 @@ before_script:
   - npm install -g jpm
 script:
   - jpm test
+notifications:
+  email: false
