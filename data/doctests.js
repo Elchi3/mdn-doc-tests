@@ -84,7 +84,22 @@ var docTests = {
   "preWithoutClass": {
     name: "pre_without_class",
     desc: "pre_without_class_desc",
-    regex: /(<pre(?=\s|>)(?!(?:[^>=]|=(['"])(?:(?!\1).)*\1)*?class=['"])[^>]*>[\S\s]*?<\/pre>)/gi,
+    check: function (content) {
+      var rePre = /<pre.*?>((?:.|[\r\n])*?)<\/pre>/gi;
+      var errors = [];
+      var match = rePre.exec(content);
+      while (match) {
+        if (!match[0].match(/^<pre[^>]*class=["'][^"']/)) {
+          errors = errors.concat(match[0]);
+        }
+
+        match = rePre.exec(content);
+      }
+
+      return errors.map(match => {
+        return {msg: match};
+      });
+    },
     type: ERROR,
     errors: []
   },
