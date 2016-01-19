@@ -240,7 +240,7 @@ var docTests = {
     name: "wrong_highlighted_line",
     desc: "wrong_highlighted_line_desc",
     check: function checkWrongHighlightedLine(content) {
-      var reCodeSample = /<pre(?:\s[^>]*class="[^"]*?highlight\[(-?\d+)\][^"]*?")>((?:.|\n)*?)<\/pre>/gi;
+      var reCodeSample = /<pre(?:\s[^>]*class="[^"]*?highlight:?\[(-?\d+)\][^"]*?")>((?:.|\n)*?)<\/pre>/gi;
       var errors = [];
       var match = reCodeSample.exec(content);
       while (match) {
