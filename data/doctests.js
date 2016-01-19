@@ -263,32 +263,32 @@ var docTests = {
           if (start <= 0) {
             errors.push({
               msg: "highlighted_line_number_not_positive",
-              msgParams: [String(start), numbersAndRanges]
+              msgParams: [String(start), match[1]]
             });
           }
           if (start > lineCount) {
             errors.push({
               msg: "highlighted_line_number_too_big",
-              msgParams: [String(start), String(lineCount), numbersAndRanges]
+              msgParams: [String(start), String(lineCount), match[1]]
             });
           }
           if (!Number.isNaN(end)) {
             if (end > lineCount) {
               errors.push({
                 msg: "highlighted_line_number_too_big",
-                msgParams: [String(end), String(lineCount), numbersAndRanges]
+                msgParams: [String(end), String(lineCount), match[1]]
               });
             }
             if (end <= 0) {
               errors.push({
                 msg: "highlighted_line_number_not_positive",
-                msgParams: [String(end), numbersAndRanges]
+                msgParams: [String(end), match[1]]
               });
             }
             if (start > end) {
               errors.push({
                 msg: "invalid_highlighted_range",
-                msgParams: [String(start), String(end), numbersAndRanges]
+                msgParams: [String(start), String(end), match[1]]
               });
             }
           }
