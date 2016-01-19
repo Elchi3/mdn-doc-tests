@@ -1,8 +1,17 @@
 var iframe = document.querySelectorAll("iframe.cke_wysiwyg_frame")[0];
-iframe.contentDocument.body.setAttribute("spellcheck", "true");
-var content = iframe.contentDocument.body.innerHTML || "";
+var content = "";
+if (iframe) {
+  iframe.contentDocument.body.setAttribute("spellcheck", "true");
+  content = iframe.contentDocument.body.innerHTML || "";
+}
 
 var runTest = function(testObj, id) {
+  // If there's no content (e.g. happens when in source view),
+  // don't run the test suite
+  if (content === "") {
+    return;
+  }
+
   var contentTest = [];
   if (testObj.check) {
     contentTest = testObj.check(content);
