@@ -368,32 +368,61 @@ exports["test doc macroSyntaxError"] = function(assert) {
 };
 
 exports["test doc wrongHighlightedLine"] = function(assert) {
-  const str = '<pre class="brush: js; highlight[2];">bla\nblubb</pre>' +
-              '<pre class="brush:js;">bla\nblubb</pre>' +
-              '<pre class="highlight[1]; brush:js;">bla\nblubb</pre>' +
-              '<pre class="brush: js; highlight[0];">bla\nblubb</pre>' +
-              '<pre class="brush: js; highlight[-1];">bla\nblubb</pre>' +
-              '<pre class="brush: js; highlight[3];">bla\nblubb</pre>' +
-              '<pre class="brush: js; highlight[3];">bla<br>blubb</pre>' +
-              '<pre class="brush: js; highlight[3];">bla<br/>blubb</pre>';
+  const str = '<pre class="brush: js; highlight[2];">foo\nbar</pre>' +
+              '<pre class="brush:js;">foo\nbar</pre>' +
+              '<pre class="highlight[1]; brush:js;">foo\nbar</pre>' +
+              '<pre class="brush: js; highlight[1,3];"foo\nbar\nbaz</pre>' +
+              '<pre class="brush: js; highlight[1-3];"foo\nbar\nbaz</pre>' +
+              '<pre class="brush: js; highlight[1-3,5];"foo\nbar\nbaz\nbax\nbix</pre>' + +
+              '<pre class="brush: js; highlight[ 1, 3 - 5 ,2 ];"foo\nbar\nbaz\nbax\nbix</pre>' +
+              '<pre class="brush: js; highlight[0];">foo\nbar</pre>' +
+              '<pre class="brush: js; highlight[-1];">foo\nbar</pre>' +
+              '<pre class="brush: js; highlight[3];">foo\nbar</pre>' +
+              '<pre class="brush: js; highlight[3];">foo<br>bar</pre>' +
+              '<pre class="brush: js; highlight[3];">foo<br/>bar</pre>' +
+              '<pre class="brush: js; highlight:[3];">foo<br>bar</pre>' +
+              '<pre class="brush: js; highlight[1,-3--5,3];">foo\nbar\nbaz</pre>' +
+              '<pre class="brush: js; highlight [ 1, 3 - 6 ,2 ];">foo\nbar\nbaz</pre>';
   const expected = [
     {
-      msg: "highlighted_line_number_not_positive"
+      msg: "highlighted_line_number_not_positive",
+      msgParams: ["0", "0"]
     },
     {
-      msg: "highlighted_line_number_not_positive"
-    },
-    {
-      msg: "highlighted_line_number_too_big",
-      msgParams: ["3", "2"]
-    },
-    {
-      msg: "highlighted_line_number_too_big",
-      msgParams: ["3", "2"]
+      msg: "highlighted_line_number_not_positive",
+      msgParams: ["-1", "-1"]
     },
     {
       msg: "highlighted_line_number_too_big",
-      msgParams: ["3", "2"]
+      msgParams: ["3", "2", "3"]
+    },
+    {
+      msg: "highlighted_line_number_too_big",
+      msgParams: ["3", "2", "3"]
+    },
+    {
+      msg: "highlighted_line_number_too_big",
+      msgParams: ["3", "2", "3"]
+    },
+    {
+      msg: "highlighted_line_number_too_big",
+      msgParams: ["3", "2", "3"]
+    },
+    {
+      msg: "highlighted_line_number_not_positive",
+      msgParams: ["-3", "1,-3--5,3"]
+    },
+    {
+      msg: "highlighted_line_number_not_positive",
+      msgParams: ["-5", "1,-3--5,3"]
+    },
+    {
+      msg: "invalid_highlighted_range",
+      msgParams: ["-3", "-5", "1,-3--5,3"]
+    },
+    {
+      msg: "highlighted_line_number_too_big",
+      msgParams: ["6", "3", " 1, 3 - 6 ,2 "]
     }
   ];
   var matches = docTests["wrongHighlightedLine"].check(str);

@@ -240,26 +240,59 @@ var docTests = {
     name: "wrong_highlighted_line",
     desc: "wrong_highlighted_line_desc",
     check: function checkWrongHighlightedLine(content) {
-      var reCodeSample = /<pre(?:\s[^>]*class="[^"]*?highlight\[(-?\d+)\][^"]*?")>((?:.|\n)*?)<\/pre>/gi;
+      var reCodeSample = /<pre(?:\s[^>]*class="[^"]*?highlight:?\s*\[(.+?)\][^"]*?")>((?:.|\n)*?)<\/pre>/gi;
       var errors = [];
       var match = reCodeSample.exec(content);
       while (match) {
-        var highlightedLineNumber = Number(match[1]);
-        if (highlightedLineNumber <= 0) {
-          errors.push({
-            msg: "highlighted_line_number_not_positive"
-          });
-        }
-        var lineBreaks = match[2].match(/<br\s*\/?>|\n/gi);
-        if (lineBreaks) {
-          var lineCount = lineBreaks.length + 1;
-          if (highlightedLineNumber > lineCount) {
+        var numbersAndRanges = match[1].split(",");
+        var lineCount = match[2].split(/<br\s*\/?>|\n/gi).length;
+        numbersAndRanges.forEach((numberOrRange, i, numbersAndRanges) => {
+          var start;
+          var end;
+          try {
+            [,start,end] = numberOrRange.match(/^\s*(-?\d+)(?:\s*-\s*(-?\d+))?\s*$/);
+          } catch (e) {}
+
+          if (start === undefined) {
+            return;
+          }
+
+          start = Number(start);
+          end = Number(end);
+
+          if (start <= 0) {
             errors.push({
-              msg: "highlighted_line_number_too_big",
-              msgParams: [String(highlightedLineNumber), String(lineCount)]
+              msg: "highlighted_line_number_not_positive",
+              msgParams: [String(start), match[1]]
             });
           }
-        }
+          if (start > lineCount) {
+            errors.push({
+              msg: "highlighted_line_number_too_big",
+              msgParams: [String(start), String(lineCount), match[1]]
+            });
+          }
+          if (!Number.isNaN(end)) {
+            if (end > lineCount) {
+              errors.push({
+                msg: "highlighted_line_number_too_big",
+                msgParams: [String(end), String(lineCount), match[1]]
+              });
+            }
+            if (end <= 0) {
+              errors.push({
+                msg: "highlighted_line_number_not_positive",
+                msgParams: [String(end), match[1]]
+              });
+            }
+            if (start > end) {
+              errors.push({
+                msg: "invalid_highlighted_range",
+                msgParams: [String(start), String(end), match[1]]
+              });
+            }
+          }
+        });
 
         match = reCodeSample.exec(content);
       }
