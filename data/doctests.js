@@ -1,20 +1,28 @@
 const ERROR = 1;
 const WARNING = 2;
 
-var docTests = {
+function mapMatches(matches) {
+  return matches.map(match => {
+    return {msg: match};
+  });
+}
 
+var docTests = {
   "oldURLs": {
     name: "old_en_urls",
     desc: "old_en_urls_desc",
-    regex: /\shref=\"\/en\/.*?"/gi,
+    check: function checkOldURLs(content) {
+      var matches = content.match(/\shref=\"\/en\/.*?"/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
 
-  "emptyElem": {
+  "emptyElements": {
     name: "empty_elements",
     desc: "empty_elements_desc",
-    check: function check(content) {
+    check: function checkEmptyElements(content) {
       var matches = content.match(/<[^\/][^>]*?>([\s\r\n]|&nbsp;|<br\/?>)*<\/.*?>/gi) || [];
       for (var i = matches.length - 1; i >= 0; i--) {
         if (matches[i].match(/^<(?:link|track|param|area|command|col|base|meta|hr|source|img|keygen|br|wbr|input)/)) {
@@ -22,9 +30,7 @@ var docTests = {
         }
       }
 
-      return matches.map(match => {
-        return {msg: match};
-      });
+      return mapMatches(matches);
     },
     type: ERROR,
     errors: []
@@ -33,7 +39,10 @@ var docTests = {
   "languagesMacro": {
     name: "languages_macro",
     desc: "languages_macro_desc",
-    regex: /\{\{\s*languages.*?\}\}/gi,
+    check: function checkLanguagesMacro(content) {
+      var matches = content.match(/\{\{\s*languages.*?\}\}/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -41,7 +50,10 @@ var docTests = {
   "emptyBrackets": {
     name: "empty_brackets",
     desc: "empty_brackets_desc",
-    regex: /\{\{\s*[a-z]*\(\)\s*?\}\}/gi,
+    check: function checkEmptyBrackets(content) {
+      var matches = content.match(/\{\{\s*[a-z]*\(\)\s*?\}\}/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -49,7 +61,10 @@ var docTests = {
   "styleAttribute": {
     name: "style_attributes",
     desc: "style_attributes_desc",
-    regex: /style=["'][a-zA-Z0-9:#!%;'\.\s\(\)\-\,]*['"]/gi,
+    check: function checkStyleAttribute(content) {
+      var matches = content.match(/style=["'][a-zA-Z0-9:#!%;'\.\s\(\)\-\,]*['"]/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -57,7 +72,10 @@ var docTests = {
   "nameAttribute": {
     name: "name_attributes",
     desc: "name_attributes_desc",
-    regex: /name=["'][a-zA-Z0-9:#!%;'_\.\s\(\)\-\,]*['"]/gi,
+    check: function checkNameAttribute(content) {
+      var matches = content.match(/name=["'][a-zA-Z0-9:#!%;'_\.\s\(\)\-\,]*['"]/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -65,7 +83,7 @@ var docTests = {
   "spanCount": {
     name: "span_elements",
     desc: "span_elements_desc",
-    check: function check(content) {
+    check: function checkSpanCount(content) {
       var matches = content.match(/<span.*?>.*?<\/span>/gi) || [];
       for (var i = 0; i < matches.length; i++) {
         if (matches[i].match(/<span[^>]*?class="seoSummary"/)) {
@@ -84,21 +102,19 @@ var docTests = {
   "preWithoutClass": {
     name: "pre_without_class",
     desc: "pre_without_class_desc",
-    check: function (content) {
+    check: function checkPreWithoutClass(content) {
       var rePre = /<pre.*?>((?:.|[\r\n])*?)<\/pre>/gi;
-      var errors = [];
+      var matches = [];
       var match = rePre.exec(content);
       while (match) {
         if (!match[0].match(/^<pre[^>]*class=["'][^"']/)) {
-          errors = errors.concat(match[0]);
+          matches = matches.concat(match[0]);
         }
 
         match = rePre.exec(content);
       }
 
-      return errors.map(match => {
-        return {msg: match};
-      });
+      return mapMatches(matches);
     },
     type: ERROR,
     errors: []
@@ -107,7 +123,10 @@ var docTests = {
   "summaryHeading": {
     name: "summary_heading",
     desc: "summary_heading_desc",
-    regex: /<h[0-6]?(?!\/)[^>]+>Summary<\/h[0-6]>/gi,
+    check: function checkSummaryHeading(content) {
+      var matches = content.match(/<h[0-6]?(?!\/)[^>]+>Summary<\/h[0-6]>/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -115,7 +134,10 @@ var docTests = {
   "jsRefWithParams": {
     name: "jsref_params",
     desc: "jsref_params_desc",
-    regex: /\{\{s*JSRef\(.*?\}\}/gi,
+    check: function checkJSRefWithParams(content) {
+      var matches = content.match(/\{\{s*JSRef\(.*?\}\}/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -123,7 +145,10 @@ var docTests = {
   "exampleColonHeading": {
     name: "example_headings",
     desc: "example_headings_desc",
-    regex: /<h[0-6]?(?!\/)[^>]+>Example:.*?<\/h[0-6]>/gi,
+    check: function checkExampleColonHeading(content) {
+      var matches = content.match(/<h[0-6]?(?!\/)[^>]+>Example:.*?<\/h[0-6]>/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -131,7 +156,7 @@ var docTests = {
   "alertPrintInCode": {
     name: "alert_print_in_code",
     desc: "alert_print_in_code_desc",
-    check: function check(content) {
+    check: function checkAlertPrintInCode(content) {
       var codeSamples = content.match(/<pre(?:\s.*)?>(?:.|\n)*?<\/pre>/gi) || [];
       var matches = [];
       for (var i = 0; i < codeSamples.length; i++) {
@@ -152,7 +177,10 @@ var docTests = {
   "htmlComments": {
     name: "html_comments",
     desc: "html_comments_desc",
-    regex: /<!--[\s\S]*?-->/gi,
+    check: function checkHTMLComments(content) {
+      var matches = content.match(/<!--[\s\S]*?-->/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -160,7 +188,10 @@ var docTests = {
   "fontElements": {
     name: "font_elements",
     desc: "font_elements_desc",
-    regex: /<font.*?>/gi,
+    check: function checkFontElements(content) {
+      var matches = content.match(/<font.*?>/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -168,7 +199,10 @@ var docTests = {
   "httpLinks": {
     name: "http_links",
     desc: "http_links_desc",
-    regex: /<a[^>]+href="http:\/\//gi,
+    check: function checkHTTPLinks(content) {
+      var matches = content.match(/<a[^>]+href="http:\/\//gi) || [];
+      return mapMatches(matches);
+    },
     type: WARNING,
     errors: []
   },
@@ -176,7 +210,7 @@ var docTests = {
   "macroSyntaxError": {
     name: "macro_syntax_error",
     desc: "macro_syntax_error_desc",
-    check: function macroSyntaxErrorCheck(content) {
+    check: function checkMacroSyntaxError(content) {
       function validateStringParams(macro) {
         var paramListStartIndex = macro.indexOf("(") + 1;
         var paramListEndMatch = macro.match(/\)*\s*\}{1,2}$/);
@@ -203,34 +237,34 @@ var docTests = {
       }
 
       var macros = content.match(/\{\{[^\(\}]*\([^\}]*\}\}|\{\{[^\}]*?\}(?=[^\}])/gi) || [];
-      var errors = [];
+      var matches = [];
       macros.forEach(macro => {
         if (macro.match(/[^\}]\}$/)) {
-          errors.push({
+          matches.push({
             msg: "missing_closing_curly_brace",
             msgParams: [macro]
           });
         }
         if (macro.match(/^\{\{[^\(]+\([^\)]*\}\}$/)) {
-          errors.push({
+          matches.push({
             msg: "missing_closing_bracket",
             msgParams: [macro]
           });
         }
         if (!validateStringParams(macro)) {
-          errors.push({
+          matches.push({
             msg: "string_parameter_incorrectly_quoted",
             msgParams: [macro]
           });
         }
         if (macro.match(/\){2,}\}{1,2}$/)) {
-          errors.push({
+          matches.push({
             msg: "additional_closing_bracket",
             msgParams: [macro]
           });
         }
       });
-      return errors;
+      return matches;
     },
     type: ERROR,
     errors: []
@@ -241,7 +275,7 @@ var docTests = {
     desc: "wrong_highlighted_line_desc",
     check: function checkWrongHighlightedLine(content) {
       var reCodeSample = /<pre(?:\s[^>]*class="[^"]*?highlight:?\s*\[(.+?)\][^"]*?")>((?:.|\n)*?)<\/pre>/gi;
-      var errors = [];
+      var matches = [];
       var match = reCodeSample.exec(content);
       while (match) {
         var numbersAndRanges = match[1].split(",");
@@ -261,32 +295,32 @@ var docTests = {
           end = Number(end);
 
           if (start <= 0) {
-            errors.push({
+            matches.push({
               msg: "highlighted_line_number_not_positive",
               msgParams: [String(start), match[1]]
             });
           }
           if (start > lineCount) {
-            errors.push({
+            matches.push({
               msg: "highlighted_line_number_too_big",
               msgParams: [String(start), String(lineCount), match[1]]
             });
           }
           if (!Number.isNaN(end)) {
             if (end > lineCount) {
-              errors.push({
+              matches.push({
                 msg: "highlighted_line_number_too_big",
                 msgParams: [String(end), String(lineCount), match[1]]
               });
             }
             if (end <= 0) {
-              errors.push({
+              matches.push({
                 msg: "highlighted_line_number_not_positive",
                 msgParams: [String(end), match[1]]
               });
             }
             if (start > end) {
-              errors.push({
+              matches.push({
                 msg: "invalid_highlighted_range",
                 msgParams: [String(start), String(end), match[1]]
               });
@@ -296,16 +330,16 @@ var docTests = {
 
         match = reCodeSample.exec(content);
       }
-      return errors;
+      return matches;
     },
     type: ERROR,
     count: 0
   },
 
-  "headlinesWording": {
+  "apiSyntaxHeadlines": {
     name: "api_syntax_headlines",
     desc: "api_syntax_headlines_desc",
-    check: function checkHeadlinesWording(content) {
+    check: function checkAPISyntaxHeadlines(content) {
       const disallowedNames = new Set(["returns", "errors", "errors thrown"]);
       const validOrder = [
         new Set(["parameters"]),
@@ -314,7 +348,7 @@ var docTests = {
       ];
       var syntaxSection = content.match(/<h2.*?>Syntax<\/h2>((?:.|\n)*?)(?:<h2|$)/i) || [];
       var order = [];
-      var errors = [];
+      var matches = [];
       if (syntaxSection.length === 2) {
         var subHeadings = [];
         var reSubHeadings = /<h3.*?>(.*?)<\/h3>/gi;
@@ -333,7 +367,7 @@ var docTests = {
             }
           }
           if (disallowedNames.has(subHeading.toLowerCase())) {
-            errors.push({
+            matches.push({
               msg: "invalid_headline_name",
               msgParams: [subHeadings[i]]
             });
@@ -341,13 +375,14 @@ var docTests = {
         }
         for (var i = 1; i < order.length; i++) {
           if (order[i] < order[i - 1]) {
-            errors.push({
+            matches.push({
               msg: "invalid_headline_order"
             });
           }
         }
       }
-      return errors;
+
+      return matches;
     },
     type: ERROR,
     count: 0
@@ -358,31 +393,29 @@ var docTests = {
     desc: "code_in_pre_desc",
     check: function checkCodeInPre(content) {
       var rePre = /<pre.*?>((?:.|\n)*?)<\/pre>/gi;
-      var errors = [];
+      var matches = [];
       var match = rePre.exec(content);
       while (match) {
         var codeBlocks = match[1].match(/<code.*?>(?:.|\n)*?<\/code>/gi);
         if (codeBlocks) {
-          errors = errors.concat(codeBlocks);
+          matches = matches.concat(codeBlocks);
         }
 
         match = rePre.exec(content);
       }
 
-      return errors.map(match => {
-        return {msg: match};
-      });
+      return mapMatches(matches);
     },
     type: ERROR,
     count: 0
   },
 
-  "preLineTooLong": {
+  "lineLengthInPre": {
     name: "pre_line_too_long",
     desc: "pre_line_too_long_desc",
     check: function checkLineLengthInPre(content) {
       var rePre = /<pre.*?>((?:.|\n)*?)<\/pre>/gi;
-      var errors = [];
+      var matches = [];
       var match = rePre.exec(content);
       while (match) {
         // While editing it happens that there are <br>s added instead of line break characters
@@ -390,14 +423,12 @@ var docTests = {
         var codeBlock = match[1].replace(/<br\/?>/g, "\n");
         var longLines = codeBlock.match(/^(?:[^\r\n]|\r(?!\n)){78,}$/gm);
         if (longLines) {
-          errors = errors.concat(longLines);
+          matches = matches.concat(longLines);
         }
         match = rePre.exec(content);
       }
 
-      return errors.map(match => {
-        return {msg: match};
-      });
+      return mapMatches(matches);
     },
     type: WARNING,
     count: 0
