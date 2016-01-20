@@ -10,6 +10,7 @@
   "license": "MPL 2.0",
   "main": "lib/main.js",
   "version": "0.3.0",
+  "icon": "resource://826e8996-b3c2-11e5-9f22-ba0be0483c18/data/icon.png",
   "preferences": [{
     "name": "autoExpandErrors",
     "title": "Automatically expand errors",
