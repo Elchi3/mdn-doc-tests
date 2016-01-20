@@ -8,11 +8,11 @@ exports["test doc regexp oldURLs"] = function(assert) {
     ' href="/en/Web"',
     ' href="/En/Mozilla"'
   ];
-  var matches = str.match(docTests["oldURLs"].regex);
+  var matches = docTests["oldURLs"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of '/en/' link matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for '/en/' link match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for '/en/' link match must be correct");
   });
 };
 
@@ -44,11 +44,11 @@ exports["test doc regexp languagesMacro"] = function(assert) {
   const expected = [
     '{{ languages( { "ja": "Ja/Browser_chrome_tests" } ) }}'
   ];
-  var matches = str.match(docTests["languagesMacro"].regex);
+  var matches = docTests["languagesMacro"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of {{languages}} macro matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for {{languages}} macro match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for {{languages}} macro match must be correct");
   });
 };
 
@@ -61,11 +61,11 @@ exports["test doc regexp emptyBrackets"] = function(assert) {
     '{{ foo() }}',
     '{{bar()}}'
   ];
-  var matches = str.match(docTests["emptyBrackets"].regex);
+  var matches = docTests["emptyBrackets"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of empty brackets matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for empty brackets match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for empty brackets match must be correct");
   });
 };
 
@@ -82,11 +82,11 @@ exports["test doc regexp styleAttribute"] = function(assert) {
     'style=\'padding: 5px !important\'',
     'style="font-family: \'Open Sans\', serif; line-height: 1.5"'
   ];
-  var matches = str.match(docTests["styleAttribute"].regex);
+  var matches = docTests["styleAttribute"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of 'style' attribute matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for 'style' attribute match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for 'style' attribute match must be correct");
   });
 };
 
@@ -103,11 +103,11 @@ exports["test doc regexp nameAttribute"] = function(assert) {
     'name="foo_bar"',
     'name=\'baz\''
   ];
-  var matches = str.match(docTests["nameAttribute"].regex);
+  var matches = docTests["nameAttribute"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of 'name' attribute matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for 'name' attribute match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for 'name' attribute match must be correct");
   });
 };
 
@@ -162,11 +162,11 @@ exports["test doc regexp summaryHeading"] = function(assert) {
     '<h2 id="Summary" name="foo">Summary</h2>',
     '<h3 id="Summary">Summary</h3>'
   ];
-  var matches = str.match(docTests["summaryHeading"].regex);
+  var matches = docTests["summaryHeading"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of summary heading matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for summary heading match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for summary heading match must be correct");
   });
 };
 
@@ -180,11 +180,11 @@ exports["test doc regexp jsRefWithParams"] = function(assert) {
     '{{JSRef("Global_Objects")}}',
     '{{JSRef("Global_Objects", "Math")}}'
   ];
-  var matches = str.match(docTests["jsRefWithParams"].regex);
+  var matches = docTests["jsRefWithParams"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of {{JSRef}} with params matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for {{JSRef}} with params match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for {{JSRef}} with params match must be correct");
   });
 };
 
@@ -199,11 +199,11 @@ exports["test doc regexp exampleColonHeading"] = function(assert) {
     '<h3 id="Example:_Using_Math.sin">Example: Using <code>Math.sin</code></h3>',
     '<h2 id="Example:_Foo">Example: Foo</h2>'
   ];
-  var matches = str.match(docTests["exampleColonHeading"].regex);
+  var matches = docTests["exampleColonHeading"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of 'Example: ' heading matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for 'Example: ' heading match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for 'Example: ' heading match must be correct");
   });
 };
 
@@ -236,11 +236,11 @@ exports["test doc regexp htmlComments"] = function(assert) {
     '<!-- <span>foo</span> -->',
     '<!-- hello \n world -->'
   ];
-  var matches = str.match(docTests["htmlComments"].regex);
+  var matches = docTests["htmlComments"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of HTML comment matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for HTML comment match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for HTML comment match must be correct");
   });
 };
 
@@ -251,11 +251,11 @@ exports["test doc regexp fontElements"] = function(assert) {
     '<font>',
     '<font face="Open Sans, sans-serif">'
   ];
-  var matches = str.match(docTests["fontElements"].regex);
+  var matches = docTests["fontElements"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of <font> matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for <font> match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for <font> match must be correct");
   });
 };
 
@@ -267,11 +267,11 @@ exports["test doc httpLinks"] = function(assert) {
   const expected = [
     '<a href="http://'
   ];
-  var matches = str.match(docTests["httpLinks"].regex);
+  var matches = docTests["httpLinks"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of HTTP link matches must be " + expected.length);
   matches.forEach((match, i) => {
-    assert.equal(match, expected[i], "Error message for HTTP link match must be correct");
+    assert.equal(match.msg, expected[i], "Error message for HTTP link match must be correct");
   });
 };
 

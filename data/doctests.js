@@ -1,12 +1,21 @@
 const ERROR = 1;
 const WARNING = 2;
 
+function mapMatches(matches) {
+  return matches.map(match => {
+    return {msg: match};
+  });
+}
+
 var docTests = {
 
   "oldURLs": {
     name: "old_en_urls",
     desc: "old_en_urls_desc",
-    regex: /\shref=\"\/en\/.*?"/gi,
+    check: function checkOldURLs(content) {
+      var matches = content.match(/\shref=\"\/en\/.*?"/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -22,9 +31,7 @@ var docTests = {
         }
       }
 
-      return matches.map(match => {
-        return {msg: match};
-      });
+      return mapMatches(matches);
     },
     type: ERROR,
     errors: []
@@ -33,7 +40,10 @@ var docTests = {
   "languagesMacro": {
     name: "languages_macro",
     desc: "languages_macro_desc",
-    regex: /\{\{\s*languages.*?\}\}/gi,
+    check: function checkLanguagesMacro(content) {
+      var matches = content.match(/\{\{\s*languages.*?\}\}/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -41,7 +51,10 @@ var docTests = {
   "emptyBrackets": {
     name: "empty_brackets",
     desc: "empty_brackets_desc",
-    regex: /\{\{\s*[a-z]*\(\)\s*?\}\}/gi,
+    check: function checkEmptyBrackets(content) {
+      var matches = content.match(/\{\{\s*[a-z]*\(\)\s*?\}\}/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -49,7 +62,10 @@ var docTests = {
   "styleAttribute": {
     name: "style_attributes",
     desc: "style_attributes_desc",
-    regex: /style=["'][a-zA-Z0-9:#!%;'\.\s\(\)\-\,]*['"]/gi,
+    check: function checkStyleAttribute(content) {
+      var matches = content.match(/style=["'][a-zA-Z0-9:#!%;'\.\s\(\)\-\,]*['"]/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -57,7 +73,10 @@ var docTests = {
   "nameAttribute": {
     name: "name_attributes",
     desc: "name_attributes_desc",
-    regex: /name=["'][a-zA-Z0-9:#!%;'_\.\s\(\)\-\,]*['"]/gi,
+    check: function checkNameAttribute(content) {
+      var matches = content.match(/name=["'][a-zA-Z0-9:#!%;'_\.\s\(\)\-\,]*['"]/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -96,9 +115,7 @@ var docTests = {
         match = rePre.exec(content);
       }
 
-      return errors.map(match => {
-        return {msg: match};
-      });
+      return mapMatches(errors);
     },
     type: ERROR,
     errors: []
@@ -107,7 +124,10 @@ var docTests = {
   "summaryHeading": {
     name: "summary_heading",
     desc: "summary_heading_desc",
-    regex: /<h[0-6]?(?!\/)[^>]+>Summary<\/h[0-6]>/gi,
+    check: function checkSummaryHeading(content) {
+      var matches = content.match(/<h[0-6]?(?!\/)[^>]+>Summary<\/h[0-6]>/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -115,7 +135,10 @@ var docTests = {
   "jsRefWithParams": {
     name: "jsref_params",
     desc: "jsref_params_desc",
-    regex: /\{\{s*JSRef\(.*?\}\}/gi,
+    check: function checkJSRefWithParams(content) {
+      var matches = content.match(/\{\{s*JSRef\(.*?\}\}/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -123,7 +146,10 @@ var docTests = {
   "exampleColonHeading": {
     name: "example_headings",
     desc: "example_headings_desc",
-    regex: /<h[0-6]?(?!\/)[^>]+>Example:.*?<\/h[0-6]>/gi,
+    check: function checkExampleColonHeading(content) {
+      var matches = content.match(/<h[0-6]?(?!\/)[^>]+>Example:.*?<\/h[0-6]>/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -152,7 +178,10 @@ var docTests = {
   "htmlComments": {
     name: "html_comments",
     desc: "html_comments_desc",
-    regex: /<!--[\s\S]*?-->/gi,
+    check: function checkHTMLComments(content) {
+      var matches = content.match(/<!--[\s\S]*?-->/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -160,7 +189,10 @@ var docTests = {
   "fontElements": {
     name: "font_elements",
     desc: "font_elements_desc",
-    regex: /<font.*?>/gi,
+    check: function checkFontElements(content) {
+      var matches = content.match(/<font.*?>/gi) || [];
+      return mapMatches(matches);
+    },
     type: ERROR,
     errors: []
   },
@@ -168,7 +200,10 @@ var docTests = {
   "httpLinks": {
     name: "http_links",
     desc: "http_links_desc",
-    regex: /<a[^>]+href="http:\/\//gi,
+    check: function checkHTTPLinks(content) {
+      var matches = content.match(/<a[^>]+href="http:\/\//gi) || [];
+      return mapMatches(matches);
+    },
     type: WARNING,
     errors: []
   },
@@ -369,9 +404,7 @@ var docTests = {
         match = rePre.exec(content);
       }
 
-      return errors.map(match => {
-        return {msg: match};
-      });
+      return mapMatches(errors);
     },
     type: ERROR,
     count: 0
@@ -395,9 +428,7 @@ var docTests = {
         match = rePre.exec(content);
       }
 
-      return errors.map(match => {
-        return {msg: match};
-      });
+      return mapMatches(errors);
     },
     type: WARNING,
     count: 0
