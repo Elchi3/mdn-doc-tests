@@ -16,7 +16,7 @@ exports["test doc regexp oldURLs"] = function(assert) {
   });
 };
 
-exports["test doc regexp emptyElem"] = function(assert) {
+exports["test doc regexp emptyElements"] = function(assert) {
   const str = '<p> </p>' +
               '<p> \n\r </p>' +
               '<p> &nbsp;</p>' +
@@ -31,7 +31,7 @@ exports["test doc regexp emptyElem"] = function(assert) {
     '<p> &nbsp;</p>',
     '<p><br><br/></p>'
   ];
-  var matches = docTests["emptyElem"].check(str);
+  var matches = docTests["emptyElements"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of empty element matches must be " + expected.length);
   matches.forEach((match, i) => {
@@ -434,7 +434,7 @@ exports["test doc wrongHighlightedLine"] = function(assert) {
   });
 };
 
-exports["test doc headlinesWording"] = function(assert) {
+exports["test doc apiSyntaxHeadlines"] = function(assert) {
   const str = '<h2 id="Syntax">Syntax</h2>' +
               '<h3>Errors</h3>' +
               '<h3>Returns</h3>' +
@@ -455,7 +455,7 @@ exports["test doc headlinesWording"] = function(assert) {
       msg: "invalid_headline_order",
     }
   ];
-  var matches = docTests["headlinesWording"].check(str);
+  var matches = docTests["apiSyntaxHeadlines"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of API syntax headline errors must be " + expected.length);
   matches.forEach((match, i) => {
@@ -485,7 +485,7 @@ exports["test doc codeInPre"] = function(assert) {
   });
 };
 
-exports["test doc preLineTooLong"] = function(assert) {
+exports["test doc lineLengthInPre"] = function(assert) {
   const str = '<pre>11111111111111111111111 11111111111111111111111 111111111111 111111111111111 1</pre>' +
               '<pre>11111111111111111111111 11111111111111111111111<br> 111111111111 111111111111111 1</pre>' +
               '<pre class="brush:js">short\nstuff</pre>' +
@@ -496,7 +496,7 @@ exports["test doc preLineTooLong"] = function(assert) {
     '11111111111111111111111 11111111111111111111111 111111111111 111111111111111 1',
     'baz11111111111 111111111111 function{ foo(); 11111111111111 bar 1111111111111111 111'
   ];
-  var matches = docTests["preLineTooLong"].check(str);
+  var matches = docTests["lineLengthInPre"].check(str);
 
   assert.equal(matches.length, expected.length, "Number of too long line in <pre> errors must be " + expected.length);
   matches.forEach((match, i) => {
