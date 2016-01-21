@@ -388,6 +388,29 @@ var docTests = {
     count: 0
   },
 
+  "wrongSyntaxClass": {
+    name: "wrong_syntax_class",
+    desc: "wrong_syntax_class_desc",
+    check: function checkWrongSyntaxClass(content) {
+      var [,syntaxSection] = content.match(/<h2.*?>Syntax<\/h2>((?:.|\n)*?)(?:<h2|$)/i) || [];
+      var matches = [];
+
+      if (syntaxSection) {
+        var [, syntaxBoxClass] = syntaxSection.match(/<pre.+?class="(.+?)".*?>/) || [];
+        if (syntaxBoxClass && syntaxBoxClass !== "syntaxbox") {
+          matches.push({
+            msg: "wrong_syntax_class_used",
+            msgParams: [syntaxBoxClass]
+          })
+        }
+      }
+
+      return matches;
+    },
+    type: ERROR,
+    count: 0
+  },
+
   "codeInPre": {
     name: "code_in_pre",
     desc: "code_in_pre_desc",
