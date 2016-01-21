@@ -13,4 +13,4 @@ MDN documentation tester
 .. image:: https://raw.github.com/Elchi3/mdn-doc-tests/master/screenshot.png
    :alt: Screenshot
 
-This add-on adds a sidebar with a test suite you can run against MDN docs while editing.
+This add-on adds a sidebar with a test suite you can run against MDN docs while editing. The tests check whether there are errors or unnecessary parts within the article source or its layout.
