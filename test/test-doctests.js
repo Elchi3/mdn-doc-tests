@@ -2,7 +2,7 @@ var testFile = require("sdk/self").data.load("doctests.js");
 
 eval(testFile);
 
-exports["test doc regexp oldURLs"] = function(assert) {
+exports["test doc oldURLs"] = function(assert) {
   const str = '<a href="/en/Web">Web</a><a href="/En/Mozilla">Mozilla</a>';
   const expected = [
     ' href="/en/Web"',
@@ -16,7 +16,7 @@ exports["test doc regexp oldURLs"] = function(assert) {
   });
 };
 
-exports["test doc regexp emptyElements"] = function(assert) {
+exports["test doc emptyElements"] = function(assert) {
   const str = '<p> </p>' +
               '<p> \n\r </p>' +
               '<p> &nbsp;</p>' +
@@ -39,7 +39,7 @@ exports["test doc regexp emptyElements"] = function(assert) {
   });
 };
 
-exports["test doc regexp languagesMacro"] = function(assert) {
+exports["test doc languagesMacro"] = function(assert) {
   const str = '{{ languages( { "ja": "Ja/Browser_chrome_tests" } ) }}';
   const expected = [
     '{{ languages( { "ja": "Ja/Browser_chrome_tests" } ) }}'
@@ -52,7 +52,7 @@ exports["test doc regexp languagesMacro"] = function(assert) {
   });
 };
 
-exports["test doc regexp emptyBrackets"] = function(assert) {
+exports["test doc emptyBrackets"] = function(assert) {
   const str = '{{ foo() }}' +
               '{{bar()}}' +
               '{{foobar("abc")}}' +
@@ -69,7 +69,7 @@ exports["test doc regexp emptyBrackets"] = function(assert) {
   });
 };
 
-exports["test doc regexp styleAttribute"] = function(assert) {
+exports["test doc styleAttribute"] = function(assert) {
   const str = '<span style=""></span>' +
               '<div style="margin-top:5%"></div>' +
               '<section style="background:#fff; color: rgb(234, 234, 234);"></section>' +
@@ -90,7 +90,7 @@ exports["test doc regexp styleAttribute"] = function(assert) {
   });
 };
 
-exports["test doc regexp nameAttribute"] = function(assert) {
+exports["test doc nameAttribute"] = function(assert) {
   const str = '<span name=""></span>' +
               '<div name="foo"></div>' +
               '<h2 id="foo" name="foo">foo</h2>' +
@@ -111,7 +111,7 @@ exports["test doc regexp nameAttribute"] = function(assert) {
   });
 };
 
-exports["test doc regexp spanCount"] = function(assert) {
+exports["test doc spanCount"] = function(assert) {
   const str = '<span>what?</span>' +
               '<p>nope</p>' +
               '<span class="foo" style="font:10px">bar</span>' +
@@ -130,7 +130,7 @@ exports["test doc regexp spanCount"] = function(assert) {
   });
 };
 
-exports["test doc regexp preWithoutClass"] = function(assert) {
+exports["test doc preWithoutClass"] = function(assert) {
   const str = '<pre class="brush: js"></pre>' +
               '<pre>foobar;</pre>' +
               '<pre class="syntaxbox"></pre>' +
@@ -151,7 +151,7 @@ exports["test doc regexp preWithoutClass"] = function(assert) {
   });
 };
 
-exports["test doc regexp summaryHeading"] = function(assert) {
+exports["test doc summaryHeading"] = function(assert) {
   const str = '<h2>Summary</h2>' +
               '<h2 id="Summary" name="Summary">Summary</h2>' +
               '<h2 id="Summary" name="foo">Summary</h2>' +
@@ -170,7 +170,7 @@ exports["test doc regexp summaryHeading"] = function(assert) {
   });
 };
 
-exports["test doc regexp jsRefWithParams"] = function(assert) {
+exports["test doc jsRefWithParams"] = function(assert) {
   const str = '{{JSRef()}}' +
               '{{JSRef("Global_Objects")}}' +
               '{{JSRef("Global_Objects", "Math")}}' +
@@ -188,7 +188,7 @@ exports["test doc regexp jsRefWithParams"] = function(assert) {
   });
 };
 
-exports["test doc regexp exampleColonHeading"] = function(assert) {
+exports["test doc exampleColonHeading"] = function(assert) {
   const str = '<h2>Example</h2>' +
               '<h3 id="Example">Example</h3>' +
               '<h3 id="Example:_Foo">Example: Foo</h3>' +
@@ -207,7 +207,7 @@ exports["test doc regexp exampleColonHeading"] = function(assert) {
   });
 };
 
-exports["test doc regexp alertPrintInCode"] = function(assert) {
+exports["test doc alertPrintInCode"] = function(assert) {
   const str = '<pre>alert("foo")</pre>' +
               '<pre class="syntaxbox">print("bar")</pre>' +
               '<pre>var someOthercode = baz; ' +
@@ -227,7 +227,7 @@ exports["test doc regexp alertPrintInCode"] = function(assert) {
   });
 };
 
-exports["test doc regexp htmlComments"] = function(assert) {
+exports["test doc htmlComments"] = function(assert) {
   const str = '<!-- -->' +
               '<!-- <span>foo</span> -->' +
               '<!-- hello \n world -->';
@@ -244,7 +244,7 @@ exports["test doc regexp htmlComments"] = function(assert) {
   });
 };
 
-exports["test doc regexp fontElements"] = function(assert) {
+exports["test doc fontElements"] = function(assert) {
   const str = '<font>' +
               '<font face="Open Sans, sans-serif">';
   const expected = [

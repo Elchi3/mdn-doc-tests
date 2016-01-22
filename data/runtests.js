@@ -12,13 +12,7 @@ var runTest = function(testObj, id) {
     return;
   }
 
-  var contentTest = [];
-  if (testObj.check) {
-    contentTest = testObj.check(content);
-  } else {
-    contentTest = (content.match(testObj.regex) || [])
-    contentTest = contentTest.map(match => { return {msg: match}; });
-  }
+  var contentTest = testObj.check(content);
   testObj.errors = contentTest;
   self.port.emit("test", testObj, id);
 };
