@@ -485,6 +485,35 @@ exports["test doc codeInPre"] = function(assert) {
   });
 };
 
+exports["test doc wrongSyntaxClass"] = function(assert) {
+  const strs = [
+    'foo<h2>Syntax</h2>\n<pre class="syntaxbox">syntax</pre>bar',
+    'foo<h2>Syntax</h2>\n<pre class="brush:css">syntax examples</pre>bar<h3>Formal syntax</h3>\n<pre class"syntaxbox">syntax</pre>',
+    'foo<h2>Syntax</h2>\n<pre class="brush:js">syntax</pre>bar',
+    'foo<h2>Syntax</h2>\n<pre class="brush:css">syntax examples</pre>bar<h3>Formal syntax</h3>\n<pre class="eval">syntax</pre>baz<h2>Other section</h2>'
+  ];
+  const expected = [
+    {
+      msg: "wrong_syntax_class_used",
+      msgParams: ["brush:js"]
+    },
+    {
+      msg: "wrong_syntax_class_used",
+      msgParams: ["eval"]
+    }
+  ];
+  var matches = [];
+  strs.forEach(str => {
+    matches = matches.concat(docTests["wrongSyntaxClass"].check(str));
+  })
+
+  assert.equal(matches.length, expected.length, "Number of wrong syntax box class errors must be " + expected.length);
+  matches.forEach((match, i) => {
+    assert.equal(match.msg, expected[i].msg, "Error message for wrong syntax box class errors must be correct");
+    assert.deepEqual(match.msgParams, expected[i].msgParams, "Error message params for wrong syntax box class errors must be correct");
+  });
+};
+
 exports["test doc lineLengthInPre"] = function(assert) {
   const str = '<pre>11111111111111111111111 11111111111111111111111 111111111111 111111111111111 1</pre>' +
               '<pre>11111111111111111111111 11111111111111111111111<br> 111111111111 111111111111111 1</pre>' +
