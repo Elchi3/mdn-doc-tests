@@ -65,9 +65,11 @@ function getParentByClassName(node, className) {
   return currentNode;
 }
 
-window.addEventListener("DOMContentLoaded", function() {
+window.addEventListener("DOMContentLoaded", function loadTestSuite() {
+  window.removeEventListener("DOMContentLoaded", loadTestSuite);
+
   var btn = document.getElementById("btn-runtests");
-  btn.addEventListener("click", function(event) {
+  btn.addEventListener("click", () => {
     addon.port.emit("runTests");
   });
 
