@@ -39,7 +39,7 @@ var docTests = {
           NodeFilter.SHOW_ELEMENT,
           {
             acceptNode: (node) => {
-              //alert(node.localName + ", " + node.textContent + ", " + node.localName.match(/^(?:link|track|param|area|command|col|base|meta|hr|source|img|keygen|br|wbr|input)$/i));
+              // matching self-closing elements and excluding them
               return !node.localName.match(/^(?:link|track|param|area|command|col|base|meta|hr|source|img|keygen|br|wbr|input)$/i) &&
                   node.textContent.match(/^(?:&nbsp;|\s|\n)*$/) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_CANCEL;
             }

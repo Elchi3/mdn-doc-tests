@@ -1,24 +1,14 @@
 var data = require("sdk/self").data;
 var tabs = require("sdk/tabs");
 
-const url = "https://developer.mozilla.org/en-US/";
+const url = "about:blank";
 
 function runTests(assert, done, name, desc, url, tests) {
   tabs.open({
     url: url,
     onReady: tab => {
       var worker = tabs.activeTab.attach({
-        contentScriptFile: [data.url("doctests.js")],
-        contentScript: "var testObj = docTests[self.options.name];" +
-                       "var rootElement = document.createElement('div');" +
-                       "var tests = JSON.parse(self.options.tests);" +
-                       "tests.forEach(test => {" +
-                       "  rootElement.innerHTML = test.str;" +
-                       "  var matches = testObj.check(rootElement);" +
-                       "  testObj.errors = matches;" +
-                       "  testObj.expected = test.expected;" +
-                       "  self.port.emit('testResult', testObj, self.options.name);" +
-                       "});",
+        contentScriptFile: ["./doctests.js", "./runtests-simple.js"],
         contentScriptOptions: {"name": name, "tests": JSON.stringify(tests)}
       });
 
@@ -27,18 +17,22 @@ function runTests(assert, done, name, desc, url, tests) {
       worker.port.on("testResult", function(testObj) {
         var matches = testObj.errors;
         var expected = testObj.expected;
-        
-        //console.log(matches);
-        assert.equal(matches.length, expected.length, "Number of " + desc + " matches must be " + expected.length);
+
+        assert.equal(matches.length, expected.length,
+                     "Number of " + desc + " matches must be " + expected.length);
+
         matches.forEach((match, i) => {
           var expectedIsObject = typeof expected[i] === "object";
           var expectedValue = expectedIsObject ? expected[i].msg : expected[i];
-          assert.equal(match.msg, expectedValue, "Error message for " + desc + " match must be correct");
+
+          assert.equal(match.msg, expectedValue,
+                       "Error message for " + desc + " match must be correct");
+
           if (expectedIsObject) {
-            assert.deepEqual(match.msgParams, expected[i].msgParams, "Error message params for " + desc + " match must be correct");
+            assert.deepEqual(match.msgParams, expected[i].msgParams,
+                             "Error message params for " + desc + " match must be correct");
           }
         });
-        
 
         resultCount++;
         if (resultCount === tests.length) {
@@ -84,7 +78,7 @@ exports["test doc emptyElements"] = function testEmptyElements(assert, done) {
       ]
     }
   ];
-  
+
   runTests(assert, done, "emptyElements", "empty elements", url, tests);
 };
 
@@ -97,7 +91,7 @@ exports["test doc languagesMacro"] = function testEmptyElements(assert, done) {
       ]
     }
   ];
-  
+
   runTests(assert, done, "languagesMacro", "{{languages}} macro", url, tests);
 };
 
@@ -114,7 +108,7 @@ exports["test doc emptyBrackets"] = function testEmptyBrackets(assert, done) {
       ]
     }
   ];
-  
+
   runTests(assert, done, "emptyBrackets", "empty brackets", url, tests);
 };
 
@@ -135,7 +129,7 @@ exports["test doc styleAttribute"] = function testStyleAttributes(assert, done) 
       ]
     }
   ];
-  
+
   runTests(assert, done, "styleAttribute", "'style' attribute", url, tests);
 };
 
@@ -156,7 +150,7 @@ exports["test doc nameAttribute"] = function testNameAttributes(assert, done) {
       ]
     }
   ];
-  
+
   runTests(assert, done, "nameAttribute", "'name' attribute", url, tests);
 };
 
@@ -175,7 +169,7 @@ exports["test doc spanCount"] = function testSpanElements(assert, done) {
       ]
     }
   ];
-  
+
   runTests(assert, done, "spanCount", "<span>", url, tests);
 };
 
@@ -196,7 +190,7 @@ exports["test doc preWithoutClass"] = function testPresWithoutClass(assert, done
       ]
     }
   ];
-  
+
   runTests(assert, done, "preWithoutClass", "<pre> w/o class", url, tests);
 };
 
@@ -215,7 +209,7 @@ exports["test doc summaryHeading"] = function testSummaryHeading(assert, done) {
       ]
     }
   ];
-  
+
   runTests(assert, done, "summaryHeading", "summary heading", url, tests);
 };
 
@@ -233,7 +227,7 @@ exports["test doc jsRefWithParams"] = function testJSRefWithParams(assert, done)
       ]
     }
   ];
-  
+
   runTests(assert, done, "jsRefWithParams", "{{JSRef}} with params", url, tests);
 };
 
@@ -252,7 +246,7 @@ exports["test doc exampleColonHeading"] = function testExampleColonHeading(asser
       ]
     }
   ];
-  
+
   runTests(assert, done, "exampleColonHeading", "'Example: ' heading", url, tests);
 };
 
@@ -272,7 +266,7 @@ exports["test doc alertPrintInCode"] = function testAlertPrintInCode(assert, don
       ]
     }
   ];
-  
+
   runTests(assert, done, "alertPrintInCode", "alert()/print()/eval()/document.write()", url, tests);
 };
 
@@ -301,7 +295,7 @@ exports["test doc fontElements"] = function testFontElements(assert, done) {
       expected: [
         '<font>Some text</font>',
         '<font face="Open Sans, sans-serif">Another text</font>'
-      ] 
+      ]
     }
   ];
 
@@ -320,7 +314,7 @@ exports["test doc httpLinks"] = function testHTTPLinks(assert, done) {
       ]
     }
   ];
-  
+
   runTests(assert, done, "httpLinks", "HTTP link", url, tests);
 };
 
@@ -411,7 +405,7 @@ exports["test doc macroSyntaxError"] = function testMacroSyntaxErrors(assert, do
       ]
     }
   ];
-  
+
   runTests(assert, done, "macroSyntaxError", "macro syntax error", url, tests);
 };
 
@@ -506,7 +500,7 @@ exports["test doc apiSyntaxHeadlines"] = function testSummaryHeading(assert, don
       ]
     }
   ];
-  
+
   runTests(assert, done, "apiSyntaxHeadlines", "API syntax headline", url, tests);
 };
 
@@ -527,7 +521,7 @@ exports["test doc codeInPre"] = function testSummaryHeading(assert, done) {
       ]
     }
   ];
-  
+
   runTests(assert, done, "codeInPre", "<code> in <pre>", url, tests);
 };
 
@@ -579,7 +573,7 @@ exports["test doc lineLengthInPre"] = function testSummaryHeading(assert, done) 
       ]
     }
   ];
-  
+
   runTests(assert, done, "lineLengthInPre", "too long line", url, tests);
 };
 
