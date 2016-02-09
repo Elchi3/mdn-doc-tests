@@ -1,0 +1,22 @@
+# Ignore the .jpmignore file itself
+.jpmignore
+
+# Ignore the Travis CI file and documentation
+.travis.yml
+doc
+README.rst
+
+# Ignore unit tests
+test/
+
+# Ignore development files and folders
+.git
+.project
+.settings
+*.bat
+
+# Ignore images in root directory
+/*.png
+
+# Ignore the XPI when it got created previously
+*.xpi
