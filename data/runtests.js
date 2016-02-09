@@ -1,20 +1,19 @@
 var iframe = document.querySelectorAll("iframe.cke_wysiwyg_frame")[0];
 var content = "";
+var rootElement = null;
 if (iframe) {
   iframe.contentDocument.body.setAttribute("spellcheck", "true");
-  content = iframe.contentDocument.body.innerHTML || "";
+  rootElement = iframe.contentDocument.body;
 }
 
 var runTest = function(testObj, id) {
-  // If there's no content (e.g. happens when in source view),
-  // don't run the test suite
-  if (content === "") {
-    return;
+  // Only run the test suite if there's a root element
+  //(e.g. when in source view there's no root element set)
+  if (rootElement) {
+    var contentTest = testObj.check(rootElement);
+    testObj.errors = contentTest;
+    self.port.emit("test", testObj, id);
   }
-
-  var contentTest = testObj.check(content);
-  testObj.errors = contentTest;
-  self.port.emit("test", testObj, id);
 };
 
 self.port.on("runTests", function() {
