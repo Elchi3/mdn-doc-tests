@@ -8,7 +8,7 @@ function runTests(assert, done, name, desc, url, tests) {
     url: url,
     onReady: tab => {
       var worker = tabs.activeTab.attach({
-        contentScriptFile: ["./doctests.js", "./runtests-simple.js"],
+        contentScriptFile: ["./doctests.js", "../test/runtests.js"],
         contentScriptOptions: {"name": name, "tests": JSON.stringify(tests)}
       });
 

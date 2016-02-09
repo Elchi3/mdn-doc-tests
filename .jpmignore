@@ -7,8 +7,7 @@ doc
 README.rst
 
 # Ignore unit tests
-/test
-/data/runtests-simple.js
+test/
 
 # Ignore development files and folders
 .git
