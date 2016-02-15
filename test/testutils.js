@@ -1,5 +1,7 @@
 // Utility functions that execute unit tests
 
+const testList = require("../data/tests/testlist").testList;
+
 exports.url = "about:blank";
 
 exports.runTests = function runTests(assert, done, name, desc, url, tests) {
@@ -8,7 +10,10 @@ exports.runTests = function runTests(assert, done, name, desc, url, tests) {
     url: url,
     onReady: tab => {
       var worker = tabs.activeTab.attach({
-        contentScriptFile: ["./doctests.js", "../test/testrunner.js"],
+        contentScriptFile: [
+          "./doctests.js",
+          ...testList.map(test => "./tests/" + test),
+          "../test/testrunner.js"],
         contentScriptOptions: {"name": name, "tests": JSON.stringify(tests)}
       });
 
