@@ -22,4 +22,5 @@ exports.testList = [
   "wrong-syntax-class.js",
   "code-in-pre.js",
   "line-length-in-pre.js",
+  "url-in-link-title.js"
 ];
