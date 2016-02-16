@@ -11,10 +11,12 @@ addon.port.on("test", function(test, id, autoExpandErrors) {
   var testElem = document.getElementById(id);
   if (tests.contains(testElem)) {
     testElem.getElementsByClassName("errorCount")[0].textContent = errorCount;
+    testElem.dataset.errorCount = errorCount;
     testElem.classList.remove("hasErrors", "hasWarnings", "ok");
     testElem.classList.add(status);
   } else {
     var testContainer = document.createElement("li");
+    testContainer.dataset.errorCount = errorCount;
     testContainer.setAttribute("class", "test " + status);
     testContainer.setAttribute("id", id);
     testContainer.setAttribute("title", test.desc);
@@ -55,6 +57,8 @@ addon.port.on("test", function(test, id, autoExpandErrors) {
     errorContainer.textContent = error.msg;
     errors.appendChild(errorContainer);
   });
+
+  updateErrorSummary();
 });
 
 function getParentByClassName(node, className) {
@@ -65,6 +69,42 @@ function getParentByClassName(node, className) {
   }
 
   return currentNode;
+}
+
+function updateErrorSummary() {
+  var totalErrorCount = 0;
+  var totalWarningCount = 0;
+  var errorCounters = document.getElementsByClassName("test");
+  for (var i = 0; i < errorCounters.length; i++) {
+    if (errorCounters[i].classList.contains("hasErrors")) {
+      totalErrorCount += Number(errorCounters[i].dataset.errorCount);
+    } else if (errorCounters[i].classList.contains("hasWarnings")) {
+      totalWarningCount += Number(errorCounters[i].dataset.errorCount);
+    }
+  }
+
+  // Show summary
+  document.getElementById("summary").style.display = "flex";
+
+  var totalErrorCounter = document.getElementById("totalErrorCount");
+  totalErrorCounter.textContent = totalErrorCount;
+  if (totalErrorCount === 0) {
+    totalErrorCounter.classList.remove("hasErrors");
+    totalErrorCounter.classList.add("ok");
+  } else {
+    totalErrorCounter.classList.remove("ok");
+    totalErrorCounter.classList.add("hasErrors");
+  }
+  
+  var totalWarningCounter = document.getElementById("totalWarningCount");
+  totalWarningCounter.textContent = totalWarningCount;
+  if (totalWarningCount === 0) {
+    totalWarningCounter.classList.remove("hasWarnings");
+    totalWarningCounter.classList.add("ok");
+  } else {
+    totalWarningCounter.classList.remove("ok");
+    totalWarningCounter.classList.add("hasWarnings");
+  }
 }
 
 window.addEventListener("DOMContentLoaded", function loadTestSuite() {

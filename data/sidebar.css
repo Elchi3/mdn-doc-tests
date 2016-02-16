@@ -9,6 +9,27 @@ h2 {
   font-size: 1em;
 }
 
+#summary {
+  display: none;
+}
+
+#summary > p {
+  margin-block-start: 10px;
+  margin-block-end: 10px;
+}
+
+#summary > p:not(:first-child) {
+  margin-inline-start: 20px;
+}
+
+#summary .errorCount {
+  display: inline-block;
+  width: 3em;
+  text-align: center;
+  color: #FFF;
+  padding-inline-end: 0;
+}
+
 li {
   list-style-type: none;
 }
