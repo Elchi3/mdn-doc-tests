@@ -6,7 +6,9 @@ docTests.urlInLinkTitle = {
     var matches = [];
 
     for (var i = 0; i < linkElements.length; i++) {
-      if (linkElements[i].getAttribute("href").indexOf(linkElements[i].getAttribute("title")) !== -1) {
+      var href  = linkElements[i].getAttribute("href");
+      var title = linkElements[i].getAttribute("title");
+      if (href.indexOf(title) !== -1 || (title && title.match(/[a-z]{2}(?:-[A-Z]{2})?\/docs\/.*?\//))) {
         matches.push({
           msg: linkElements[i].outerHTML
         });
