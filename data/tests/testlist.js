@@ -2,6 +2,7 @@
 
 exports.testList = [
   "old-urls.js",
+  "absolute-urls-for-internal-links.js",
   "empty-elements.js",
   "languages-macro.js",
   "empty-brackets.js",
