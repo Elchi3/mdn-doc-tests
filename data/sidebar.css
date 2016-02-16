@@ -103,6 +103,10 @@ li {
   border-bottom: 2px solid #DBB40F;
 }
 
+.errors > li:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
 .show {
   display: inherit;
 }
