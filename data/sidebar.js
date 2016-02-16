@@ -18,6 +18,7 @@ addon.port.on("test", function(test, id, autoExpandErrors) {
     testContainer.setAttribute("id", id);
     testContainer.setAttribute("title", test.desc);
     var testHeadingContainer = document.createElement("div");
+    testHeadingContainer.setAttribute("class", "testHeading");
     var testHeading = document.createElement("span");
     testHeading.setAttribute("class", "testName");
     testHeading.textContent = test.name;
@@ -79,9 +80,12 @@ window.addEventListener("DOMContentLoaded", function loadTestSuite() {
 
   var tests = document.getElementById("tests");
   tests.addEventListener("click", (evt) => {
-    var testElem = getParentByClassName(evt.originalTarget, "test");
-    if (testElem.classList.contains("hasErrors") || testElem.classList.contains("hasWarnings")) {
-      testElem.getElementsByClassName("errors")[0].classList.toggle("show");
+    var testHeading = getParentByClassName(evt.originalTarget, "testHeading");
+    if (testHeading) {
+      var testElem = getParentByClassName(testHeading, "test");
+      if (testElem.classList.contains("hasErrors") || testElem.classList.contains("hasWarnings")) {
+        testElem.getElementsByClassName("errors")[0].classList.toggle("show");
+      }
     }
   });
 });
