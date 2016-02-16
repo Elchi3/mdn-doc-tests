@@ -7,6 +7,7 @@ addon.port.on("test", function(test, id, autoExpandErrors) {
   if (errorCount > 0) {
     status = test.type === WARNING ? "hasWarnings" : "hasErrors";
   }
+  document.getElementById("resultsHeading").style.display = "block";
   var testElem = document.getElementById(id);
   if (tests.contains(testElem)) {
     testElem.getElementsByClassName("errorCount")[0].textContent = errorCount;
