@@ -1,5 +1,8 @@
 const WARNING = 2;
 
+var totalErrorCount = 0;
+var totalWarningCount = 0;
+
 addon.port.on("test", function(test, id, autoExpandErrors) {
   var tests = document.getElementById("tests");
   var errorCount = test.errors.length;
@@ -11,12 +14,10 @@ addon.port.on("test", function(test, id, autoExpandErrors) {
   var testElem = document.getElementById(id);
   if (tests.contains(testElem)) {
     testElem.getElementsByClassName("errorCount")[0].textContent = errorCount;
-    testElem.dataset.errorCount = errorCount;
     testElem.classList.remove("hasErrors", "hasWarnings", "ok");
     testElem.classList.add(status);
   } else {
     var testContainer = document.createElement("li");
-    testContainer.dataset.errorCount = errorCount;
     testContainer.setAttribute("class", "test " + status);
     testContainer.setAttribute("id", id);
     testContainer.setAttribute("title", test.desc);
@@ -58,6 +59,13 @@ addon.port.on("test", function(test, id, autoExpandErrors) {
     errors.appendChild(errorContainer);
   });
 
+  if (errorCount !== 0) {
+    if (test.type === WARNING) {
+      totalWarningCount += errorCount;
+    } else {
+      totalErrorCount += errorCount;
+    }
+  }
   updateErrorSummary();
 });
 
@@ -72,17 +80,6 @@ function getParentByClassName(node, className) {
 }
 
 function updateErrorSummary() {
-  var totalErrorCount = 0;
-  var totalWarningCount = 0;
-  var errorCounters = document.getElementsByClassName("test");
-  for (var i = 0; i < errorCounters.length; i++) {
-    if (errorCounters[i].classList.contains("hasErrors")) {
-      totalErrorCount += Number(errorCounters[i].dataset.errorCount);
-    } else if (errorCounters[i].classList.contains("hasWarnings")) {
-      totalWarningCount += Number(errorCounters[i].dataset.errorCount);
-    }
-  }
-
   // Show summary
   document.getElementById("summary").style.display = "flex";
 
@@ -107,17 +104,19 @@ function updateErrorSummary() {
   }
 }
 
+function runTests() {
+  totalErrorCount = 0;
+  totalWarningCount = 0;
+  addon.port.emit("runTests");
+}
+
 window.addEventListener("DOMContentLoaded", function loadTestSuite() {
   window.removeEventListener("DOMContentLoaded", loadTestSuite);
 
   var btn = document.getElementById("btn-runtests");
-  btn.addEventListener("click", () => {
-    addon.port.emit("runTests");
-  });
+  btn.addEventListener("click", runTests);
 
-  setInterval(function() {
-    addon.port.emit("runTests");
-  }, 10000);
+  setInterval(runTests, 10000);
 
   var tests = document.getElementById("tests");
   tests.addEventListener("click", (evt) => {
