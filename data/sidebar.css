@@ -64,8 +64,22 @@ li {
 
 .errors {
   display: none;
+  padding-inline-start: 0;
+}
+
+.errors > li {
   padding-inline-start: 1.5em;
+  padding-block-start: 0.3em;
+  padding-block-end: 0.3em;
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.hasErrors > .errors > li:not(:last-child) {
+  border-bottom: 1px solid #CB000F;
+}
+
+.hasWarnings > .errors > li:not(:last-child) {
+  border-bottom: 1px solid #DBB40F;
 }
 
 .show {
