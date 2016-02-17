@@ -75,11 +75,11 @@ li {
 }
 
 .hasErrors > .errors > li:not(:last-child) {
-  border-bottom: 1px solid #CB000F;
+  border-bottom: 2px solid #CB000F;
 }
 
 .hasWarnings > .errors > li:not(:last-child) {
-  border-bottom: 1px solid #DBB40F;
+  border-bottom: 2px solid #DBB40F;
 }
 
 .show {
