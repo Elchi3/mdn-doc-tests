@@ -1,5 +1,8 @@
 const WARNING = 2;
 
+var totalErrorCount = 0;
+var totalWarningCount = 0;
+
 addon.port.on("test", function(test, id, autoExpandErrors) {
   var tests = document.getElementById("tests");
   var errorCount = test.errors.length;
@@ -55,6 +58,15 @@ addon.port.on("test", function(test, id, autoExpandErrors) {
     errorContainer.textContent = error.msg;
     errors.appendChild(errorContainer);
   });
+
+  if (errorCount !== 0) {
+    if (test.type === WARNING) {
+      totalWarningCount += errorCount;
+    } else {
+      totalErrorCount += errorCount;
+    }
+  }
+  updateErrorSummary();
 });
 
 function getParentByClassName(node, className) {
@@ -67,17 +79,44 @@ function getParentByClassName(node, className) {
   return currentNode;
 }
 
+function updateErrorSummary() {
+  // Show summary
+  document.getElementById("summary").style.display = "flex";
+
+  var totalErrorCounter = document.getElementById("totalErrorCount");
+  totalErrorCounter.textContent = totalErrorCount;
+  if (totalErrorCount === 0) {
+    totalErrorCounter.classList.remove("hasErrors");
+    totalErrorCounter.classList.add("ok");
+  } else {
+    totalErrorCounter.classList.remove("ok");
+    totalErrorCounter.classList.add("hasErrors");
+  }
+  
+  var totalWarningCounter = document.getElementById("totalWarningCount");
+  totalWarningCounter.textContent = totalWarningCount;
+  if (totalWarningCount === 0) {
+    totalWarningCounter.classList.remove("hasWarnings");
+    totalWarningCounter.classList.add("ok");
+  } else {
+    totalWarningCounter.classList.remove("ok");
+    totalWarningCounter.classList.add("hasWarnings");
+  }
+}
+
+function runTests() {
+  totalErrorCount = 0;
+  totalWarningCount = 0;
+  addon.port.emit("runTests");
+}
+
 window.addEventListener("DOMContentLoaded", function loadTestSuite() {
   window.removeEventListener("DOMContentLoaded", loadTestSuite);
 
   var btn = document.getElementById("btn-runtests");
-  btn.addEventListener("click", () => {
-    addon.port.emit("runTests");
-  });
+  btn.addEventListener("click", runTests);
 
-  setInterval(function() {
-    addon.port.emit("runTests");
-  }, 10000);
+  setInterval(runTests, 10000);
 
   var tests = document.getElementById("tests");
   tests.addEventListener("click", (evt) => {
