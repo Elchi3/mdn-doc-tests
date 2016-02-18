@@ -5,6 +5,7 @@ exports["test doc absoluteURLsForInternalLinks"] = function testAbsoluteURLsForI
     {
       str: '<a href="/en-US/docs/some/page">Page</a>' +
            '<a href="#anchor">Anchor</a>' +
+           '<a name="anchor">Anchor</a>' +
            '<a href="https://developer.mozilla.org/en-US/docs/some/page">Anchor</a>' +
            '<a href="http://developer.mozilla.org/en-US/docs/some/page">Anchor</a>' +
            '<a href="//developer.mozilla.org/en-US/docs/some/page">Anchor</a>',
