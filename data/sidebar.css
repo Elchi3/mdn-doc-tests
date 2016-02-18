@@ -34,10 +34,6 @@ li {
   list-style-type: none;
 }
 
-#resultsHeading {
-  display: none;
-}
-
 #tests {
   width: 100%;
   margin-block-start: 0;
