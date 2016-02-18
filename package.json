@@ -26,6 +26,7 @@
     }
   ],
   "permissions": {
-    "private-browsing": true
+    "private-browsing": true,
+    "cross-domain-content": ["https://developer.mozilla.org"]
   }
 }
