@@ -14,6 +14,7 @@ exports.testList = [
   "jsref-with-params.js",
   "example-colon-heading.js",
   "alert-print-in-code.js",
+  "shell-prompts.js",
   "html-comments.js",
   "font-elements.js",
   "http-links.js",
