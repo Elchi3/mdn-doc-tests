@@ -18,6 +18,7 @@ exports.testList = [
   "html-comments.js",
   "font-elements.js",
   "http-links.js",
+  "invalid-macros.js",
   "macro-syntax-error.js",
   "wrong-highlighted-line.js",
   "api-syntax-headlines.js",
