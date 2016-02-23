@@ -3,13 +3,16 @@ const WARNING = 2;
 var totalErrorCount = 0;
 var totalWarningCount = 0;
 
-addon.port.on("test", function(test, id, autoExpandErrors) {
+addon.port.on("test", function(test, id, prefs) {
   var tests = document.getElementById("tests");
   var errorCount = test.errors.length;
   var status = "ok";
   if (errorCount > 0) {
     status = test.type === WARNING ? "hasWarnings" : "hasErrors";
   }
+
+  tests.classList.toggle("hidePassingTests", prefs.hidePassingTests);
+
   var testElem = document.getElementById(id);
   if (tests.contains(testElem)) {
     testElem.getElementsByClassName("errorCount")[0].textContent = errorCount;
@@ -40,7 +43,7 @@ addon.port.on("test", function(test, id, autoExpandErrors) {
 
     testElem = document.getElementById(id);
 
-    if (autoExpandErrors && status !== "ok") {
+    if (prefs.autoExpandErrors && status !== "ok") {
       testElem.getElementsByClassName("errors")[0].classList.add("show");
     }
   }

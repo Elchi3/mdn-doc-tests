@@ -41,6 +41,10 @@ li {
   padding-inline-start: 0;
 }
 
+.hidePassingTests .ok {
+  display: none;
+}
+
 .test {
   width: 100%;
   color: #FFF;
