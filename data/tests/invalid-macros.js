@@ -3,6 +3,7 @@ docTests.invalidMacros = {
   desc: "invalid_macros_desc",
   check: function checkInvalidMacros(rootElement) {
     const allowedMacros = [
+      "addonsidebar",
       "apiref",
       "availableinworkers",
       "bug",
@@ -85,7 +86,12 @@ docTests.invalidMacros = {
       "svginfo",
       "svgref",
       "tb_minversion_inline",
-      "webextensionsidebar",
+      "webextapiembedtype",
+      "webextapiref",
+      "webextapisidebar",
+      "webextchromecompat",
+      "webextexamplesdata",
+      "webextexamples",
       "xref",
       "xulattr",
       "xulelem"
