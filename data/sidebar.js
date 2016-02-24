@@ -115,6 +115,10 @@ function runTests() {
 window.addEventListener("DOMContentLoaded", function loadTestSuite() {
   window.removeEventListener("DOMContentLoaded", loadTestSuite);
 
+  document.addEventListener("contextmenu", function blockContextMenu(evt) {
+    evt.preventDefault();
+  });
+
   var btn = document.getElementById("btn-runtests");
   btn.addEventListener("click", runTests);
 
