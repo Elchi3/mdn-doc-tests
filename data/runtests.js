@@ -13,7 +13,7 @@ if (iframe) {
 // Use ?raw page source when reading
 } else if (mode.indexOf("reading") !== -1) {
   var xhr = new XMLHttpRequest();
-  var url = tabURL.split('#')[0] + "?raw";
+  var url = tabURL.split('#')[0].split('?')[0] + "?raw";
   xhr.open("GET", url , true);
   xhr.addEventListener("load", function(event) {
     var domParser = new DOMParser();
