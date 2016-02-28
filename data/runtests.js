@@ -1,17 +1,19 @@
 var rootElement = null;
-var mode = self.options.mode;
 var tabURL = self.options.tabURL;
 var errorCount;
 
 // Use CKEditor source when editing
-if (mode === "editing") {
+self.port.on("editing", function() {
   var iframe = document.querySelectorAll("iframe.cke_wysiwyg_frame")[0];
-if (iframe) {
-  iframe.contentDocument.body.setAttribute("spellcheck", "true");
-  rootElement = iframe.contentDocument.body;
-}
+  if (iframe) {
+    iframe.contentDocument.body.setAttribute("spellcheck", "true");
+    rootElement = iframe.contentDocument.body;
+  }
+  disableSaveIfNoComment();
+});
+
 // Use ?raw page source when reading
-} else if (mode.indexOf("reading") !== -1) {
+self.port.on("reading", function() {
   var xhr = new XMLHttpRequest();
   var url = tabURL.split('#')[0].split('?')[0] + "?raw";
   xhr.open("GET", url , true);
@@ -19,16 +21,13 @@ if (iframe) {
     var domParser = new DOMParser();
     var doc = domParser.parseFromString(xhr.responseText, "text/html");
     rootElement = doc.body;
-    // Don't run the test twice when using the sidebar "runTest" button
-    if (mode !== "reading-with-sidebar") {
-      errorCount = 0;
-      for (var prop in docTests) {
-        runTest(docTests[prop], prop);
-      }
+    errorCount = 0;
+    for (var prop in docTests) {
+      runTest(docTests[prop], prop);
     }
   }, false);
   xhr.send();
-}
+});
 
 let runTest = function(testObj, id) {
   // Only run the test suite if there's a root element
@@ -36,19 +35,21 @@ let runTest = function(testObj, id) {
   if (rootElement) {
     let contentTest = testObj.check(rootElement);
     testObj.errors = contentTest;
-    self.port.emit("processTestResult", testObj, id);
+    errorCount += testObj.errors.length;
     self.port.emit("badgeUpdate", errorCount);
+    self.port.emit("processTestResult", testObj, id);
   }
 };
 
 self.port.on("runTests", function() {
+  errorCount = 0;
   for (let prop in docTests) {
     runTest(docTests[prop], prop);
   }
 });
 
 // Disable save buttons if no revision comment has been entered
-if (mode === "editing") {
+function disableSaveIfNoComment() {
   let btns = document.querySelectorAll(".btn-save, .btn-save-and-edit");
   let comment = document.querySelector("#page-comment #id_comment");
 
