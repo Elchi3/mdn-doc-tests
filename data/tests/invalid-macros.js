@@ -37,6 +37,7 @@ docTests.invalidMacros = {
       "domxref",
       "draft",
       "embedlivesample",
+      "embedyoutube",
       "event",
       "experimental_inline",
       "fx_minversion_inline",
@@ -92,6 +93,7 @@ docTests.invalidMacros = {
       "webextchromecompat",
       "webextexamplesdata",
       "webextexamples",
+      "webrtcsidebar",
       "xref",
       "xulattr",
       "xulelem"
