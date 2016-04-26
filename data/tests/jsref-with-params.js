@@ -17,13 +17,13 @@ docTests.jsRefWithParams = {
       var textNodeMatches = treeWalker.currentNode.textContent.match(/\{\{s*JSRef\(.*?\}\}/gi) || [];
       textNodeMatches.forEach(match => {
         matches.push({
-          msg: match
+          msg: match,
+          type: ERROR
         });
       });
     }
 
     return matches;
   },
-  type: ERROR,
   errors: []
 };

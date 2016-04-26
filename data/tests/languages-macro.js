@@ -17,13 +17,13 @@ docTests.languagesMacro = {
       var textNodeMatches = treeWalker.currentNode.textContent.match(/\{\{\s*languages.*?\}\}/gi);
       textNodeMatches.forEach(match => {
         matches.push({
-          msg: match
+          msg: match,
+          type: ERROR
         });
       });
     }
 
     return matches;
   },
-  type: ERROR,
   errors: []
 };

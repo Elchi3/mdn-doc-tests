@@ -44,25 +44,29 @@ docTests.macroSyntaxError = {
         if (macro.match(/[^\}]\}$/)) {
           matches.push({
             msg: "missing_closing_curly_brace",
-            msgParams: [macro]
+            msgParams: [macro],
+            type: ERROR
           });
         }
         if (macro.match(/^\{\{[^\(]+\(.+?[^\)\s]\s*\}\}$/)) {
           matches.push({
             msg: "missing_closing_bracket",
-            msgParams: [macro]
+            msgParams: [macro],
+            type: ERROR
           });
         }
         if (!validateStringParams(macro)) {
           matches.push({
             msg: "string_parameter_incorrectly_quoted",
-            msgParams: [macro]
+            msgParams: [macro],
+            type: ERROR
           });
         }
         if (macro.match(/\){2,}\}{1,2}$/)) {
           matches.push({
             msg: "additional_closing_bracket",
-            msgParams: [macro]
+            msgParams: [macro],
+            type: ERROR
           });
         }
       });
@@ -70,6 +74,5 @@ docTests.macroSyntaxError = {
 
     return matches;
   },
-  type: ERROR,
   errors: []
 };

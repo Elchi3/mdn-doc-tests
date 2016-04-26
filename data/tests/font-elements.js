@@ -7,12 +7,12 @@ docTests.fontElements = {
 
     for (var i = 0; i < fontElements.length; i++) {
       matches.push({
-        msg: fontElements[i].outerHTML
+        msg: fontElements[i].outerHTML,
+        type: ERROR
       })
     }
 
     return matches;
   },
-  type: ERROR,
   errors: []
 };

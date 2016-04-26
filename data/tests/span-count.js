@@ -20,12 +20,12 @@ docTests.spanCount = {
       }
 
       matches.push({
-        msg: node.outerHTML
+        msg: node.outerHTML,
+        type: ERROR
       })
     }
 
     return matches;
   },
-  type: ERROR,
   errors: []
 };

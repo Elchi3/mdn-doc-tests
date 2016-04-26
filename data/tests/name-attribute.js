@@ -7,12 +7,12 @@ docTests.nameAttribute = {
 
     for (var i = 0; i < elementsWithStyleAttribute.length; i++) {
       matches.push({
-        msg: 'name="' + elementsWithStyleAttribute[i].getAttribute("name") + '"'
+        msg: 'name="' + elementsWithStyleAttribute[i].getAttribute("name") + '"',
+        type: ERROR
       })
     }
 
     return matches;
   },
-  type: ERROR,
   errors: []
 };

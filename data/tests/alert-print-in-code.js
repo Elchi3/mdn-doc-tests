@@ -6,11 +6,10 @@ docTests.alertPrintInCode = {
     var matches = [];
     for (var i = 0; i < pres.length; i++) {
       var preMatches = pres[i].textContent.match(/(?:alert|print|eval|document\.write)\s*\((?:.|\n)+?\)/gi) || [];
-      matches = matches.concat(mapMatches(preMatches));
+      matches = matches.concat(mapMatches(preMatches, ERROR));
     }
 
     return matches;
   },
-  type: ERROR,
   errors: []
 };

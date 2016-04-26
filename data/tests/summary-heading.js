@@ -8,13 +8,13 @@ docTests.summaryHeading = {
     for (var i = 0; i < headlines.length; i++) {
       if (headlines[i].textContent.match(/^\s*Summary\s*$/)) {
         matches.push({
-          msg: headlines[i].outerHTML
+          msg: headlines[i].outerHTML,
+          type: ERROR
         })
       }
     }
 
     return matches;
   },
-  type: ERROR,
   errors: []
 };

@@ -28,32 +28,37 @@ docTests.wrongHighlightedLine = {
           if (start <= 0) {
             matches.push({
               msg: "highlighted_line_number_not_positive",
-              msgParams: [String(start), match[1]]
+              msgParams: [String(start), match[1]],
+              type: ERROR
             });
           }
           if (start > lineCount) {
             matches.push({
               msg: "highlighted_line_number_too_big",
-              msgParams: [String(start), String(lineCount), match[1]]
+              msgParams: [String(start), String(lineCount), match[1]],
+              type: ERROR
             });
           }
           if (!Number.isNaN(end)) {
             if (end > lineCount) {
               matches.push({
                 msg: "highlighted_line_number_too_big",
-                msgParams: [String(end), String(lineCount), match[1]]
+                msgParams: [String(end), String(lineCount), match[1]],
+                type: ERROR
               });
             }
             if (end <= 0) {
               matches.push({
                 msg: "highlighted_line_number_not_positive",
-                msgParams: [String(end), match[1]]
+                msgParams: [String(end), match[1]],
+                type: ERROR
               });
             }
             if (start > end) {
               matches.push({
                 msg: "invalid_highlighted_range",
-                msgParams: [String(start), String(end), match[1]]
+                msgParams: [String(start), String(end), match[1]],
+                type: ERROR
               });
             }
           }
@@ -63,6 +68,5 @@ docTests.wrongHighlightedLine = {
 
     return matches;
   },
-  type: ERROR,
   count: 0
 };

@@ -7,12 +7,12 @@ docTests.preWithoutClass = {
 
     for (var i = 0; i < presWithoutClass.length; i++) {
       matches.push({
-        msg: presWithoutClass[i].outerHTML
+        msg: presWithoutClass[i].outerHTML,
+        type: ERROR
       })
     }
 
     return matches;
   },
-  type: ERROR,
   errors: []
 };

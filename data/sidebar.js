@@ -1,3 +1,4 @@
+const ERROR = 1;
 const WARNING = 2;
 
 var totalErrorCount = 0;
@@ -7,8 +8,12 @@ addon.port.on("test", function(test, id, prefs) {
   var tests = document.getElementById("tests");
   var errorCount = test.errors.length;
   var status = "ok";
-  if (errorCount > 0) {
-    status = test.type === WARNING ? "hasWarnings" : "hasErrors";
+  if (errorCount !== 0) {
+    if (test.errors.some(match => match.type === ERROR)) {
+      status = "hasErrors";
+    } else if (test.errors.some(match => match.type === WARNING)) {
+      status = "hasWarnings";
+    }
   }
 
   tests.classList.toggle("hidePassingTests", prefs.hidePassingTests);
@@ -57,16 +62,14 @@ addon.port.on("test", function(test, id, prefs) {
   }
   test.errors.forEach(function(error) {
     var errorContainer = document.createElement("li");
+    errorContainer.setAttribute("class", error.type === WARNING ? "warning" : "error");
     errorContainer.textContent = error.msg;
     errors.appendChild(errorContainer);
   });
 
   if (errorCount !== 0) {
-    if (test.type === WARNING) {
-      totalWarningCount += errorCount;
-    } else {
-      totalErrorCount += errorCount;
-    }
+    totalWarningCount += test.errors.filter(match => match.type === WARNING).length;
+    totalErrorCount += test.errors.filter(match => match.type === ERROR).length;
   }
   updateErrorSummary();
 });

@@ -7,12 +7,12 @@ docTests.httpLinks = {
 
     for (var i = 0; i < httpLinks.length; i++) {
       matches.push({
-        msg: httpLinks[i].outerHTML
+        msg: httpLinks[i].outerHTML,
+        type: WARNING
       })
     }
 
     return matches;
   },
-  type: WARNING,
   errors: []
 };

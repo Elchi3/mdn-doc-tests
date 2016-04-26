@@ -10,13 +10,13 @@ docTests.oldURLs = {
       // i.e. a[href^='/en/' i] (see bug 888190, fixed in Firefox 47.0)
       if (links[i].getAttribute("href").match(/^\/en\//i)) {
         matches.push({
-          msg: links[i].outerHTML
+          msg: links[i].outerHTML,
+          type: ERROR
         });
       }
     }
 
     return matches;
   },
-  type: ERROR,
   errors: []
 };

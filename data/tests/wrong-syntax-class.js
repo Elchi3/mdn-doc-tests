@@ -8,7 +8,8 @@ docTests.wrongSyntaxClass = {
         if (element.localName === "pre" && element.className !== "syntaxbox") {
           return {
             msg: "wrong_syntax_class_used",
-            msgParams: [element.className]
+            msgParams: [element.className],
+            type: ERROR
           };
           break;
         }
@@ -50,6 +51,5 @@ docTests.wrongSyntaxClass = {
 
     return matches;
   },
-  type: ERROR,
   count: 0
 };

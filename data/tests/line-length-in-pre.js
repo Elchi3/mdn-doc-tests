@@ -19,8 +19,7 @@ docTests.lineLengthInPre = {
       }
     }
 
-    return mapMatches(matches);
+    return mapMatches(matches, WARNING);
   },
-  type: WARNING,
   count: 0
 };

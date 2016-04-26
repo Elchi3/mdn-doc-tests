@@ -11,7 +11,8 @@ docTests.shellPrompts = {
       if (shellPrompts) {
         shellPrompts.forEach(function addMatch(shellPrompt) {
           matches.push({
-            msg: shellPrompt.replace(/<.+?>/g, "")
+            msg: shellPrompt.replace(/<.+?>/g, ""),
+            type: ERROR
           });
         });
       }
@@ -19,6 +20,5 @@ docTests.shellPrompts = {
 
     return matches;
   },
-  type: ERROR,
   count: 0
 };
