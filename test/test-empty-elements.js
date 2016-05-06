@@ -7,7 +7,9 @@ exports["test doc emptyElements"] = function testEmptyElements(assert, done) {
            '<p> \n\r </p>' +
            '<p> &nbsp;</p>' +
            '<p><br><br/></p>' +
+           '<p><wbr><wbr/></p>' +
            '<img src="http://example.com/image.png">' +
+           '<p><img src="http://example.com/image.png"></p>' +
            '<input value="test"/>' +
            '<p><span>some text</span></p>' +
            '<p>some text</p>' +
@@ -16,7 +18,8 @@ exports["test doc emptyElements"] = function testEmptyElements(assert, done) {
         '<p> </p>',
         '<p> \n\n </p>',
         '<p> &nbsp;</p>',
-        '<p><br><br></p>'
+        '<p><br><br></p>',
+        '<p><wbr><wbr></p>'
       ]
     }
   ];
