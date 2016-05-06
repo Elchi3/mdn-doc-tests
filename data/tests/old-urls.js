@@ -6,7 +6,8 @@ docTests.oldURLs = {
     var matches = [];
 
     for (var i = 0; i < links.length; i++) {
-      // This check can be removed once querySelectorAll supports case-insensitive search, i.e. a[href^='/en/' i]
+      // This check can be removed once querySelectorAll supports case-insensitive search,
+      // i.e. a[href^='/en/' i] (see bug 888190, fixed in Firefox 47.0)
       if (links[i].getAttribute("href").match(/^\/en\//i)) {
         matches.push({
           msg: links[i].outerHTML
