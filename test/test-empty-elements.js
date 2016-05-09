@@ -10,7 +10,8 @@ exports["test doc emptyElements"] = function testEmptyElements(assert, done) {
            '<img src="http://example.com/image.png">' +
            '<input value="test"/>' +
            '<p><span>some text</span></p>' +
-           '<p>some text</p>',
+           '<p>some text</p>' +
+           '<span><span style="display:block;z-index:9999;">&nbsp;</span></span>', // Simulates new paragraph helper
       expected: [
         '<p> </p>',
         '<p> \n\n </p>',
