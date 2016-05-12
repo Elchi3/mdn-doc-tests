@@ -47,7 +47,7 @@ docTests.macroSyntaxError = {
             msgParams: [macro]
           });
         }
-        if (macro.match(/^\{\{[^\(]+\((?:(["']).*\1|[^\)]*)*\s*\}\}$/)) {
+        if (macro.match(/^\{\{[^\(]+\([^\)]*\}\}$/)) {
           matches.push({
             msg: "missing_closing_bracket",
             msgParams: [macro]
