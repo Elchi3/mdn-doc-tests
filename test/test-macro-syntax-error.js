@@ -22,7 +22,8 @@ exports["test doc macroSyntaxError"] = function testMacroSyntaxErrors(assert, do
            '{{macro("param"}}' + // Missing closing parameter list bracket after double quoted parameter
            '{{macro(\'param\'}}' + // Missing closing parameter list bracket after single quoted parameter
            '{{macro(param"}}' + // Missing opening double quote and missing closing parameter list bracket
-           '{{macro(param"))}}', // Missing opening double quote and double closing parameter list bracket
+           '{{macro(param"))}}' + // Missing opening double quote and double closing parameter list bracket
+           '{{macro(123, "param()"}}', // Missing closing parameter list bracket after string parameter containing bracket
       expected: [
         {
           msg: "string_parameter_incorrectly_quoted",
@@ -83,6 +84,10 @@ exports["test doc macroSyntaxError"] = function testMacroSyntaxErrors(assert, do
         {
           msg: "additional_closing_bracket",
           msgParams: ['{{macro(param"))}}']
+        },
+        {
+          msg: "missing_closing_bracket",
+          msgParams: ['{{macro(123, "param()"}}']
         }
       ]
     }
