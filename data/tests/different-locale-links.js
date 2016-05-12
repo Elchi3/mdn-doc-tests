@@ -9,7 +9,8 @@ docTests.differentLocaleLinks = {
     for (var i = 0; i < links.length; i++) {
       var href = links[i].getAttribute("href");
       if (href) {
-        var [, linkDomain, linkLocale] = href.match(/^(?:https?:\/\/(.+?))?\/([^\/]+)/i);
+        var [, linkDomain, linkLocale] = href.match(/^(?:https?:\/\/(.+?))?\/([^\/]+)/i) ||
+            [null, null, null];
         if ((!linkDomain || linkDomain === pageDomain) && linkLocale !== pageLocale)
         matches.push({
           msg: "link_using_wrong_locale",
