@@ -8,19 +8,24 @@ docTests.emptyElements = {
         {
           acceptNode: (node) => {
             // matching self-closing elements and excluding them
-            if (node.localName.match(/^(?:link|track|param|area|command|col|base|meta|hr|source|img|keygen|br|wbr|input)$/i)) {
+            if(!node.localName.match(/^link|track|param|area|command|col|base|meta|hr|source|img|keygen|br|wbr|input$/i) &&
+                node.textContent.match(/^(?:&nbsp;|\s|\n)*$/)) {
+
+              // Exclude new paragraph helper
+              if (node.localName === "span" && node.firstElementChild) {
+                var style = node.firstElementChild.getAttribute("style");
+                if (style && /z-index:\s*9999;/.test(style)) {
+                  return NodeFilter.FILTER_REJECT;
+                }
+              }
+
+              // Elements containing self-closing elements except <br> and <wbr> are considered non-empty
+              var descendantSelfClosingElements = node.querySelectorAll(
+                  "link,track,param,area,command,col,base,meta,hr,source,img,keygen,input");
+              return descendantSelfClosingElements.length === 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+            } else {
               return NodeFilter.FILTER_REJECT;
             }
-
-            // Exclude new paragraph helper
-            if (node.localName === "span" && node.firstElementChild) {
-              var style = node.firstElementChild.getAttribute("style");
-              if (style && /z-index:\s*9999;/.test(style)) {
-                return NodeFilter.FILTER_REJECT;
-              }
-            }
-
-            return node.textContent.match(/^(?:&nbsp;|\s|\n)*$/) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
           }
         }
     );
