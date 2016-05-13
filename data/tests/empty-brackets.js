@@ -24,6 +24,5 @@ docTests.emptyBrackets = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

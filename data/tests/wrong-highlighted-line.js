@@ -67,6 +67,5 @@ docTests.wrongHighlightedLine = {
     }
 
     return matches;
-  },
-  count: 0
+  }
 };

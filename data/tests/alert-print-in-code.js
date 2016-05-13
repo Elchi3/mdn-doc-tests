@@ -10,6 +10,5 @@ docTests.alertPrintInCode = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

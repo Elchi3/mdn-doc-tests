@@ -125,6 +125,5 @@ docTests.invalidMacros = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

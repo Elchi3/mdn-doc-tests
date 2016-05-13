@@ -24,6 +24,5 @@ docTests.languagesMacro = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

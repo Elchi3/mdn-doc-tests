@@ -13,6 +13,5 @@ docTests.nameAttribute = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

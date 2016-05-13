@@ -50,6 +50,5 @@ docTests.wrongSyntaxClass = {
     }
 
     return matches;
-  },
-  count: 0
+  }
 };

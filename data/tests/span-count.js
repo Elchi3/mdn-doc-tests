@@ -26,6 +26,5 @@ docTests.spanCount = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

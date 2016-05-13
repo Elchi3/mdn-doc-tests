@@ -15,6 +15,5 @@ docTests.absoluteURLsForInternalLinks = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

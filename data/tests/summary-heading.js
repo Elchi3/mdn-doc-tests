@@ -15,6 +15,5 @@ docTests.summaryHeading = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

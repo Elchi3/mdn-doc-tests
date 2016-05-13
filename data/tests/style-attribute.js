@@ -28,6 +28,5 @@ docTests.styleAttribute = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

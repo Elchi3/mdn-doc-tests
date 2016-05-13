@@ -19,6 +19,5 @@ docTests.shellPrompts = {
     }
 
     return matches;
-  },
-  count: 0
+  }
 };

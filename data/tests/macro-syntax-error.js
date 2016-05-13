@@ -73,6 +73,5 @@ docTests.macroSyntaxError = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

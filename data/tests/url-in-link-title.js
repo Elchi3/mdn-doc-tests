@@ -19,6 +19,5 @@ docTests.urlInLinkTitle = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

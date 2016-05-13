@@ -56,6 +56,5 @@ docTests.apiSyntaxHeadlines = {
     }
 
     return matches;
-  },
-  count: 0
+  }
 };

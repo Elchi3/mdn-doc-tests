@@ -13,6 +13,5 @@ docTests.fontElements = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

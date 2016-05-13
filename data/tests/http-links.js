@@ -13,6 +13,5 @@ docTests.httpLinks = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

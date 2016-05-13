@@ -17,6 +17,5 @@ docTests.oldURLs = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

@@ -24,6 +24,5 @@ docTests.jsRefWithParams = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

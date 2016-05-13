@@ -13,6 +13,5 @@ docTests.preWithoutClass = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

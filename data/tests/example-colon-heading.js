@@ -15,6 +15,5 @@ docTests.exampleColonHeading = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

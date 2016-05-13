@@ -16,6 +16,5 @@ docTests.htmlComments = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

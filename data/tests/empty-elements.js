@@ -39,6 +39,5 @@ docTests.emptyElements = {
     }
 
     return matches;
-  },
-  errors: []
+  }
 };

@@ -13,6 +13,5 @@ docTests.codeInPre = {
     }
 
     return matches;
-  },
-  count: 0
+  }
 };
