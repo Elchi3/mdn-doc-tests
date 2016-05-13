@@ -26,7 +26,7 @@ docTests.macroSyntaxError = {
       }
       return stringParamQuote === "";
     }
-
+    
     var treeWalker = document.createTreeWalker(
         rootElement,
         NodeFilter.SHOW_TEXT,
@@ -47,7 +47,7 @@ docTests.macroSyntaxError = {
             msgParams: [macro]
           });
         }
-        if (macro.match(/^\{\{[^\(]+\([^\)]*\}\}$/)) {
+        if (macro.match(/^\{\{[^\(]+\(.+?[^\)\s]\s*\}\}$/)) {
           matches.push({
             msg: "missing_closing_bracket",
             msgParams: [macro]
