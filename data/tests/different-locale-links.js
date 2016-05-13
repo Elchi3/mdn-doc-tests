@@ -11,11 +11,13 @@ docTests.differentLocaleLinks = {
       if (href) {
         var [, linkDomain, linkLocale] = href.match(/^(?:https?:\/\/(.+?))?\/([^\/]+)/i) ||
             [null, null, null];
-        if ((!linkDomain || linkDomain === pageDomain) && linkLocale !== pageLocale)
-        matches.push({
-          msg: "link_using_wrong_locale",
-          msgParams: [href, pageLocale]
-        });
+        if (linkLocale && linkLocale.toLowerCase() !== pageLocale.toLowerCase() &&
+            (!linkDomain || linkDomain === pageDomain)) {
+          matches.push({
+            msg: "link_using_wrong_locale",
+            msgParams: [href, pageLocale]
+          });
+        }
       }
     }
 
