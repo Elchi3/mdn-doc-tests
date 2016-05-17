@@ -9,12 +9,15 @@ docTests.differentLocaleLinks = {
     for (var i = 0; i < links.length; i++) {
       var href = links[i].getAttribute("href");
       if (href) {
-        var [, linkDomain, linkLocale] = href.match(/^(?:https?:\/\/(.+?))?\/([^\/]+)/i);
-        if ((!linkDomain || linkDomain === pageDomain) && linkLocale !== pageLocale)
-        matches.push({
-          msg: "link_using_wrong_locale",
-          msgParams: [href, pageLocale]
-        });
+        var [, linkDomain, linkLocale] = href.match(/^(?:https?:\/\/(.+?))?\/([^\/]+)/i) ||
+            [null, null, null];
+        if (linkLocale && linkLocale.toLowerCase() !== pageLocale.toLowerCase() &&
+            (!linkDomain || linkDomain === pageDomain)) {
+          matches.push({
+            msg: "link_using_wrong_locale",
+            msgParams: [href, pageLocale]
+          });
+        }
       }
     }
 
