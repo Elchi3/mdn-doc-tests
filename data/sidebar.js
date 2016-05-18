@@ -154,7 +154,6 @@ function runTests() {
 function fixMatches() {
   addon.port.emit("fixMatches");
 }
-
 window.addEventListener("DOMContentLoaded", function loadTestSuite() {
   window.removeEventListener("DOMContentLoaded", loadTestSuite);
 
