@@ -27,9 +27,14 @@ h2 {
   font-size: 1em;
 }
 
-#btn-runtests {
+button {
+  min-width: 100px;
   max-width: fit-content;
   max-width: -moz-fit-content;
+}
+
+#fixMatches {
+  margin-top: 10px;
 }
 
 #summary {

@@ -148,6 +148,12 @@ function runTests() {
   addon.port.emit("runTests");
 }
 
+function fixMatches() {
+  totalErrorCount = 0;
+  totalWarningCount = 0;
+  addon.port.emit("fixMatches");
+}
+
 window.addEventListener("DOMContentLoaded", function loadTestSuite() {
   window.removeEventListener("DOMContentLoaded", loadTestSuite);
 
@@ -158,6 +164,9 @@ window.addEventListener("DOMContentLoaded", function loadTestSuite() {
   let runTestsButton = document.getElementById("btn-runtests");
   runTestsButton.addEventListener("click", runTests);
 
+  let fixMatchesButton = document.getElementById("fixMatches");
+  fixMatchesButton.addEventListener("click", fixMatches);
+  
   let tests = document.getElementById("tests");
   tests.addEventListener("click", (evt) => {
     let testHeading = getParentByClassName(evt.originalTarget, "testHeading");

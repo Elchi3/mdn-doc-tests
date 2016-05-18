@@ -24,11 +24,22 @@ function initializeKeyEventHandler() {
 
 function runTest(testObj, id, rootElement) {
   // Only run the test suite if there's a root element
-  //(e.g. when in source view there's no root element set)
+  // (e.g. when in source view there's no root element set)
   if (rootElement) {
     let contentTest = testObj.check(rootElement);
     testObj.errors = contentTest;
     self.port.emit("processTestResult", testObj, id);
+  }
+};
+
+let fixMatches = function(testObj, id) {
+  // Only run the fixes if there's a root element
+  // (e.g. when in source view there's no root element set)
+  if (testObj.fix) {
+    testObj.fix(testObj.errors);
+
+    // Run test again to update its results
+    runTest(testObj, id);
   }
 };
 
@@ -45,6 +56,12 @@ function runTests() {
 
 self.port.on("runTests", function() {
   runTests();
+});
+
+self.port.on("fixMatches", function() {
+  for (let prop in docTests) {
+    fixMatches(docTests[prop], prop);
+  }
 });
 
 window.addEventListener("load", function injectIFrame() {
