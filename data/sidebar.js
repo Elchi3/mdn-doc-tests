@@ -64,6 +64,9 @@ addon.port.on("showTestResult", function(test, id, prefs) {
     if (prefs.autoExpandErrors && status !== "ok") {
       testElem.getElementsByClassName("errors")[0].classList.add("show");
     }
+
+    let fixMatchesButton = document.getElementById("fixMatches");
+    fixMatchesButton.classList.add("show");
   }
 
   let errors = testElem.getElementsByClassName("errors")[0];

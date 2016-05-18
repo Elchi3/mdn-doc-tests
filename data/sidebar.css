@@ -35,6 +35,7 @@ button {
 
 #fixMatches {
   margin-top: 10px;
+  display: none;
 }
 
 #summary {
@@ -174,6 +175,7 @@ li {
   background-image: var(--match-highlighted-background);
 }
 
+#fixMatches.show,
 .show {
   display: inherit;
 }
