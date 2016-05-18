@@ -149,8 +149,6 @@ function runTests() {
 }
 
 function fixMatches() {
-  totalErrorCount = 0;
-  totalWarningCount = 0;
   addon.port.emit("fixMatches");
 }
 
