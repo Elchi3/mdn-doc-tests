@@ -28,6 +28,7 @@ docTests.urlInLinkTitle = {
           (title.match(/[a-z]{2}(?:-[A-Z]{2})?\/docs\/.*?\//) ||
            title === href.replace(/([a-z]{2})(?:-[a-z]{2})?\/docs\/(.*)/, "$1/$2")))) {
         matches.push({
+          node: linkElements[i],
           msg: linkElements[i].outerHTML,
           type: ERROR
         });
@@ -35,5 +36,10 @@ docTests.urlInLinkTitle = {
     }
 
     return matches;
+  },
+  fix: function fixURLsInTitleAttributes(matches) {
+    matches.forEach(match => {
+      match.node.removeAttribute("title");
+    });
   }
 };

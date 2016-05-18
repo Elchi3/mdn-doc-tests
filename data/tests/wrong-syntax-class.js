@@ -23,6 +23,7 @@ docTests.wrongSyntaxClass = {
       while (element && element.localName !== "h2") {
         if (element.localName === "pre" && element.className !== "syntaxbox") {
           return {
+            node: element,
             msg: "wrong_syntax_class_used",
             msgParams: [element.className],
             type: ERROR
@@ -66,5 +67,10 @@ docTests.wrongSyntaxClass = {
     }
 
     return matches;
+  },
+  fix: function fixWrongSyntaxClass(matches) {
+    matches.forEach(match => {
+      match.node.className = "syntaxbox";
+    });
   }
 };

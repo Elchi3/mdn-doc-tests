@@ -8,25 +8,29 @@
  *  remove them. It does not check whether the macros actually require parameters.
  */
 
+const reMacroWithEmptyBrackets = /\{\{\s*(.*?)\(\)\s*\}\}/gi;
+
 docTests.emptyBrackets = {
   name: "empty_brackets",
   desc: "empty_brackets_desc",
+
   check: function checkEmptyBrackets(rootElement) {
     let treeWalker = document.createTreeWalker(
         rootElement,
         NodeFilter.SHOW_TEXT,
         {
           acceptNode: (node) => {
-            return node.textContent.match(/\{\{\s*[a-z]*\(\)\s*?\}\}/i) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+            return reMacroWithEmptyBrackets.test(node.textContent) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
           }
         }
     );
     let matches = [];
 
     while(treeWalker.nextNode()) {
-      let textNodeMatches = treeWalker.currentNode.textContent.match(/\{\{\s*[a-z]*\(\)\s*?\}\}/gi) || [];
+      let textNodeMatches = treeWalker.currentNode.textContent.match(reMacroWithEmptyBrackets) || [];
       textNodeMatches.forEach(match => {
         matches.push({
+          node: treeWalker.currentNode,
           msg: match,
           type: ERROR
         });
@@ -34,5 +38,16 @@ docTests.emptyBrackets = {
     }
 
     return matches;
+  },
+
+  fix: function fixEmptyBrackets(matches) {
+    let previousNode = null;
+    matches.forEach(match => {
+      if (match.node !== previousNode) {
+        match.node.textContent = match.node.textContent.
+            replace(reMacroWithEmptyBrackets, "{{$1}}");
+      }
+      previousNode = match.node;
+    });
   }
 };

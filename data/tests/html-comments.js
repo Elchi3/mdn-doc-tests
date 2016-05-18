@@ -26,11 +26,17 @@ docTests.htmlComments = {
       let comment = treeWalker.currentNode.data.replace(/\s*\{cke_protected\}\{C\}(\S+)\s*/,
           function(match, data) { return decodeURIComponent(data); });
       matches.push({
+        node: treeWalker.currentNode,
         msg: comment,
         type: ERROR
       });
     }
 
     return matches;
+  },
+  fix: function fixHTMLComments(matches) {
+    matches.forEach(match => {
+      match.node.remove();
+    });
   }
 };
