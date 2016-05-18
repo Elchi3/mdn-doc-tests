@@ -22,12 +22,11 @@ docTests.styleAttribute = {
       }
 
       matches.push({
-        msg: 'style="' + node.getAttribute("style") + '"'
+        msg: 'style="' + node.getAttribute("style") + '"',
+        type: ERROR
       })
     }
 
     return matches;
-  },
-  type: ERROR,
-  errors: []
+  }
 };

@@ -1,3 +1,11 @@
+:root {
+  --ok-color: #00882D;
+  --error-color: #CB000F;
+  --warning-color: #DBB40F;
+  --match-background: linear-gradient(rgba(255,255,255,0.2),rgba(255,255,255,0.2));
+  --match-highlighted-background: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3));
+}
+
 html, body {
   margin: 0;
 }
@@ -72,21 +80,21 @@ li {
   display: flex;
 }
 
-.hasErrors {
-  background-color: #CB000F;
-}
-
-.hasErrors > div,
-.hasWarnings > div {
+.hasErrors > .testHeading,
+.hasWarnings > .testHeading {
   cursor: pointer;
 }
 
+.hasErrors {
+  background-color: var(--error-color);
+}
+
 .hasWarnings {
-  background-color: #DBB40F;
+  background-color: var(--warning-color);
 }
 
 .ok {
-  background-color: #00882D;
+  background-color: var(--ok-color);
 }
 
 .testName {
@@ -108,19 +116,32 @@ li {
   padding-inline-start: 1.5em;
   padding-block-start: 0.3em;
   padding-block-end: 0.3em;
-  background-color: rgba(255, 255, 255, 0.2);
 }
 
-.hasErrors > .errors > li:not(:last-child) {
-  border-bottom: 2px solid #CB000F;
+.error {
+  background-color: var(--error-color);
+  background-image: var(--match-background);
 }
 
-.hasWarnings > .errors > li:not(:last-child) {
-  border-bottom: 2px solid #DBB40F;
+.warning {
+  background-color: var(--warning-color);
+  background-image: var(--match-background);
 }
 
-.errors > li:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+.error:not(:last-child) {
+  border-bottom: 2px solid var(--error-color);
+}
+
+.warning:not(:last-child) {
+  border-bottom: 2px solid var(--warning-color);
+}
+
+.error:hover {
+  background-image: var(--match-highlighted-background);
+}
+
+.warning:hover {
+  background-image: var(--match-highlighted-background);
 }
 
 .show {

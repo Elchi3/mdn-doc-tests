@@ -17,13 +17,12 @@ docTests.emptyBrackets = {
       var textNodeMatches = treeWalker.currentNode.textContent.match(/\{\{\s*[a-z]*\(\)\s*?\}\}/gi) || [];
       textNodeMatches.forEach(match => {
         matches.push({
-          msg: match
+          msg: match,
+          type: ERROR
         });
       });
     }
 
     return matches;
-  },
-  type: ERROR,
-  errors: []
+  }
 };

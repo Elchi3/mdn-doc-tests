@@ -8,13 +8,12 @@ docTests.exampleColonHeading = {
     for (var i = 0; i < headlines.length; i++) {
       if (headlines[i].textContent.match(/^\s*Example:/)) {
         matches.push({
-          msg: headlines[i].outerHTML
+          msg: headlines[i].outerHTML,
+          type: ERROR
         })
       }
     }
 
     return matches;
-  },
-  type: ERROR,
-  errors: []
+  }
 };

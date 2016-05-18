@@ -7,12 +7,11 @@ docTests.codeInPre = {
 
     for (var i = 0; i < codesInPres.length; i++) {
       matches.push({
-        msg: codesInPres[i].outerHTML
+        msg: codesInPres[i].outerHTML,
+        type: ERROR
       });
     }
 
     return matches;
-  },
-  type: ERROR,
-  count: 0
+  }
 };

@@ -116,7 +116,8 @@ docTests.invalidMacros = {
       while (macroNameMatch) {
         if (allowedMacros.indexOf(macroNameMatch[1].toLowerCase()) === -1) {
           matches.push({
-            msg: macroNameMatch[0]
+            msg: macroNameMatch[0],
+            type: WARNING
           });
         }
         macroNameMatch = reMacroName.exec(treeWalker.currentNode.textContent);
@@ -124,7 +125,5 @@ docTests.invalidMacros = {
     }
 
     return matches;
-  },
-  type: WARNING,
-  errors: []
+  }
 };

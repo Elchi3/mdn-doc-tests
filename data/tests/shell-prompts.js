@@ -11,14 +11,13 @@ docTests.shellPrompts = {
       if (shellPrompts) {
         shellPrompts.forEach(function addMatch(shellPrompt) {
           matches.push({
-            msg: shellPrompt.replace(/<.+?>/g, "")
+            msg: shellPrompt.replace(/<.+?>/g, ""),
+            type: ERROR
           });
         });
       }
     }
 
     return matches;
-  },
-  type: ERROR,
-  count: 0
+  }
 };

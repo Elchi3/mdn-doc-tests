@@ -38,7 +38,8 @@ docTests.apiSyntaxHeadlines = {
         if (disallowedNames.has(subHeading.toLowerCase())) {
           matches.push({
             msg: "invalid_headline_name",
-            msgParams: [subHeadings[i]]
+            msgParams: [subHeadings[i]],
+            type: ERROR
           });
         }
       }
@@ -47,14 +48,13 @@ docTests.apiSyntaxHeadlines = {
       for (var i = 1; i < order.length; i++) {
         if (order[i] < order[i - 1]) {
           matches.push({
-            msg: "invalid_headline_order"
+            msg: "invalid_headline_order",
+            type: ERROR
           });
         }
       }
     }
 
     return matches;
-  },
-  type: ERROR,
-  count: 0
+  }
 };

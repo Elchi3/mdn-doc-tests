@@ -12,13 +12,12 @@ docTests.urlInLinkTitle = {
           (title.match(/[a-z]{2}(?:-[A-Z]{2})?\/docs\/.*?\//) ||
            title === href.replace(/([a-z]{2})(?:-[a-z]{2})?\/docs\/(.*)/, "$1/$2")))) {
         matches.push({
-          msg: linkElements[i].outerHTML
+          msg: linkElements[i].outerHTML,
+          type: ERROR
         });
       }
     }
 
     return matches;
-  },
-  type: ERROR,
-  errors: []
+  }
 };

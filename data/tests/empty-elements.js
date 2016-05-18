@@ -33,12 +33,11 @@ docTests.emptyElements = {
 
     while(treeWalker.nextNode()) {
       matches.push({
-        msg: treeWalker.currentNode.outerHTML
+        msg: treeWalker.currentNode.outerHTML,
+        type: ERROR
       });
     }
 
     return matches;
-  },
-  type: ERROR,
-  errors: []
+  }
 };

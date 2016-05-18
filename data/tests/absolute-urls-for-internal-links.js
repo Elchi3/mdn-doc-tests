@@ -8,13 +8,12 @@ docTests.absoluteURLsForInternalLinks = {
       var href = links[i].getAttribute("href");
       if (href && href.match(/(?:https?:)?\/\/developer\.mozilla\.org\//i)) {
         matches.push({
-          msg: links[i].outerHTML
+          msg: links[i].outerHTML,
+          type: WARNING
         });
       }
     }
 
     return matches;
-  },
-  type: WARNING,
-  errors: []
+  }
 };

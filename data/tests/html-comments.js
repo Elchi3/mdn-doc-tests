@@ -10,12 +10,11 @@ docTests.htmlComments = {
 
     while(treeWalker.nextNode()) {
       matches.push({
-        msg: "<!--" + treeWalker.currentNode.data + "-->"
+        msg: "<!--" + treeWalker.currentNode.data + "-->",
+        type: ERROR
       });
     }
 
     return matches;
-  },
-  type: ERROR,
-  errors: []
+  }
 };

@@ -15,14 +15,13 @@ docTests.differentLocaleLinks = {
             (!linkDomain || linkDomain === pageDomain)) {
           matches.push({
             msg: "link_using_wrong_locale",
-            msgParams: [href, pageLocale]
+            msgParams: [href, pageLocale],
+            type: ERROR
           });
         }
       }
     }
 
     return matches;
-  },
-  type: ERROR,
-  errors: []
+  }
 };
