@@ -9,5 +9,5 @@ tests.forEach(test => {
   var matches = testObj.check(rootElement);
   testObj.errors = matches;
   testObj.expected = test.expected;
-  self.port.emit('testResult', testObj, self.options.name);
+  self.port.emit('processTestResult', testObj, self.options.name);
 });

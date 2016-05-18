@@ -19,7 +19,7 @@ exports.runTests = function runTests(assert, done, name, desc, url, tests) {
 
       var resultCount = 0;
 
-      worker.port.on("testResult", function(testObj) {
+      worker.port.on("processTestResult", function(testObj) {
         var matches = testObj.errors;
         var expected = testObj.expected;
 

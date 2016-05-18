@@ -12,7 +12,7 @@ var runTest = function(testObj, id) {
   if (rootElement) {
     var contentTest = testObj.check(rootElement);
     testObj.errors = contentTest;
-    self.port.emit("test", testObj, id);
+    self.port.emit("processTestResult", testObj, id);
   }
 };
 

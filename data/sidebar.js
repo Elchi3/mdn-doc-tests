@@ -4,7 +4,7 @@ const WARNING = 2;
 var totalErrorCount = 0;
 var totalWarningCount = 0;
 
-addon.port.on("test", function(test, id, prefs) {
+addon.port.on("showTestResult", function(test, id, prefs) {
   var tests = document.getElementById("tests");
   var errorCount = test.errors.length;
   var status = "ok";
