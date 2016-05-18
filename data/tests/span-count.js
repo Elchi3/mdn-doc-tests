@@ -2,14 +2,14 @@ docTests.spanCount = {
   name: "span_elements",
   desc: "span_elements_desc",
   check: function checkSpanCount(rootElement) {
-    var spanElements = rootElement.querySelectorAll("span:not(.seoSummary)");
-    var matches = [];
+    let spanElements = rootElement.querySelectorAll("span:not(.seoSummary)");
+    let matches = [];
 
-    for (var i = 0; i < spanElements.length; i++) {
-      var node = spanElements[i];
+    for (let i = 0; i < spanElements.length; i++) {
+      let node = spanElements[i];
 
       // Exclude new paragraph helper
-      var style = node.getAttribute("style");
+      let style = node.getAttribute("style");
       if (style && /z-index:\s*9999;/.test(style)) {
         continue;
       }

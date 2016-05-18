@@ -1,13 +1,13 @@
 const ERROR = 1;
 const WARNING = 2;
 
-var totalErrorCount = 0;
-var totalWarningCount = 0;
+let totalErrorCount = 0;
+let totalWarningCount = 0;
 
 addon.port.on("showTestResult", function(test, id, prefs) {
-  var tests = document.getElementById("tests");
-  var errorCount = test.errors.length;
-  var status = "ok";
+  let tests = document.getElementById("tests");
+  let errorCount = test.errors.length;
+  let status = "ok";
   if (errorCount !== 0) {
     if (test.errors.some(match => match.type === ERROR)) {
       status = "hasErrors";
@@ -18,29 +18,29 @@ addon.port.on("showTestResult", function(test, id, prefs) {
 
   tests.classList.toggle("hidePassingTests", prefs.hidePassingTests);
 
-  var testElem = document.getElementById(id);
+  let testElem = document.getElementById(id);
   if (tests.contains(testElem)) {
     testElem.getElementsByClassName("errorCount")[0].textContent = errorCount;
     testElem.classList.remove("hasErrors", "hasWarnings", "ok");
     testElem.classList.add(status);
   } else {
-    var testContainer = document.createElement("li");
+    let testContainer = document.createElement("li");
     testContainer.setAttribute("class", "test " + status);
     testContainer.setAttribute("id", id);
     testContainer.setAttribute("title", test.desc);
-    var testHeadingContainer = document.createElement("div");
+    let testHeadingContainer = document.createElement("div");
     testHeadingContainer.setAttribute("class", "testHeading");
-    var testHeading = document.createElement("span");
+    let testHeading = document.createElement("span");
     testHeading.setAttribute("class", "testName");
     testHeading.textContent = test.name;
     testHeadingContainer.appendChild(testHeading);
-    var errorCounter = document.createElement("span");
+    let errorCounter = document.createElement("span");
     errorCounter.setAttribute("class", "errorCount");
     errorCounter.textContent = errorCount;
     testHeadingContainer.appendChild(errorCounter);
     testContainer.appendChild(testHeadingContainer);
 
-    var errorList = document.createElement("ul");
+    let errorList = document.createElement("ul");
     errorList.setAttribute("class", "errors");
     testContainer.appendChild(errorList);
 
@@ -53,7 +53,7 @@ addon.port.on("showTestResult", function(test, id, prefs) {
     }
   }
 
-  var errors = testElem.getElementsByClassName("errors")[0];
+  let errors = testElem.getElementsByClassName("errors")[0];
   if (status === "ok") {
     errors.classList.remove("show");
   }
@@ -61,7 +61,7 @@ addon.port.on("showTestResult", function(test, id, prefs) {
     errors.removeChild(errors.firstChild);
   }
   test.errors.forEach(function(error) {
-    var errorContainer = document.createElement("li");
+    let errorContainer = document.createElement("li");
     errorContainer.setAttribute("class", error.type === WARNING ? "warning" : "error");
     errorContainer.textContent = error.msg;
     errors.appendChild(errorContainer);
@@ -75,7 +75,7 @@ addon.port.on("showTestResult", function(test, id, prefs) {
 });
 
 function getParentByClassName(node, className) {
-  var currentNode = node;
+  let currentNode = node;
 
   while (currentNode && (!currentNode.classList || !currentNode.classList.contains(className))) {
     currentNode = currentNode.parentNode;
@@ -88,7 +88,7 @@ function updateErrorSummary() {
   // Show summary
   document.getElementById("summary").style.display = "flex";
 
-  var totalErrorCounter = document.getElementById("totalErrorCount");
+  let totalErrorCounter = document.getElementById("totalErrorCount");
   totalErrorCounter.textContent = totalErrorCount;
   if (totalErrorCount === 0) {
     totalErrorCounter.classList.remove("hasErrors");
@@ -98,7 +98,7 @@ function updateErrorSummary() {
     totalErrorCounter.classList.add("hasErrors");
   }
   
-  var totalWarningCounter = document.getElementById("totalWarningCount");
+  let totalWarningCounter = document.getElementById("totalWarningCount");
   totalWarningCounter.textContent = totalWarningCount;
   if (totalWarningCount === 0) {
     totalWarningCounter.classList.remove("hasWarnings");
@@ -122,16 +122,16 @@ window.addEventListener("DOMContentLoaded", function loadTestSuite() {
     evt.preventDefault();
   });
 
-  var btn = document.getElementById("btn-runtests");
+  let btn = document.getElementById("btn-runtests");
   btn.addEventListener("click", runTests);
 
   setInterval(runTests, 10000);
 
-  var tests = document.getElementById("tests");
+  let tests = document.getElementById("tests");
   tests.addEventListener("click", (evt) => {
-    var testHeading = getParentByClassName(evt.originalTarget, "testHeading");
+    let testHeading = getParentByClassName(evt.originalTarget, "testHeading");
     if (testHeading) {
-      var testElem = getParentByClassName(testHeading, "test");
+      let testElem = getParentByClassName(testHeading, "test");
       if (testElem.classList.contains("hasErrors") || testElem.classList.contains("hasWarnings")) {
         testElem.getElementsByClassName("errors")[0].classList.toggle("show");
       }

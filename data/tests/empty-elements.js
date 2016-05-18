@@ -2,7 +2,7 @@ docTests.emptyElements = {
   name: "empty_elements",
   desc: "empty_elements_desc",
   check: function checkEmptyElements(rootElement) {
-    var treeWalker = document.createTreeWalker(
+    let treeWalker = document.createTreeWalker(
         rootElement,
         NodeFilter.SHOW_ELEMENT,
         {
@@ -13,14 +13,14 @@ docTests.emptyElements = {
 
               // Exclude new paragraph helper
               if (node.localName === "span" && node.firstElementChild) {
-                var style = node.firstElementChild.getAttribute("style");
+                let style = node.firstElementChild.getAttribute("style");
                 if (style && /z-index:\s*9999;/.test(style)) {
                   return NodeFilter.FILTER_REJECT;
                 }
               }
 
               // Elements containing self-closing elements except <br> and <wbr> are considered non-empty
-              var descendantSelfClosingElements = node.querySelectorAll(
+              let descendantSelfClosingElements = node.querySelectorAll(
                   "link,track,param,area,command,col,base,meta,hr,source,img,keygen,input");
               return descendantSelfClosingElements.length === 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
             } else {
@@ -29,7 +29,7 @@ docTests.emptyElements = {
           }
         }
     );
-    var matches = [];
+    let matches = [];
 
     while(treeWalker.nextNode()) {
       matches.push({

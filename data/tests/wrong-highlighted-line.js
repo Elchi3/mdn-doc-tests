@@ -2,18 +2,18 @@ docTests.wrongHighlightedLine = {
   name: "wrong_highlighted_line",
   desc: "wrong_highlighted_line_desc",
   check: function checkWrongHighlightedLine(rootElement) {
-    var presWithHighlighting = rootElement.querySelectorAll("pre[class*='highlight']");
-    var matches = [];
+    let presWithHighlighting = rootElement.querySelectorAll("pre[class*='highlight']");
+    let matches = [];
 
-    for (var i = 0; i < presWithHighlighting.length; i++) {
-      var match = presWithHighlighting[i].getAttribute("class").match(/highlight:?\s*\[(.+?)\]/i);
+    for (let i = 0; i < presWithHighlighting.length; i++) {
+      let match = presWithHighlighting[i].getAttribute("class").match(/highlight:?\s*\[(.+?)\]/i);
       if (match) {
-        var numbersAndRanges = match[1].split(",");
-        var lineCount = presWithHighlighting[i].innerHTML.split(/<br\s*\/?>|\n/gi).length;
+        let numbersAndRanges = match[1].split(",");
+        let lineCount = presWithHighlighting[i].innerHTML.split(/<br\s*\/?>|\n/gi).length;
 
         numbersAndRanges.forEach((numberOrRange, i, numbersAndRanges) => {
-          var start;
-          var end;
+          let start;
+          let end;
           try {
             [,start,end] = numberOrRange.match(/^\s*(-?\d+)(?:\s*-\s*(-?\d+))?\s*$/);
           } catch (e) {}

@@ -3,11 +3,11 @@ docTests.macroSyntaxError = {
   desc: "macro_syntax_error_desc",
   check: function checkMacroSyntaxError(rootElement) {
     function validateStringParams(macro) {
-      var paramListStartIndex = macro.indexOf("(") + 1;
-      var paramListEndMatch = macro.match(/\)*\s*\}{1,2}$/);
-      var paramListEndIndex = macro.length - paramListEndMatch[0].length;
-      var stringParamQuote = "";
-      for (var i = paramListStartIndex; i < paramListEndIndex; i++) {
+      let paramListStartIndex = macro.indexOf("(") + 1;
+      let paramListEndMatch = macro.match(/\)*\s*\}{1,2}$/);
+      let paramListEndIndex = macro.length - paramListEndMatch[0].length;
+      let stringParamQuote = "";
+      for (let i = paramListStartIndex; i < paramListEndIndex; i++) {
         if (macro[i] === "\"") {
           if (stringParamQuote === "") {
             stringParamQuote = "\"";
@@ -27,7 +27,7 @@ docTests.macroSyntaxError = {
       return stringParamQuote === "";
     }
     
-    var treeWalker = document.createTreeWalker(
+    let treeWalker = document.createTreeWalker(
         rootElement,
         NodeFilter.SHOW_TEXT,
         {
@@ -36,10 +36,10 @@ docTests.macroSyntaxError = {
           }
         }
     );
-    var matches = [];
+    let matches = [];
 
     while(treeWalker.nextNode()) {
-      var textNodeMatches = treeWalker.currentNode.textContent.match(/\{\{[^\(\}]*\([^\}]*\}\}|\{\{[^\}]*?\}(?:(?=[^\}])|$)/gi) || [];
+      let textNodeMatches = treeWalker.currentNode.textContent.match(/\{\{[^\(\}]*\([^\}]*\}\}|\{\{[^\}]*?\}(?:(?=[^\}])|$)/gi) || [];
       textNodeMatches.forEach(macro => {
         if (macro.match(/[^\}]\}$/)) {
           matches.push({

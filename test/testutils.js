@@ -5,11 +5,11 @@ const testList = require("../data/tests/testlist").testList;
 exports.url = "about:blank";
 
 exports.runTests = function runTests(assert, done, name, desc, url, tests) {
-  var tabs = require("sdk/tabs");
+  let tabs = require("sdk/tabs");
   tabs.open({
     url: url,
     onReady: tab => {
-      var worker = tabs.activeTab.attach({
+      let worker = tabs.activeTab.attach({
         contentScriptFile: [
           "./doctests.js",
           ...testList.map(test => "./tests/" + test),
@@ -17,18 +17,18 @@ exports.runTests = function runTests(assert, done, name, desc, url, tests) {
         contentScriptOptions: {"name": name, "tests": JSON.stringify(tests)}
       });
 
-      var resultCount = 0;
+      let resultCount = 0;
 
       worker.port.on("processTestResult", function(testObj) {
-        var matches = testObj.errors;
-        var expected = testObj.expected;
+        let matches = testObj.errors;
+        let expected = testObj.expected;
 
         assert.equal(matches.length, expected.length,
                      "Number of " + desc + " matches must be " + expected.length);
 
         matches.forEach((match, i) => {
-          var expectedIsObject = typeof expected[i] === "object";
-          var expectedValue = expectedIsObject ? expected[i].msg : expected[i];
+          let expectedIsObject = typeof expected[i] === "object";
+          let expectedValue = expectedIsObject ? expected[i].msg : expected[i];
 
           assert.equal(match.msg, expectedValue,
                        "Error message for " + desc + " match must be correct");

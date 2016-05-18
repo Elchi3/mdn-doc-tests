@@ -2,14 +2,14 @@ docTests.differentLocaleLinks = {
   name: "different_locale_links",
   desc: "different_locale_links_desc",
   check: function checkDifferentLocaleLinks(rootElement) {
-    var [, pageDomain, pageLocale] = document.URL.match(/^(?:https?:\/\/)(.+?)\/([^\/]+)/i) ||
+    let [, pageDomain, pageLocale] = document.URL.match(/^(?:https?:\/\/)(.+?)\/([^\/]+)/i) ||
         ["", "developer.mozilla.org", "en-US"];
-    var links = rootElement.getElementsByTagName("a");
-    var matches = [];
-    for (var i = 0; i < links.length; i++) {
-      var href = links[i].getAttribute("href");
+    let links = rootElement.getElementsByTagName("a");
+    let matches = [];
+    for (let i = 0; i < links.length; i++) {
+      let href = links[i].getAttribute("href");
       if (href) {
-        var [, linkDomain, linkLocale] = href.match(/^(?:https?:\/\/(.+?))?\/([^\/]+)/i) ||
+        let [, linkDomain, linkLocale] = href.match(/^(?:https?:\/\/(.+?))?\/([^\/]+)/i) ||
             [null, null, null];
         if (linkLocale && linkLocale.toLowerCase() !== pageLocale.toLowerCase() &&
             (!linkDomain || linkDomain === pageDomain)) {

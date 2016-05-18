@@ -2,10 +2,10 @@ docTests.httpLinks = {
   name: "http_links",
   desc: "http_links_desc",
   check: function checkHTTPLinks(rootElement) {
-    var httpLinks = rootElement.querySelectorAll("a[href^='http://']");
-    var matches = [];
+    let httpLinks = rootElement.querySelectorAll("a[href^='http://']");
+    let matches = [];
 
-    for (var i = 0; i < httpLinks.length; i++) {
+    for (let i = 0; i < httpLinks.length; i++) {
       matches.push({
         msg: httpLinks[i].outerHTML,
         type: WARNING

@@ -5,8 +5,8 @@ exports["test doc alertPrintInCode"] = function testAlertPrintInCode(assert, don
     {
       str: '<pre>alert("foo")</pre>' +
            '<pre class="syntaxbox">print("bar")</pre>' +
-           '<pre>var someOthercode = baz; ' +
-           'alert("hello world"); \n var moreCode;</pre>' +
+           '<pre>let someOthercode = baz; ' +
+           'alert("hello world"); \n let moreCode;</pre>' +
            '<pre>document.write("foobar");</pre>',
       expected: [
         'alert("foo")',

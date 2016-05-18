@@ -3,7 +3,7 @@
 const ERROR = 1;
 const WARNING = 2;
 
-var docTests = {};
+let docTests = {};
 
 function mapMatches(matches, type) {
   return matches.map(match => {

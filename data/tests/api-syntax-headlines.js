@@ -8,29 +8,29 @@ docTests.apiSyntaxHeadlines = {
       new Set(["return value", "returns"]),
       new Set(["exceptions", "errors", "errors thrown"])
     ];
-    var headlines = rootElement.getElementsByTagName("h2");
-    var syntaxSection = null;
-    var order = [];
-    var matches = [];
-    for (var i = 0; !syntaxSection && i < headlines.length; i++) {
+    let headlines = rootElement.getElementsByTagName("h2");
+    let syntaxSection = null;
+    let order = [];
+    let matches = [];
+    for (let i = 0; !syntaxSection && i < headlines.length; i++) {
       if (headlines[i].textContent === "Syntax") {
         syntaxSection = headlines[i];
       }
     }
 
     if (syntaxSection) {
-      var subHeadings = [];
-      var element = syntaxSection.nextSibling;
+      let subHeadings = [];
+      let element = syntaxSection.nextSibling;
       while (element && element.localName !== "h2") {
         if (element.localName === "h3") {
           subHeadings.push(element.textContent);
         }
         element = element.nextSibling;
       }
-      for (var i = 0; i < subHeadings.length; i++) {
-        var subHeading = subHeadings[i];
-        for (var j = 0; j < validOrder.length; j++) {
-          var heading = validOrder[j];
+      for (let i = 0; i < subHeadings.length; i++) {
+        let subHeading = subHeadings[i];
+        for (let j = 0; j < validOrder.length; j++) {
+          let heading = validOrder[j];
           if (heading.has(subHeading.toLowerCase())) {
             order.push(j);
           }
@@ -45,7 +45,7 @@ docTests.apiSyntaxHeadlines = {
       }
 
       // Check the order of the headlines
-      for (var i = 1; i < order.length; i++) {
+      for (let i = 1; i < order.length; i++) {
         if (order[i] < order[i - 1]) {
           matches.push({
             msg: "invalid_headline_order",

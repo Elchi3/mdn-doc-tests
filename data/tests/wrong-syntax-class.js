@@ -3,7 +3,7 @@ docTests.wrongSyntaxClass = {
   desc: "wrong_syntax_class_desc",
   check: function checkWrongSyntaxClass(rootElement) {
     function checkPre(heading) {
-      var element = heading.nextSibling;
+      let element = heading.nextSibling;
       while (element && element.localName !== "h2") {
         if (element.localName === "pre" && element.className !== "syntaxbox") {
           return {
@@ -17,32 +17,32 @@ docTests.wrongSyntaxClass = {
       }
     }
 
-    var subHeadings = rootElement.getElementsByTagName("h3");
-    var formalSyntaxSection = null;
-    for (var i = 0; !formalSyntaxSection && i < subHeadings.length; i++) {
+    let subHeadings = rootElement.getElementsByTagName("h3");
+    let formalSyntaxSection = null;
+    for (let i = 0; !formalSyntaxSection && i < subHeadings.length; i++) {
       if (subHeadings[i].textContent.match(/Formal syntax/i)) {
         formalSyntaxSection = subHeadings[i];
       }
     }
 
-    var syntaxBoxClass;
-    var matches = [];
+    let syntaxBoxClass;
+    let matches = [];
     if (formalSyntaxSection) {
-      var match = checkPre(formalSyntaxSection);
+      let match = checkPre(formalSyntaxSection);
       if (match) {
         matches.push(match);
       }
     } else {
-      var headings = rootElement.getElementsByTagName("h2");
-      var syntaxSection = null;
-      for (var i = 0; !syntaxSection && i < headings.length; i++) {
+      let headings = rootElement.getElementsByTagName("h2");
+      let syntaxSection = null;
+      for (let i = 0; !syntaxSection && i < headings.length; i++) {
         if (headings[i].textContent.toLowerCase() === "syntax") {
           syntaxSection = headings[i];
         }
       }
 
       if (syntaxSection) {
-        var match = checkPre(syntaxSection);
+        let match = checkPre(syntaxSection);
         if (match) {
           matches.push(match);
         }

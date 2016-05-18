@@ -99,7 +99,7 @@ docTests.invalidMacros = {
       "xulelem"
     ];
 
-    var treeWalker = document.createTreeWalker(
+    let treeWalker = document.createTreeWalker(
         rootElement,
         NodeFilter.SHOW_TEXT,
         {
@@ -108,11 +108,11 @@ docTests.invalidMacros = {
           }
         }
     );
-    var matches = [];
+    let matches = [];
 
     while(treeWalker.nextNode()) {
-      var reMacroName = /\{\{\s*([^\(\}\s]+).*?\}\}/g;
-      var macroNameMatch = reMacroName.exec(treeWalker.currentNode.textContent);
+      let reMacroName = /\{\{\s*([^\(\}\s]+).*?\}\}/g;
+      let macroNameMatch = reMacroName.exec(treeWalker.currentNode.textContent);
       while (macroNameMatch) {
         if (allowedMacros.indexOf(macroNameMatch[1].toLowerCase()) === -1) {
           matches.push({
