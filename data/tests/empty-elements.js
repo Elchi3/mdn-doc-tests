@@ -34,7 +34,7 @@ docTests.emptyElements = {
     while(treeWalker.nextNode()) {
       matches.push({
         msg: treeWalker.currentNode.outerHTML,
-        type: ERROR
+        type: treeWalker.currentNode.localName === "td" ? WARNING : ERROR
       });
     }
 
