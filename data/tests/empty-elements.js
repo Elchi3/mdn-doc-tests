@@ -24,7 +24,7 @@ docTests.emptyElements = {
                   "link,track,param,area,command,col,base,meta,hr,source,img,keygen,input");
               return descendantSelfClosingElements.length === 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
             } else {
-              return NodeFilter.FILTER_REJECT;
+              return NodeFilter.FILTER_SKIP;
             }
           }
         }
