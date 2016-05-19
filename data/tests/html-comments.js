@@ -9,8 +9,10 @@ docTests.htmlComments = {
     let matches = [];
 
     while(treeWalker.nextNode()) {
+      let comment = treeWalker.currentNode.data.replace(/\{cke_protected\}\{C\}(.+?)/, "$1");
+      comment = decodeURI(comment).replace(/%2F/g, "/").trim();
       matches.push({
-        msg: "<!--" + treeWalker.currentNode.data + "-->",
+        msg: comment,
         type: ERROR
       });
     }
