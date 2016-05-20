@@ -20,6 +20,7 @@ self.port.on("runTests", function() {
   for (let prop in docTests) {
     runTest(docTests[prop], prop);
   }
+  self.port.emit("finishedTests");
 });
 
 let btns = document.querySelectorAll(".btn-save, .btn-save-and-edit");
