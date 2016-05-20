@@ -1,5 +1,6 @@
 const ERROR = 1;
 const WARNING = 2;
+const INFO = 3;
 
 let totalErrorCount = 0;
 let totalWarningCount = 0;
@@ -13,6 +14,8 @@ addon.port.on("showTestResult", function(test, id, prefs) {
       status = "hasErrors";
     } else if (test.errors.some(match => match.type === WARNING)) {
       status = "hasWarnings";
+    } else if (test.errors.every(match => match.type === INFO)) {
+      status = "hasInfo";
     }
   }
   let oldWarningCount = 0;
@@ -29,7 +32,7 @@ addon.port.on("showTestResult", function(test, id, prefs) {
     testElem.dataset.errorCount = newErrorCount;
     testElem.dataset.warningCount = newWarningCount;
     testElem.getElementsByClassName("errorCount")[0].textContent = matchesCount;
-    testElem.classList.remove("hasErrors", "hasWarnings", "ok");
+    testElem.classList.remove("hasErrors", "hasWarnings", "hasInfo", "ok");
     testElem.classList.add(status);
   } else {
     let testContainer = document.createElement("li");
@@ -72,7 +75,17 @@ addon.port.on("showTestResult", function(test, id, prefs) {
   }
   test.errors.forEach(function(error) {
     let errorContainer = document.createElement("li");
-    errorContainer.setAttribute("class", error.type === WARNING ? "warning" : "error");
+    let errorClass = "error";
+    switch (error.type) {
+      case WARNING:
+        errorClass = "warning";
+        break;
+
+      case INFO:
+        errorClass = "info";
+        break;
+    }
+    errorContainer.setAttribute("class", errorClass);
     errorContainer.textContent = error.msg;
     errors.appendChild(errorContainer);
   });
@@ -139,7 +152,7 @@ window.addEventListener("DOMContentLoaded", function loadTestSuite() {
     let testHeading = getParentByClassName(evt.originalTarget, "testHeading");
     if (testHeading) {
       let testElem = getParentByClassName(testHeading, "test");
-      if (testElem.classList.contains("hasErrors") || testElem.classList.contains("hasWarnings")) {
+      if (!testElem.classList.contains("ok")) {
         testElem.getElementsByClassName("errors")[0].classList.toggle("show");
       }
     }
