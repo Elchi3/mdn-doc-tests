@@ -1,10 +1,10 @@
-var rootElement = null;
-var tabURL = self.options.tabURL;
-var errorCount;
+let rootElement = null;
+let tabURL = self.options.tabURL;
+let errorCount;
 
 // Use CKEditor source when editing
 self.port.on("editing", function() {
-  var iframe = document.querySelectorAll("iframe.cke_wysiwyg_frame")[0];
+  let iframe = document.querySelectorAll("iframe.cke_wysiwyg_frame")[0];
   if (iframe) {
     iframe.contentDocument.body.setAttribute("spellcheck", "true");
     rootElement = iframe.contentDocument.body;
@@ -14,15 +14,15 @@ self.port.on("editing", function() {
 
 // Use ?raw page source when reading
 self.port.on("reading", function() {
-  var xhr = new XMLHttpRequest();
-  var url = tabURL.split('#')[0].split('?')[0] + "?raw";
+  let xhr = new XMLHttpRequest();
+  let url = tabURL.split('#')[0].split('?')[0] + "?raw";
   xhr.open("GET", url , true);
   xhr.addEventListener("load", function(event) {
-    var domParser = new DOMParser();
-    var doc = domParser.parseFromString(xhr.responseText, "text/html");
+    let domParser = new DOMParser();
+    let doc = domParser.parseFromString(xhr.responseText, "text/html");
     rootElement = doc.body;
     errorCount = 0;
-    for (var prop in docTests) {
+    for (let prop in docTests) {
       runTest(docTests[prop], prop);
     }
   }, false);
