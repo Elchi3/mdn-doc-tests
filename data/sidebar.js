@@ -106,13 +106,8 @@ function updateErrorSummary() {
     totalErrorCounter.classList.remove("ok");
     totalErrorCounter.classList.add("hasErrors");
   }
-<<<<<<< Upstream, based on origin/master
   
   let totalWarningCounter = document.getElementById("totalWarningCount");
-=======
-
-  var totalWarningCounter = document.getElementById("totalWarningCount");
->>>>>>> b9bb54e Indicate test results via a button in reading mode
   totalWarningCounter.textContent = totalWarningCount;
   if (totalWarningCount === 0) {
     totalWarningCounter.classList.remove("hasWarnings");
