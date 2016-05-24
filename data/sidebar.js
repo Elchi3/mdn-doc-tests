@@ -6,21 +6,29 @@ let totalWarningCount = 0;
 
 addon.port.on("showTestResult", function(test, id, prefs) {
   let tests = document.getElementById("tests");
-  let errorCount = test.errors.length;
+  let matchesCount = test.errors.length;
   let status = "ok";
-  if (errorCount !== 0) {
+  if (matchesCount !== 0) {
     if (test.errors.some(match => match.type === ERROR)) {
       status = "hasErrors";
     } else if (test.errors.some(match => match.type === WARNING)) {
       status = "hasWarnings";
     }
   }
+  let oldWarningCount = 0;
+  let oldErrorCount = 0;
+  let newWarningCount = test.errors.filter(match => match.type === WARNING).length;
+  let newErrorCount = test.errors.filter(match => match.type === ERROR).length;
 
   tests.classList.toggle("hidePassingTests", prefs.hidePassingTests);
 
   let testElem = document.getElementById(id);
   if (tests.contains(testElem)) {
-    testElem.getElementsByClassName("errorCount")[0].textContent = errorCount;
+    oldWarningCount = Number(testElem.dataset.warningCount);
+    oldErrorCount = Number(testElem.dataset.errorCount);
+    testElem.dataset.errorCount = newErrorCount;
+    testElem.dataset.warningCount = newWarningCount;
+    testElem.getElementsByClassName("errorCount")[0].textContent = matchesCount;
     testElem.classList.remove("hasErrors", "hasWarnings", "ok");
     testElem.classList.add(status);
   } else {
@@ -28,6 +36,8 @@ addon.port.on("showTestResult", function(test, id, prefs) {
     testContainer.setAttribute("class", "test " + status);
     testContainer.setAttribute("id", id);
     testContainer.setAttribute("title", test.desc);
+    testContainer.dataset.errorCount = newErrorCount;
+    testContainer.dataset.warningCount = newWarningCount;
     let testHeadingContainer = document.createElement("div");
     testHeadingContainer.setAttribute("class", "testHeading");
     let testHeading = document.createElement("span");
@@ -36,7 +46,7 @@ addon.port.on("showTestResult", function(test, id, prefs) {
     testHeadingContainer.appendChild(testHeading);
     let errorCounter = document.createElement("span");
     errorCounter.setAttribute("class", "errorCount");
-    errorCounter.textContent = errorCount;
+    errorCounter.textContent = matchesCount;
     testHeadingContainer.appendChild(errorCounter);
     testContainer.appendChild(testHeadingContainer);
 
@@ -67,10 +77,9 @@ addon.port.on("showTestResult", function(test, id, prefs) {
     errors.appendChild(errorContainer);
   });
 
-  if (errorCount !== 0) {
-    totalWarningCount += test.errors.filter(match => match.type === WARNING).length;
-    totalErrorCount += test.errors.filter(match => match.type === ERROR).length;
-  }
+  totalWarningCount += newWarningCount - oldWarningCount;
+  totalErrorCount += newErrorCount - oldErrorCount;
+
   updateErrorSummary();
 });
 
@@ -110,8 +119,6 @@ function updateErrorSummary() {
 }
 
 function runTests() {
-  totalErrorCount = 0;
-  totalWarningCount = 0;
   addon.port.emit("runTests");
 }
 
@@ -122,8 +129,8 @@ window.addEventListener("DOMContentLoaded", function loadTestSuite() {
     evt.preventDefault();
   });
 
-  let btn = document.getElementById("btn-runtests");
-  btn.addEventListener("click", runTests);
+  let runTestsButton = document.getElementById("btn-runtests");
+  runTestsButton.addEventListener("click", runTests);
 
   setInterval(runTests, 10000);
 
