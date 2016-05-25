@@ -23,8 +23,7 @@ self.port.on("runTests", function() {
 });
 
 let btns = document.querySelectorAll(".btn-save, .btn-save-and-edit");
-let comment = document.querySelectorAll("#page-comment #id_comment")[0];
-
+let comment = document.querySelector("#page-comment #id_comment");
 
 let disableBtns = function(bool) {
   for (let i = 0; i < btns.length; i++) {
@@ -32,10 +31,12 @@ let disableBtns = function(bool) {
   }
 };
 
-if (comment.value === '') {
-  disableBtns(true);
-}
+if (comment) {
+  if (comment.value === '') {
+    disableBtns(true);
+  }
 
-comment.addEventListener("change", function() {
-  disableBtns(false);
-});
+  comment.addEventListener("change", function() {
+    disableBtns(false);
+  });
+}
