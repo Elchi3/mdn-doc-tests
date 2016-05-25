@@ -1,12 +1,4 @@
-let iframe = document.querySelectorAll("iframe.cke_wysiwyg_frame")[0];
-let content = "";
-let rootElement = null;
-if (iframe) {
-  iframe.contentDocument.body.setAttribute("spellcheck", "true");
-  rootElement = iframe.contentDocument.body;
-}
-
-let runTest = function(testObj, id) {
+function runTest(testObj, id, rootElement) {
   // Only run the test suite if there's a root element
   //(e.g. when in source view there's no root element set)
   if (rootElement) {
@@ -17,8 +9,13 @@ let runTest = function(testObj, id) {
 };
 
 self.port.on("runTests", function() {
-  for (let prop in docTests) {
-    runTest(docTests[prop], prop);
+  let iframe = document.querySelector("iframe.cke_wysiwyg_frame");
+  if (iframe) {
+    rootElement = iframe.contentDocument.body;
+
+    for (let prop in docTests) {
+      runTest(docTests[prop], prop, rootElement);
+    }
   }
 });
 
