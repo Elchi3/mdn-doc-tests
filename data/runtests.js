@@ -1,10 +1,33 @@
-let iframe = document.querySelectorAll("iframe.cke_wysiwyg_frame")[0];
-let content = "";
 let rootElement = null;
-if (iframe) {
-  iframe.contentDocument.body.setAttribute("spellcheck", "true");
-  rootElement = iframe.contentDocument.body;
-}
+let tabURL = self.options.tabURL;
+let errorCount;
+
+// Use CKEditor source when editing
+self.port.on("editing", function() {
+  let iframe = document.querySelectorAll("iframe.cke_wysiwyg_frame")[0];
+  if (iframe) {
+    iframe.contentDocument.body.setAttribute("spellcheck", "true");
+    rootElement = iframe.contentDocument.body;
+  }
+  disableSaveIfNoComment();
+});
+
+// Use ?raw page source when reading
+self.port.on("reading", function() {
+  let xhr = new XMLHttpRequest();
+  let url = tabURL.split('#')[0].split('?')[0] + "?raw";
+  xhr.open("GET", url , true);
+  xhr.addEventListener("load", function(event) {
+    let domParser = new DOMParser();
+    let doc = domParser.parseFromString(xhr.responseText, "text/html");
+    rootElement = doc.body;
+    errorCount = 0;
+    for (let prop in docTests) {
+      runTest(docTests[prop], prop);
+    }
+  }, false);
+  xhr.send();
+});
 
 let runTest = function(testObj, id) {
   // Only run the test suite if there's a root element
@@ -12,31 +35,37 @@ let runTest = function(testObj, id) {
   if (rootElement) {
     let contentTest = testObj.check(rootElement);
     testObj.errors = contentTest;
+    errorCount += testObj.errors.length;
+    self.port.emit("badgeUpdate", errorCount);
     self.port.emit("processTestResult", testObj, id);
   }
 };
 
 self.port.on("runTests", function() {
+  errorCount = 0;
   for (let prop in docTests) {
     runTest(docTests[prop], prop);
   }
 });
 
-let btns = document.querySelectorAll(".btn-save, .btn-save-and-edit");
-let comment = document.querySelector("#page-comment #id_comment");
+// Disable save buttons if no revision comment has been entered
+function disableSaveIfNoComment() {
+  let btns = document.querySelectorAll(".btn-save, .btn-save-and-edit");
+  let comment = document.querySelector("#page-comment #id_comment");
 
-let disableBtns = function(bool) {
-  for (let i = 0; i < btns.length; i++) {
-    btns[i].disabled = bool;
+  let disableBtns = function(bool) {
+    for (let i = 0; i < btns.length; i++) {
+      btns[i].disabled = bool;
+    }
+  };
+
+  if (comment) {
+    if (comment.value === '') {
+      disableBtns(true);
+    }
+
+    comment.addEventListener("change", function() {
+      disableBtns(false);
+    });
   }
-};
-
-if (comment) {
-  if (comment.value === '') {
-    disableBtns(true);
-  }
-
-  comment.addEventListener("change", function() {
-    disableBtns(false);
-  });
 }
