@@ -8,7 +8,7 @@ docTests.preWithoutClass = {
     for (let i = 0; i < presWithoutClass.length; i++) {
       matches.push({
         msg: presWithoutClass[i].outerHTML,
-        type: ERROR
+        type: WARNING
       })
     }
 
