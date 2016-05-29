@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc codeInPre"] = function testSummaryHeading(assert, done) {
   const tests = [
@@ -9,11 +9,26 @@ exports["test doc codeInPre"] = function testSummaryHeading(assert, done) {
            '<pre class="brush:js"><code>some code</code><code>some more inline code</code></pre>' +
            '<pre class="brush:js">foo\n<code>some code</code>\nbar<br>\n<code>some code with\nline break</code>\nbaz</pre>',
       expected: [
-        '<code>some code</code>',
-        '<code>some code</code>',
-        '<code>some more inline code</code>',
-        '<code>some code</code>',
-        '<code>some code with\nline break</code>'
+        {
+          msg: '<code>some code</code>',
+          type: ERROR
+        },
+        {
+          msg: '<code>some code</code>',
+          type: ERROR
+        },
+        {
+          msg: '<code>some more inline code</code>',
+          type: ERROR
+        },
+        {
+          msg: '<code>some code</code>',
+          type: ERROR
+        },
+        {
+          msg: '<code>some code with\nline break</code>',
+          type: ERROR
+        }
       ]
     }
   ];

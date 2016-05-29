@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc oldURLs"] = function testOldURLs(assert, done) {
   const tests = [
@@ -6,8 +6,14 @@ exports["test doc oldURLs"] = function testOldURLs(assert, done) {
       str: '<a href=\"/en/Web\">Web</a>' +
            '<a href=\"/En/Mozilla\">Mozilla</a>',
       expected: [
-        '<a href=\"/en/Web\">Web</a>',
-        '<a href=\"/En/Mozilla\">Mozilla</a>'
+        {
+          msg: '<a href=\"/en/Web\">Web</a>',
+          type: ERROR
+        },
+        {
+          msg: '<a href=\"/En/Mozilla\">Mozilla</a>',
+          type: ERROR
+        }
       ]
     }
   ];

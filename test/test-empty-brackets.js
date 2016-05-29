@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc emptyBrackets"] = function testEmptyBrackets(assert, done) {
   const tests = [
@@ -8,8 +8,14 @@ exports["test doc emptyBrackets"] = function testEmptyBrackets(assert, done) {
            '{{foobar("abc")}}' +
            '{{baz}}',
       expected: [
-        '{{ foo() }}',
-        '{{bar()}}'
+        {
+          msg: '{{ foo() }}',
+          type: ERROR
+        },
+        {
+          msg: '{{bar()}}',
+          type: ERROR
+        }
       ]
     }
   ];

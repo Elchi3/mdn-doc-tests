@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc differentLocaleLinks"] = function testDifferentLocaleLinks(assert, done) {
   const tests = [
@@ -12,15 +12,18 @@ exports["test doc differentLocaleLinks"] = function testDifferentLocaleLinks(ass
       expected: [
         {
           msg: "link_using_wrong_locale",
-          msgParams: ["/xx-YY/docs/some/page", "en-US"]
+          msgParams: ["/xx-YY/docs/some/page", "en-US"],
+          type: ERROR
         },
         {
           msg: "link_using_wrong_locale",
-          msgParams: ["http://developer.mozilla.org/xx-YY/docs/some/page", "en-US"]
+          msgParams: ["http://developer.mozilla.org/xx-YY/docs/some/page", "en-US"],
+          type: ERROR
         },
         {
           msg: "link_using_wrong_locale",
-          msgParams: ["https://developer.mozilla.org/xx-YY/docs/some/page", "en-US"]
+          msgParams: ["https://developer.mozilla.org/xx-YY/docs/some/page", "en-US"],
+          type: ERROR
         }
       ]
     }

@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc emptyElements"] = function testEmptyElements(assert, done) {
   const tests = [
@@ -8,6 +8,7 @@ exports["test doc emptyElements"] = function testEmptyElements(assert, done) {
            '<p> &nbsp;</p>' +
            '<p><br><br/></p>' +
            '<p><wbr><wbr/></p>' +
+           '<table><tr><td>foo</td><td><br/></td></tr></table>' +
            '<img src="http://example.com/image.png">' +
            '<p><img src="http://example.com/image.png"></p>' +
            '<input value="test"/>' +
@@ -15,11 +16,30 @@ exports["test doc emptyElements"] = function testEmptyElements(assert, done) {
            '<p>some text</p>' +
            '<span><span style="display:block;z-index:9999;">&nbsp;</span></span>', // Simulates new paragraph helper
       expected: [
-        '<p> </p>',
-        '<p> \n\n </p>',
-        '<p> &nbsp;</p>',
-        '<p><br><br></p>',
-        '<p><wbr><wbr></p>'
+        {
+          msg: '<p> </p>',
+          type: ERROR
+        },
+        {
+          msg: '<p> \n\n </p>',
+          type: ERROR
+        },
+        {
+          msg: '<p> &nbsp;</p>',
+          type: ERROR
+        },
+        {
+          msg: '<p><br><br></p>',
+          type: ERROR
+        },
+        {
+          msg: '<p><wbr><wbr></p>',
+          type: ERROR
+        },
+        {
+          msg: '<td><br></td>',
+          type: WARNING
+        }
       ]
     }
   ];

@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc shellPrompts"] = function testShellPrompts(assert, done) {
   const tests = [
@@ -10,12 +10,30 @@ exports["test doc shellPrompts"] = function testShellPrompts(assert, done) {
            '<pre>&gt; somecommand</pre>' +
            '<pre>$ somecommand\noutput<br>$ anothercommand</pre>',
       expected: [
-        '$somecommand',
-        '$ somecommand',
-        '&gt;somecommand',
-        '&gt; somecommand',
-        '$ somecommand',
-        '$ anothercommand'
+        {
+          msg: '$somecommand',
+          type: ERROR
+        },
+        {
+          msg: '$ somecommand',
+          type: ERROR
+        },
+        {
+          msg: '&gt;somecommand',
+          type: ERROR
+        },
+        {
+          msg: '&gt; somecommand',
+          type: ERROR
+        },
+        {
+          msg: '$ somecommand',
+          type: ERROR
+        },
+        {
+          msg: '$ anothercommand',
+          type: ERROR
+        }
       ]
     }
   ];

@@ -1,8 +1,15 @@
 // Utility functions that execute unit tests
 
+const ERROR = 1;
+const WARNING = 2;
+const INFO = 3;
+
 const prefs = require("sdk/simple-prefs").prefs;
 const testList = require("../data/tests/testlist").testList;
 
+exports.ERROR = ERROR;
+exports.WARNING = WARNING;
+exports.INFO = INFO;
 exports.url = "about:blank";
 
 exports.runTests = function runTests(assert, done, name, desc, url, tests) {
@@ -29,13 +36,13 @@ exports.runTests = function runTests(assert, done, name, desc, url, tests) {
                      "Number of " + desc + " matches must be " + expected.length);
 
         matches.forEach((match, i) => {
-          let expectedIsObject = typeof expected[i] === "object";
-          let expectedValue = expectedIsObject ? expected[i].msg : expected[i];
+          assert.equal(match.msg, expected[i].msg,
+              "Error message for " + desc + " match must be correct");
 
-          assert.equal(match.msg, expectedValue,
-                       "Error message for " + desc + " match must be correct");
+          assert.equal(match.type, expected[i].type,
+              "Error type for " + desc + " match must be correct");
 
-          if (expectedIsObject) {
+          if (expected[i].msgParams) {
             assert.deepEqual(match.msgParams, expected[i].msgParams,
                              "Error message params for " + desc + " match must be correct");
           }

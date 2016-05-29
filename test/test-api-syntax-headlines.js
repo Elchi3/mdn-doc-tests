@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc apiSyntaxHeadlines"] = function testSummaryHeading(assert, done) {
   const tests = [
@@ -10,17 +10,21 @@ exports["test doc apiSyntaxHeadlines"] = function testSummaryHeading(assert, don
       expected: [
         {
           msg: "invalid_headline_name",
-          msgParams: ["Errors"]
+          msgParams: ["Errors"],
+          type: ERROR
         },
         {
           msg: "invalid_headline_name",
-          msgParams: ["Returns"]
+          msgParams: ["Returns"],
+          type: ERROR
         },
         {
           msg: "invalid_headline_order",
+          type: ERROR
         },
         {
           msg: "invalid_headline_order",
+          type: ERROR
         }
       ]
     }

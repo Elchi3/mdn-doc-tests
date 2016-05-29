@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc alertPrintInCode"] = function testAlertPrintInCode(assert, done) {
   const tests = [
@@ -9,10 +9,22 @@ exports["test doc alertPrintInCode"] = function testAlertPrintInCode(assert, don
            'alert("hello world"); \n let moreCode;</pre>' +
            '<pre>document.write("foobar");</pre>',
       expected: [
-        'alert("foo")',
-        'print("bar")',
-        'alert("hello world")',
-        'document.write("foobar")'
+        {
+          msg: 'alert("foo")',
+          type: ERROR
+        },
+        {
+          msg: 'print("bar")',
+          type: ERROR
+        },
+        {
+          msg: 'alert("hello world")',
+          type: ERROR
+        },
+        {
+          msg: 'document.write("foobar")',
+          type: ERROR
+        }
       ]
     }
   ];

@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc wrongSyntaxClass"] = function testWrongSyntaxClass(assert, done) {
   const tests = [
@@ -15,7 +15,8 @@ exports["test doc wrongSyntaxClass"] = function testWrongSyntaxClass(assert, don
       expected: [
         {
           msg: "wrong_syntax_class_used",
-          msgParams: ["brush:js"]
+          msgParams: ["brush:js"],
+          type: ERROR
         }
       ]
     },
@@ -24,7 +25,8 @@ exports["test doc wrongSyntaxClass"] = function testWrongSyntaxClass(assert, don
       expected: [
         {
           msg: "wrong_syntax_class_used",
-          msgParams: ["eval"]
+          msgParams: ["eval"],
+          type: ERROR
         }
       ]
     }
