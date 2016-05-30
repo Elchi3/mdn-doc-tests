@@ -9,16 +9,8 @@ docTests.styleAttribute = {
       let node = elementsWithStyleAttribute[i];
 
       // Exclude new paragraph helper
-      if (node.localName === "span") {
-        let style = node.getAttribute("style");
-        if (style && /z-index:\s*9999;/.test(style)) {
-          continue;
-        }
-
-        style = node.firstElementChild && node.firstElementChild.getAttribute("style");
-        if (style && /z-index:\s*9999;/.test(style)) {
-          continue;
-        }
+      if (isNewParagraphHelper(node) || isNewParagraphHelper(node.firstElementChild)) {
+        continue;
       }
 
       matches.push({

@@ -9,13 +9,7 @@ docTests.spanCount = {
       let node = spanElements[i];
 
       // Exclude new paragraph helper
-      let style = node.getAttribute("style");
-      if (style && /z-index:\s*9999;/.test(style)) {
-        continue;
-      }
-
-      style = node.firstElementChild && node.firstElementChild.getAttribute("style");
-      if (style && /z-index:\s*9999;/.test(style)) {
+      if (isNewParagraphHelper(node) || isNewParagraphHelper(node.firstElementChild)) {
         continue;
       }
 

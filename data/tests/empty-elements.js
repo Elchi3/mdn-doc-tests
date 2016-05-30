@@ -12,11 +12,8 @@ docTests.emptyElements = {
                 node.textContent.match(/^(?:&nbsp;|\s|\n)*$/)) {
 
               // Exclude new paragraph helper
-              if (node.localName === "span" && node.firstElementChild) {
-                let style = node.firstElementChild.getAttribute("style");
-                if (style && /z-index:\s*9999;/.test(style)) {
-                  return NodeFilter.FILTER_REJECT;
-                }
+              if (isNewParagraphHelper(node.firstElementChild)) {
+                return NodeFilter.FILTER_REJECT;
               }
 
               // Elements containing self-closing elements except <br> and <wbr> are considered non-empty
