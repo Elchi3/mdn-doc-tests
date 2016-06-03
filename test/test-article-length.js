@@ -21,11 +21,11 @@ exports["test doc articleLength"] = function testArticleLength(assert, done) {
       ]
     },
     {
-      str: Array(2000).fill("foo").join(" "),
+      str: Array(3000).fill("foo").join(" "),
       expected: [
         {
           msg: "article_length_info",
-          msgParams: ["2000", "7"]
+          msgParams: ["3000", "11"]
         },
         {
           msg: "long_article"

@@ -1,5 +1,6 @@
 // Utility functions that execute unit tests
 
+const prefs = require("sdk/simple-prefs").prefs;
 const testList = require("../data/tests/testlist").testList;
 
 exports.url = "about:blank";
@@ -14,7 +15,8 @@ exports.runTests = function runTests(assert, done, name, desc, url, tests) {
           "./doctests.js",
           ...testList.map(test => "./tests/" + test),
           "../test/testrunner.js"],
-        contentScriptOptions: {"name": name, "tests": JSON.stringify(tests)}
+        contentScriptOptions: {"name": name, "tests": JSON.stringify(tests),
+            LONG_ARTICLE_WORD_COUNT_THRESHOLD: prefs.longArticleWordCountThreshold}
       });
 
       let resultCount = 0;

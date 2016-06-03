@@ -1,4 +1,3 @@
-const LONG_ARTICLE_WORD_COUNT_THRESHOLD = 1000;
 const WORDS_PER_MINUTE = 275;
 
 docTests.articleLength = {
@@ -16,7 +15,7 @@ docTests.articleLength = {
       msgParams: [String(wordCount), String(readTimeEstimation)],
       type: INFO
     }];
-    if (wordCount > LONG_ARTICLE_WORD_COUNT_THRESHOLD) {
+    if (wordCount > self.options.LONG_ARTICLE_WORD_COUNT_THRESHOLD) {
       matches.push({
         msg: "long_article",
         type: WARNING
