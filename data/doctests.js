@@ -10,3 +10,12 @@ function mapMatches(matches, type) {
     return {msg: match, type: type};
   });
 }
+
+function isNewParagraphHelper(element) {
+  if (!element || element.localName !== "span") {
+    return false;
+  }
+
+  let style = element.getAttribute("style");
+  return style && /z-index:\s*9999;/.test(style);
+}
