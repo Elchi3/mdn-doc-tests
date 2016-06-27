@@ -23,6 +23,13 @@
       "title": "Hide passing tests",
       "type": "bool",
       "value": false
+    },
+    {
+      "name": "longArticleWordCountThreshold",
+      "title": "Long article word count threshold",
+      "type": "integer",
+      "value": 2000,
+      "hidden": true
     }
   ],
   "permissions": {

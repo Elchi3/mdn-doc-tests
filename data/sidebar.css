@@ -2,6 +2,7 @@
   --ok-color: #00882D;
   --error-color: #CB000F;
   --warning-color: #DBB40F;
+  --info-color: #0095DD;
   --match-background: linear-gradient(rgba(255,255,255,0.2),rgba(255,255,255,0.2));
   --match-highlighted-background: linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3));
 }
@@ -81,7 +82,8 @@ li {
 }
 
 .hasErrors > .testHeading,
-.hasWarnings > .testHeading {
+.hasWarnings > .testHeading,
+.hasInfo > .testHeading {
   cursor: pointer;
 }
 
@@ -91,6 +93,10 @@ li {
 
 .hasWarnings {
   background-color: var(--warning-color);
+}
+
+.hasInfo {
+  background-color: var(--info-color);
 }
 
 .ok {
@@ -118,14 +124,22 @@ li {
   padding-block-end: 0.3em;
 }
 
+.error,
+.warning,
+.info {
+  background-image: var(--match-background);
+}
+
 .error {
   background-color: var(--error-color);
-  background-image: var(--match-background);
 }
 
 .warning {
   background-color: var(--warning-color);
-  background-image: var(--match-background);
+}
+
+.info {
+  background-color: var(--info-color);
 }
 
 .error:not(:last-child) {
@@ -136,11 +150,13 @@ li {
   border-bottom: 2px solid var(--warning-color);
 }
 
-.error:hover {
-  background-image: var(--match-highlighted-background);
+.info:not(:last-child) {
+  border-bottom: 2px solid var(--info-color);
 }
 
-.warning:hover {
+.error:hover,
+.warning:hover,
+.info:hover {
   background-image: var(--match-highlighted-background);
 }
 
