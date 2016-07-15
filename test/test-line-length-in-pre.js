@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc lineLengthInPre"] = function testSummaryHeading(assert, done) {
   const tests = [
@@ -11,8 +11,14 @@ exports["test doc lineLengthInPre"] = function testSummaryHeading(assert, done) 
            'some code with\nline break\nbaz' +
            '11111111111 111111111111 function{ foo(); 11111111111111 bar 1111111111111111 111</pre>',
       expected: [
-        '11111111111111111111111 11111111111111111111111 111111111111 111111111111111 1',
-        'baz11111111111 111111111111 function{ foo(); 11111111111111 bar 1111111111111111 111'
+        {
+          msg: '11111111111111111111111 11111111111111111111111 111111111111 111111111111111 1',
+          type: WARNING
+        },
+        {
+          msg: 'baz11111111111 111111111111 function{ foo(); 11111111111111 bar 1111111111111111 111',
+          type: WARNING
+        }
       ]
     }
   ];

@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc styleAttribute"] = function testStyleAttributes(assert, done) {
   const tests = [
@@ -10,11 +10,26 @@ exports["test doc styleAttribute"] = function testStyleAttributes(assert, done) 
            '<span style="font-family: \'Open Sans\', serif; line-height: 1.5"></span>' +
            '<span><span style="display:block;z-index:9999;">&nbsp;</span></span>', // Simulates new paragraph helper
       expected: [
-        'style=""',
-        'style="margin-top:5%"',
-        'style="background:#fff; color: rgb(234, 234, 234);"',
-        'style="padding: 5px !important"',
-        'style="font-family: \'Open Sans\', serif; line-height: 1.5"'
+        {
+          msg: 'style=""',
+          type: ERROR
+        },
+        {
+          msg: 'style="margin-top:5%"',
+          type: ERROR
+        },
+        {
+          msg: 'style="background:#fff; color: rgb(234, 234, 234);"',
+          type: ERROR
+        },
+        {
+          msg: 'style="padding: 5px !important"',
+          type: ERROR
+        },
+        {
+          msg: 'style="font-family: \'Open Sans\', serif; line-height: 1.5"',
+          type: ERROR
+        }
       ]
     }
   ];

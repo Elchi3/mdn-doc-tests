@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc absoluteURLsForInternalLinks"] = function testAbsoluteURLsForInternalLinks(assert, done) {
   const tests = [
@@ -10,9 +10,18 @@ exports["test doc absoluteURLsForInternalLinks"] = function testAbsoluteURLsForI
            '<a href="http://developer.mozilla.org/en-US/docs/some/page">Anchor</a>' +
            '<a href="//developer.mozilla.org/en-US/docs/some/page">Anchor</a>',
       expected: [
-        '<a href="https://developer.mozilla.org/en-US/docs/some/page">Anchor</a>',
-        '<a href="http://developer.mozilla.org/en-US/docs/some/page">Anchor</a>',
-        '<a href="//developer.mozilla.org/en-US/docs/some/page">Anchor</a>'
+        {
+          msg: '<a href="https://developer.mozilla.org/en-US/docs/some/page">Anchor</a>',
+          type: WARNING
+        },
+        {
+          msg: '<a href="http://developer.mozilla.org/en-US/docs/some/page">Anchor</a>',
+          type: WARNING
+        },
+        {
+          msg: '<a href="//developer.mozilla.org/en-US/docs/some/page">Anchor</a>',
+          type: WARNING
+        }
       ]
     }
   ];

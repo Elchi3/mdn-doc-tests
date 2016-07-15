@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc fontElements"] = function testFontElements(assert, done) {
   const tests = [
@@ -6,8 +6,14 @@ exports["test doc fontElements"] = function testFontElements(assert, done) {
       str: '<font>Some text</font>' +
            '<font face="Open Sans, sans-serif">Another text</font>',
       expected: [
-        '<font>Some text</font>',
-        '<font face="Open Sans, sans-serif">Another text</font>'
+        {
+          msg: '<font>Some text</font>',
+          type: ERROR
+        },
+        {
+          msg: '<font face="Open Sans, sans-serif">Another text</font>',
+          type: ERROR
+        }
       ]
     }
   ];

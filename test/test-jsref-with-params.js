@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc jsRefWithParams"] = function testJSRefWithParams(assert, done) {
   const tests = [
@@ -8,9 +8,18 @@ exports["test doc jsRefWithParams"] = function testJSRefWithParams(assert, done)
            '{{JSRef("Global_Objects", "Math")}}' +
            '{{JSRef}}',
       expected: [
-        '{{JSRef()}}',
-        '{{JSRef("Global_Objects")}}',
-        '{{JSRef("Global_Objects", "Math")}}'
+        {
+          msg: '{{JSRef()}}',
+          type: ERROR
+        },
+        {
+          msg: '{{JSRef("Global_Objects")}}',
+          type: ERROR
+        },
+        {
+          msg: '{{JSRef("Global_Objects", "Math")}}',
+          type: ERROR
+        }
       ]
     }
   ];

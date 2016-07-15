@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc invalidMacros"] = function testInvalidMacros(assert, done) {
   const tests = [
@@ -12,10 +12,22 @@ exports["test doc invalidMacros"] = function testInvalidMacros(assert, done) {
            '{{invalidmacroname("some page")}}' +
            '{{invalidmacroname(\'font-weight\', \'@font\')}}',
       expected: [
-        '{{invalidmacroname}}',
-        '{{invalidmacroname(123456)}}',
-        '{{invalidmacroname("some page")}}',
-        '{{invalidmacroname(\'font-weight\', \'@font\')}}'
+        {
+          msg: '{{invalidmacroname}}',
+          type: WARNING
+        },
+        {
+          msg: '{{invalidmacroname(123456)}}',
+          type: WARNING
+        },
+        {
+          msg: '{{invalidmacroname("some page")}}',
+          type: WARNING
+        },
+        {
+          msg: '{{invalidmacroname(\'font-weight\', \'@font\')}}',
+          type: WARNING
+        }
       ]
     }
   ];

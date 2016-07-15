@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, INFO, url, runTests} = require("./testutils");
 
 exports["test doc articleLength"] = function testArticleLength(assert, done) {
   const tests = [
@@ -7,7 +7,8 @@ exports["test doc articleLength"] = function testArticleLength(assert, done) {
       expected: [
         {
           msg: "article_length_info",
-          msgParams: ["100", "< 1"]
+          msgParams: ["100", "< 1"],
+          type: INFO
         }
       ]
     },
@@ -16,7 +17,8 @@ exports["test doc articleLength"] = function testArticleLength(assert, done) {
       expected: [
         {
           msg: "article_length_info",
-          msgParams: ["500", "2"]
+          msgParams: ["500", "2"],
+          type: INFO
         }
       ]
     },
@@ -25,10 +27,12 @@ exports["test doc articleLength"] = function testArticleLength(assert, done) {
       expected: [
         {
           msg: "article_length_info",
-          msgParams: ["3000", "11"]
+          msgParams: ["3000", "11"],
+          type: INFO
         },
         {
-          msg: "long_article"
+          msg: "long_article",
+          type: WARNING
         }
       ]
     }

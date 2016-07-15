@@ -1,11 +1,14 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc languagesMacro"] = function testEmptyElements(assert, done) {
   const tests = [
     {
       str: '{{ languages( { "ja": "Ja/Browser_chrome_tests" } ) }}',
       expected: [
-        '{{ languages( { "ja": "Ja/Browser_chrome_tests" } ) }}'
+        {
+          msg: '{{ languages( { "ja": "Ja/Browser_chrome_tests" } ) }}',
+          type: ERROR
+        }
       ]
     }
   ];

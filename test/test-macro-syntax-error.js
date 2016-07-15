@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc macroSyntaxError"] = function testMacroSyntaxErrors(assert, done) {
   const tests = [
@@ -27,67 +27,83 @@ exports["test doc macroSyntaxError"] = function testMacroSyntaxErrors(assert, do
       expected: [
         {
           msg: "string_parameter_incorrectly_quoted",
-          msgParams: ['{{macro("param)}}']
+          msgParams: ['{{macro("param)}}'],
+          type: ERROR
         },
         {
           msg: "string_parameter_incorrectly_quoted",
-          msgParams: ["{{macro('param)}}"]
+          msgParams: ["{{macro('param)}}"],
+          type: ERROR
         },
         {
           msg: "string_parameter_incorrectly_quoted",
-          msgParams: ["{{macro(param)}}"]
+          msgParams: ["{{macro(param)}}"],
+          type: ERROR
         },
         {
           msg: "string_parameter_incorrectly_quoted",
-          msgParams: ['{{macro(param")}}']
+          msgParams: ['{{macro(param")}}'],
+          type: ERROR
         },
         {
           msg: "string_parameter_incorrectly_quoted",
-          msgParams: ["{{macro(param')}}"]
+          msgParams: ["{{macro(param')}}"],
+          type: ERROR
         },
         {
           msg: "string_parameter_incorrectly_quoted",
-          msgParams: ["{{macro('param', 123, \"param)}}"]
+          msgParams: ["{{macro('param', 123, \"param)}}"],
+          type: ERROR
         },
         {
           msg: "additional_closing_bracket",
-          msgParams: ['{{macro("param"))}}']
+          msgParams: ['{{macro("param"))}}'],
+          type: ERROR
         },
         {
           msg: "missing_closing_curly_brace",
-          msgParams: ['{{macro("param")}']
+          msgParams: ['{{macro("param")}'],
+          type: ERROR
         },
         {
           msg: "missing_closing_curly_brace",
-          msgParams: ["{{macro(\'param\')}"]
+          msgParams: ["{{macro(\'param\')}"],
+          type: ERROR
         },
         {
           msg: "missing_closing_bracket",
-          msgParams: ['{{macro("param"}}']
+          msgParams: ['{{macro("param"}}'],
+          type: ERROR
         },
         {
           msg: "missing_closing_bracket",
-          msgParams: ["{{macro(\'param\'}}"]
+          msgParams: ["{{macro(\'param\'}}"],
+          type: ERROR
         },
         {
           msg: "missing_closing_bracket",
-          msgParams: ['{{macro(param"}}']
+          msgParams: ['{{macro(param"}}'],
+          type: ERROR
         },
         {
           msg: "string_parameter_incorrectly_quoted",
-          msgParams: ['{{macro(param"}}']
+          msgParams: ['{{macro(param"}}'],
+          type: ERROR
         },
         {
           msg: "string_parameter_incorrectly_quoted",
-          msgParams: ['{{macro(param"))}}']
+          msgParams: ['{{macro(param"))}}'],
+          type: ERROR
         },
         {
           msg: "additional_closing_bracket",
-          msgParams: ['{{macro(param"))}}']
+          msgParams: ['{{macro(param"))}}'],
+          type: ERROR
         },
         {
           msg: "missing_closing_bracket",
-          msgParams: ['{{macro(123, "param()"}}']
+          msgParams: ['{{macro(123, "param()"}}'],
+          type: ERROR
         }
       ]
     }

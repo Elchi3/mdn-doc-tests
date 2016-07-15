@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc exampleColonHeading"] = function testExampleColonHeading(assert, done) {
   const tests = [
@@ -9,9 +9,18 @@ exports["test doc exampleColonHeading"] = function testExampleColonHeading(asser
            '<h3 id="Example:_Using_Math.sin">Example: Using <code>Math.sin</code></h3>' +
            '<h2 id="Example:_Foo">Example: Foo</h2>',
       expected: [
-        '<h3 id="Example:_Foo">Example: Foo</h3>',
-        '<h3 id="Example:_Using_Math.sin">Example: Using <code>Math.sin</code></h3>',
-        '<h2 id="Example:_Foo">Example: Foo</h2>'
+        {
+          msg: '<h3 id="Example:_Foo">Example: Foo</h3>',
+          type: ERROR
+        },
+        {
+          msg: '<h3 id="Example:_Using_Math.sin">Example: Using <code>Math.sin</code></h3>',
+          type: ERROR
+        },
+        {
+          msg: '<h2 id="Example:_Foo">Example: Foo</h2>',
+          type: ERROR
+        }
       ]
     }
   ];

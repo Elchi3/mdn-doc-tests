@@ -1,4 +1,4 @@
-const {url, runTests} = require("./testutils");
+const {ERROR, WARNING, url, runTests} = require("./testutils");
 
 exports["test doc nameAttribute"] = function testNameAttributes(assert, done) {
   const tests = [
@@ -9,11 +9,26 @@ exports["test doc nameAttribute"] = function testNameAttributes(assert, done) {
            '<h2 id="foo_bar" name="foo_bar">foo bar</h2>' +
            '<h3 name=\'baz\'>baz</h3>',
       expected: [
-        'name=""',
-        'name="foo"',
-        'name="foo"',
-        'name="foo_bar"',
-        'name="baz"'
+        {
+          msg: 'name=""',
+          type: ERROR
+        },
+        {
+          msg: 'name="foo"',
+          type: ERROR
+        },
+        {
+          msg: 'name="foo"',
+          type: ERROR
+        },
+        {
+          msg: 'name="foo_bar"',
+          type: ERROR
+        },
+        {
+          msg: 'name="baz"',
+          type: ERROR
+        }
       ]
     }
   ];
