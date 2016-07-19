@@ -29,7 +29,7 @@ docTests.codeInPre = {
     matches.forEach(match => {
       let children = new DocumentFragment();
       for(let i = 0; i < match.node.childNodes.length; i++) {
-        children.appendChild(match.node.childNodes[i].cloneNode());
+        children.appendChild(match.node.childNodes[i].cloneNode(true));
       }
       match.node.parentNode.replaceChild(children, match.node);
     });
