@@ -39,7 +39,9 @@ let fixMatches = function(testObj, id) {
     testObj.fix(testObj.errors);
 
     // Run test again to update its results
-    runTest(testObj, id);
+    let iframe = document.querySelector("iframe.cke_wysiwyg_frame");
+    let rootElement = iframe.contentDocument.body;
+    runTest(testObj, id, rootElement);
   }
 };
 
@@ -47,6 +49,7 @@ function runTests() {
   let iframe = document.querySelector("iframe.cke_wysiwyg_frame");
   if (iframe) {
     let rootElement = iframe.contentDocument.body;
+
     for (let prop in docTests) {
       runTest(docTests[prop], prop, rootElement);
     }
