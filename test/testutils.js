@@ -12,7 +12,17 @@ exports.WARNING = WARNING;
 exports.INFO = INFO;
 exports.url = "about:blank";
 
+function mapTestName(name) {
+  return name.replace(/[A-Z]+/g, match => "-" + match.toLowerCase()) + ".js";
+}
+
 exports.runTests = function runTests(assert, done, name, desc, url, tests) {
+  // Skip the test in case it is not available
+  if (!testList.includes(mapTestName(name))) {
+    done();
+    return;
+  }
+
   let tabs = require("sdk/tabs");
   tabs.open({
     url: url,
@@ -29,26 +39,29 @@ exports.runTests = function runTests(assert, done, name, desc, url, tests) {
       let resultCount = 0;
 
       worker.port.on("processTestResult", function(testObj) {
-        let matches = testObj.errors;
-        let expected = testObj.expected;
+        if (testObj) {
+          let matches = testObj.errors;
+          let expected = testObj.expected;
 
-        assert.equal(matches.length, expected.length,
-                     "Number of " + desc + " matches must be " + expected.length);
+          assert.equal(matches.length, expected.length,
+                       "Number of " + desc + " matches must be " + expected.length);
 
-        matches.forEach((match, i) => {
-          assert.equal(match.msg, expected[i].msg,
-              "Error message for " + desc + " match must be correct");
+          matches.forEach((match, i) => {
+            assert.equal(match.msg, expected[i].msg,
+                "Error message for " + desc + " match must be correct");
+  
+            assert.equal(match.type, expected[i].type,
+                "Error type for " + desc + " match must be correct");
+  
+            if (expected[i].msgParams) {
+              assert.deepEqual(match.msgParams, expected[i].msgParams,
+                               "Error message params for " + desc + " match must be correct");
+            }
+          });
 
-          assert.equal(match.type, expected[i].type,
-              "Error type for " + desc + " match must be correct");
+          resultCount++;
+        }
 
-          if (expected[i].msgParams) {
-            assert.deepEqual(match.msgParams, expected[i].msgParams,
-                             "Error message params for " + desc + " match must be correct");
-          }
-        });
-
-        resultCount++;
         if (resultCount === tests.length) {
           tabs.activeTab.close();
           done();
