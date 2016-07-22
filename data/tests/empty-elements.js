@@ -40,11 +40,20 @@ docTests.emptyElements = {
 
     while(treeWalker.nextNode()) {
       matches.push({
+        node: treeWalker.currentNode,
         msg: treeWalker.currentNode.outerHTML,
         type: treeWalker.currentNode.localName === "td" ? WARNING : ERROR
       });
     }
 
     return matches;
+  },
+
+  fix: function fixEmptyElements(matches) {
+    matches.forEach(match => {
+      if (match.type === ERROR) {
+        match.node.remove()
+      }
+    });
   }
 };
