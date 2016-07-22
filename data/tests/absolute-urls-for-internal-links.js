@@ -36,7 +36,9 @@ docTests.absoluteURLsForInternalLinks = {
   fix: function fixAbsoluteURLsForInternalLinks(matches) {
     matches.forEach(match => {
       let href = match.node.getAttribute("href");
-      match.node.setAttribute("href", href.replace(reAbsoluteURL, ""));
+      let relativeURL = href.replace(reAbsoluteURL, "");
+      match.node.setAttribute("href", relativeURL);
+      match.node.setAttribute("data-cke-saved-href", relativeURL);
     });
   }
 };
