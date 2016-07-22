@@ -38,3 +38,16 @@ if (comment) {
     disableBtns(false);
   });
 }
+
+window.addEventListener("load", function injectIFrame() {
+  window.removeEventListener("load", injectIFrame);
+
+  // Using a timeout to add the spellchecking, because the iframe is not loaded immediately and
+  // there doesn't seem to be a proper event to react to.
+  setTimeout(() => {
+    let iframe = document.querySelector("iframe.cke_wysiwyg_frame");
+    if (iframe) {
+      iframe.contentDocument.body.setAttribute("spellcheck", "true");
+    }
+  }, 1000);
+});
