@@ -96,16 +96,6 @@ addon.port.on("showTestResult", function(test, id, prefs) {
   updateErrorSummary();
 });
 
-addon.port.on("updateProgress", (progress) => {
-  let progressBar = document.getElementById("testProgress");
-  progressBar.value += progress;
-});
-
-addon.port.on("hideProgressBar", () => {
-  let progressBar = document.getElementById("testProgress");
-  progressBar.classList.remove("visible");
-});
-
 function getParentByClassName(node, className) {
   let currentNode = node;
 
@@ -142,9 +132,6 @@ function updateErrorSummary() {
 }
 
 function runTests() {
-  let progressBar = document.getElementById("testProgress");
-  progressBar.value = 0;
-  progressBar.classList.add("visible");
   addon.port.emit("runTests");
 }
 
