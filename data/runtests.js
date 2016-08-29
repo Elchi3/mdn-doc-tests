@@ -17,6 +17,7 @@ self.port.on("runTests", function() {
       runTest(docTests[prop], prop, rootElement);
     }
   }
+  self.port.emit("finishedTests");
 });
 
 let btns = document.querySelectorAll(".btn-save, .btn-save-and-edit");
