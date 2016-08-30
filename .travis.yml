@@ -3,7 +3,7 @@ language: node_js
 node_js:
   - "node"
 addons:
-  firefox: latest
+  firefox: "47.0"
 env:
   global:
     - DISPLAY=:99.0
