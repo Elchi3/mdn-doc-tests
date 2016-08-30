@@ -53,6 +53,15 @@ h2 {
   padding-inline-end: 0;
 }
 
+progress {
+  visibility: hidden;
+  height: 5px;
+}
+
+.visible {
+  visibility: visible;
+}
+
 li {
   list-style-type: none;
 }
