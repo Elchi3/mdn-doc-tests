@@ -19,6 +19,7 @@ exports.testList = [
   "font-elements.js",
   "http-links.js",
   "invalid-macros.js",
+  "wrong-wrapped-sidebar-macros.js",
   "macro-syntax-error.js",
   "wrong-highlighted-line.js",
   "api-syntax-headlines.js",
