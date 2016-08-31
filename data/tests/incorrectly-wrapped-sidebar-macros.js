@@ -1,7 +1,7 @@
-docTests.wrongWrappedSidebarMacros = {
-  name: "wrong_wrapped_sidebar_macros",
-  desc: "wrong_wrapped_sidebar_macros_desc",
-  check: function checkWrongWrappedSidebarMacros(rootElement) {
+docTests.incorrectlyWrappedSidebarMacros = {
+  name: "incorrectly_wrapped_sidebar_macros",
+  desc: "incorrectly_wrapped_sidebar_macros_desc",
+  check: function checkIncorrectlyWrappedSidebarMacros(rootElement) {
     const allowedMacros = /^(?:apiref|cssref|htmlref|makesimplequicklinks|mathmlref|svgrefelem)$|sidebar$/i;
 
     let treeWalker = document.createTreeWalker(
