@@ -5,7 +5,6 @@ exports.testList = [
   "absolute-urls-for-internal-links.js",
   "different-locale-links.js",
   "empty-elements.js",
-  "languages-macro.js",
   "empty-brackets.js",
   "style-attribute.js",
   "name-attribute.js",

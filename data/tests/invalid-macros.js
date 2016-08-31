@@ -118,6 +118,10 @@ docTests.invalidMacros = {
       "xulelem"
     ];
 
+    const obsoleteMacros = [
+      "languages"
+    ];
+
     let treeWalker = document.createTreeWalker(
         rootElement,
         NodeFilter.SHOW_TEXT,
@@ -133,7 +137,13 @@ docTests.invalidMacros = {
       let reMacroName = /\{\{\s*([^\(\}\s]+).*?\}\}/g;
       let macroNameMatch = reMacroName.exec(treeWalker.currentNode.textContent);
       while (macroNameMatch) {
-        if (allowedMacros.indexOf(macroNameMatch[1].toLowerCase()) === -1) {
+        if (obsoleteMacros.indexOf(macroNameMatch[1].toLowerCase()) !== -1) {
+          matches.push({
+            msg: "obsolete_macro",
+            msgParams: [macroNameMatch[0]],
+            type: ERROR
+          });
+        } else if (allowedMacros.indexOf(macroNameMatch[1].toLowerCase()) === -1) {
           matches.push({
             msg: macroNameMatch[0],
             type: WARNING
