@@ -69,12 +69,15 @@ if (comment) {
 window.addEventListener("load", function injectIFrame() {
   window.removeEventListener("load", injectIFrame);
 
-  // Using a timeout to add the spellchecking, because the iframe is not loaded immediately and
-  // there doesn't seem to be a proper event to react to.
-  setTimeout(() => {
+  // Using polling to add the spellchecking and initially run the tests,
+  // because the iframe is not loaded immediately and there doesn't seem
+  // to be a proper event to react to.
+  let checkIfIframeLoadedInterval = setInterval(() => {
     let iframe = document.querySelector("iframe.cke_wysiwyg_frame");
     if (iframe) {
+      clearInterval(checkIfIframeLoadedInterval);
       iframe.contentDocument.body.setAttribute("spellcheck", "true");
+      runTests();
     }
-  }, 1000);
+  }, 50);
 });
