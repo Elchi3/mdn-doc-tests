@@ -20,25 +20,6 @@ self.port.on("runTests", function() {
   self.port.emit("finishedTests");
 });
 
-let btns = document.querySelectorAll(".btn-save, .btn-save-and-edit");
-let comment = document.querySelector("#page-comment #id_comment");
-
-let disableBtns = function(bool) {
-  for (let i = 0; i < btns.length; i++) {
-    btns[i].disabled = bool;
-  }
-};
-
-if (comment) {
-  if (comment.value === '') {
-    disableBtns(true);
-  }
-
-  comment.addEventListener("change", function() {
-    disableBtns(false);
-  });
-}
-
 window.addEventListener("load", function injectIFrame() {
   window.removeEventListener("load", injectIFrame);
 
