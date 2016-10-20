@@ -15,6 +15,10 @@ exports["test doc incorrectlyWrappedSidebarMacros"] = function testIncorrectlyWr
       expected: []
     },
     {
+      str: '<div>{{JSRef}}</div>',
+      expected: []
+    },
+    {
       str: '<div>{{SVGRefElem}}</div>',
       expected: []
     },
