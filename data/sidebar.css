@@ -177,5 +177,5 @@ li {
 
 #fixMatches.show,
 .show {
-  display: inherit;
+  display: block;
 }
