@@ -10,7 +10,8 @@ exports["test doc invalidMacros"] = function testInvalidMacros(assert, done) {
            '{{invalidmacroname}}' +
            '{{invalidmacroname(123456)}}' +
            '{{invalidmacroname("some page")}}' +
-           '{{invalidmacroname(\'font-weight\', \'@font\')}}',
+           '{{invalidmacroname(\'font-weight\', \'@font\')}}' +
+           '{{ languages( { "ja": "Ja/Browser_chrome_tests" } ) }}',
       expected: [
         {
           msg: '{{invalidmacroname}}',
@@ -27,6 +28,11 @@ exports["test doc invalidMacros"] = function testInvalidMacros(assert, done) {
         {
           msg: '{{invalidmacroname(\'font-weight\', \'@font\')}}',
           type: WARNING
+        },
+        {
+          msg: 'obsolete_macro',
+          msgParams: ['{{ languages( { "ja": "Ja/Browser_chrome_tests" } ) }}'],
+          type: ERROR
         }
       ]
     }
