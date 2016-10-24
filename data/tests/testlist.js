@@ -17,6 +17,7 @@ exports.testList = [
   "html-comments.js",
   "font-elements.js",
   "http-links.js",
+  "data-macro-explanation.js",
   "unnecessary-macro-params.js",
   "invalid-macros.js",
   "incorrectly-wrapped-sidebar-macros.js",
