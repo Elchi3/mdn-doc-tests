@@ -1,3 +1,19 @@
+/*
+ *  Title: Test for syntax errors in macro calls.
+ *
+ *  Example 1: {{macro} misses a closing curly brace, so it will be recognized as error.
+ *
+ *  Example 2: {{macro('param'}} misses a closing bracket, so it will be recognized as error.
+ *
+ *  Example 3: {{macro("param"))}} has an additional closing bracket, so it will be recognized as error.
+ *
+ *  Example 4: {{macro('param)}} and {{macro(param")}} have incorrectly quoted string parameters, 
+ *  so they will be recognized as errors.
+ *
+ *  Implementation notes: This test uses regular expressions to recognize invalid macros.
+ *  It currently fails to properly validate macros containing JSON parameters (see issue #139).
+ */
+
 docTests.macroSyntaxError = {
   name: "macro_syntax_error",
   desc: "macro_syntax_error_desc",

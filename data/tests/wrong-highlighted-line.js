@@ -1,3 +1,27 @@
+/*
+ *  Title: Test for incorrect line highlights in code examples.
+ *
+ *  Example 1: Negative highlights like in
+ *  <pre class="brush: js; highlight[-1]">var x = 1;</pre>
+ *  are invalid.
+ *
+ *  Example 2: Highlights exceeding the line count like in
+ *  <pre class="brush: js; highlight[20]">var x = 1;</pre>
+ *  are invalid.
+ *
+ *  Example 3: Highlighted ranges of lines exceeding the line count like in
+ *  <pre class="brush: js; highlight[10-20]">var x = 1;</pre>
+ *  are invalid.
+ *
+ *  Example 4: Highlighted ranges where the start line is bigger than the end line line in 
+ *  <pre class="brush: js; highlight[2-1]">var x = 1;\nvar y = 2;</pre>
+ *  are invalid.
+ *
+ *  Implementation notes: This test searches for all <pre> elements containing a 'highlight' 
+ *  class, then splits the numbers and ranges wrapped by square brackets following the 'highlight' 
+ *  class and finally checks each item whether its valid.
+ */
+
 docTests.wrongHighlightedLine = {
   name: "wrong_highlighted_line",
   desc: "wrong_highlighted_line_desc",

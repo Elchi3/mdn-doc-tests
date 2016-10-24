@@ -1,3 +1,13 @@
+/*
+ *  Title: Test for code blocks without 'class' attribute specifying the syntax highlighting.
+ *
+ *  Example 1: <pre>var x = 1</pre> should rather be replaced by 
+ *  <pre class="brush: js">var x = 1</pre>.
+ *
+ *  Implementation notes: This test checks all <pre> elements that have either an empty 'class' 
+ *  attribute or none at all.
+ */
+
 docTests.preWithoutClass = {
   name: "pre_without_class",
   desc: "pre_without_class_desc",
