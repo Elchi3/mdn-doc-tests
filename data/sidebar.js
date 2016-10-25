@@ -158,8 +158,6 @@ window.addEventListener("DOMContentLoaded", function loadTestSuite() {
   let runTestsButton = document.getElementById("btn-runtests");
   runTestsButton.addEventListener("click", runTests);
 
-  setInterval(runTests, 10000);
-
   let tests = document.getElementById("tests");
   tests.addEventListener("click", (evt) => {
     let testHeading = getParentByClassName(evt.originalTarget, "testHeading");
