@@ -1,3 +1,13 @@
+/*
+ *  Title: Test for empty elements.
+ *
+ *  Example 1: Paragraphs only containing a non-breaking space (<p>&nbsp;</p>) should be avoided.
+ *
+ *  Implementation notes: This test checks for elements containing no text or only space 
+ *  characters excluding the new paragraph helper of CKEditor and self-closing elements except 
+ *  <br> and <wbr> elements.
+ */
+
 docTests.emptyElements = {
   name: "empty_elements",
   desc: "empty_elements_desc",

@@ -1,3 +1,19 @@
+/*
+ *  Title: Test for incorrectly used URLs in link titles.
+ *
+ *  Example 1: The 'title' attribute on
+ *  <a href="/en-US/docs/Web/CSS" title="/en-US/docs/Web/CSS">CSS</a>
+ *  should be removed, because it's redundant.
+ *
+ *  Example 2: The 'title' attribute on
+ *  <a href="/en-US/docs/Web/CSS" title="/en/docs/CSS">CSS</a>
+ *  should be removed, because it's redundant and misleading.
+ *
+ *  Implementation notes: This test checks whether the 'title' attribute of an <a> element 
+ *  contains the same URL or a part of it as within its 'href' attribute. It also handles URLs 
+ *  using two-character locales vs. four character locales, e.g. "/en-US/" and "/en/".
+ */
+
 docTests.urlInLinkTitle = {
   name: "url_in_link_title",
   desc: "url_in_link_title_desc",

@@ -1,3 +1,14 @@
+/*
+ *  Title: Test for the usage of invalid macros.
+ *
+ *  Example 1: The usage of <p>{{SomeMacro}}</p> should rather be removed, replaced by a valid 
+ *  macro or by static text and {{SomeMacro}} should be deleted.
+ *
+ *  Implementation notes: This test uses an (incomprehensive) whitelist of allowed macros and a 
+ *  list of obsolete macros. Obsolete macros are marked as errors, all others, which are not 
+ *  whitelisted are marked as warnings.
+ */
+
 docTests.invalidMacros = {
   name: "invalid_macros",
   desc: "invalid_macros_desc",

@@ -1,3 +1,13 @@
+/*
+ *  Title: Test for wrong locales in links (<a href>).
+ *
+ *  Example 1: If you are in a German document, internal links should 
+ *  contain the "de" locale and not e.g. "en-US".
+ *
+ *  Implementation notes: This test compares the current locale in the slug (document.URL) 
+ *  with the locale used in internal links (<a href>)
+ */
+
 docTests.differentLocaleLinks = {
   name: "different_locale_links",
   desc: "different_locale_links_desc",

@@ -1,3 +1,13 @@
+/*
+ *  Title: Test for incorrectly used <span> elements.
+ *
+ *  Example 1: <span style="font-style: italic;">Emphasized text/<span> should rather be replaced 
+ *  by <em>Emphasized text</em>.
+ *
+ *  Implementation notes: This test searches for all <span> elements, which don't hold the SEO 
+ *  summary and are not part of CKEditor's new paragraph helper.
+ */
+
 docTests.spanCount = {
   name: "span_elements",
   desc: "span_elements_desc",

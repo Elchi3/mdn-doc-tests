@@ -1,3 +1,12 @@
+/*
+ *  Title: Test for sidebar macros that are not wrapped in <div> elements
+ *
+ *  Example 1: <p>{{APIRef}}</p> should be replaced by <div>{{APIRef}}</div>.
+ *
+ *  Implementation notes: This test checks whether some named macros are wrapped in other elements 
+ *  than <div>s.
+ */
+
 docTests.incorrectlyWrappedSidebarMacros = {
   name: "incorrectly_wrapped_sidebar_macros",
   desc: "incorrectly_wrapped_sidebar_macros_desc",

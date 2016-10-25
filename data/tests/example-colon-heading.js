@@ -1,3 +1,12 @@
+/*
+ *  Title: Test for example headings starting with 'Example:'.
+ *
+ *  Example 1: <h3>Example: Simple example</h3> should rather be written as <h3>Simple example</h3>
+ *
+ *  Implementation notes: This test checks whether the text of heading elements start with
+ *  'Example:'.
+ */
+
 docTests.exampleColonHeading = {
   name: "example_headings",
   desc: "example_headings_desc",

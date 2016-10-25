@@ -1,3 +1,13 @@
+/*
+ *  Title: Test the length and read time of the article.
+ *
+ *  Example 1: An article length of 1000 words will result in a read time estimation of 4 minutes.
+ * 
+ *  Implementation notes: This test expects a reading speed of 275 words per minute. The text is 
+ *  roughly split by word bounderies using a regular expression. An article exceeding some length
+ *  threshold (2000 words by default) is considered long.
+ */
+
 const WORDS_PER_MINUTE = 275;
 
 docTests.articleLength = {

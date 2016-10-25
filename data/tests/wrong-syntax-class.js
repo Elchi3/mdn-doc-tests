@@ -1,3 +1,19 @@
+/*
+ *  Title: Test for whether the 'syntax' class is properly used on a syntax block.
+ *
+ *  Example 1: <pre> elements following a 'Formal syntax' heading are expected to contain a syntax 
+ *  definition, which needs to be styled using class="syntaxbox".
+ *
+ *  Example 2: <pre> elements following a 'Syntax' heading where there is no 'Formal syntax' 
+ *  section are expected to contain a syntax definition, which needs to be styled using 
+ *  class="syntaxbox".
+ *
+ *  Implementation notes: This test first searches for an <h3>Formal syntax</h3> heading. If none 
+ *  is found, it searches for a <h2>Syntax</h2> heading. If one of those is found, the following 
+ *  <pre> element is expected to hold a syntax definition, which needs to be styled using 
+ *  class="syntaxbox".
+ */
+
 docTests.wrongSyntaxClass = {
   name: "wrong_syntax_class",
   desc: "wrong_syntax_class_desc",
