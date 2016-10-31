@@ -33,7 +33,7 @@ button {
   max-width: -moz-fit-content;
 }
 
-#fixMatches {
+#fixIssues {
   margin-top: 10px;
   display: none;
 }
@@ -175,7 +175,7 @@ li {
   background-image: var(--match-highlighted-background);
 }
 
-#fixMatches.show,
+#fixIssues.show,
 .show {
   display: block;
 }

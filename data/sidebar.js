@@ -65,8 +65,8 @@ addon.port.on("showTestResult", function(test, id, prefs) {
       testElem.getElementsByClassName("errors")[0].classList.add("show");
     }
 
-    let fixMatchesButton = document.getElementById("fixMatches");
-    fixMatchesButton.classList.add("show");
+    let fixIssuesButton = document.getElementById("fixIssues");
+    fixIssuesButton.classList.add("show");
   }
 
   let errors = testElem.getElementsByClassName("errors")[0];
@@ -151,8 +151,8 @@ function runTests() {
   addon.port.emit("runTests");
 }
 
-function fixMatches() {
-  addon.port.emit("fixMatches");
+function fixIssues() {
+  addon.port.emit("fixIssues");
 }
 window.addEventListener("DOMContentLoaded", function loadTestSuite() {
   window.removeEventListener("DOMContentLoaded", loadTestSuite);
@@ -164,8 +164,8 @@ window.addEventListener("DOMContentLoaded", function loadTestSuite() {
   let runTestsButton = document.getElementById("btn-runtests");
   runTestsButton.addEventListener("click", runTests);
 
-  let fixMatchesButton = document.getElementById("fixMatches");
-  fixMatchesButton.addEventListener("click", fixMatches);
+  let fixIssuesButton = document.getElementById("fixIssues");
+  fixIssuesButton.addEventListener("click", fixIssues);
   
   let tests = document.getElementById("tests");
   tests.addEventListener("click", (evt) => {

@@ -32,7 +32,7 @@ function runTest(testObj, id, rootElement) {
   }
 };
 
-let fixMatches = function(testObj, id) {
+let fixIssues = function(testObj, id) {
   // Only run the fixes if there's a root element
   // (e.g. when in source view there's no root element set)
   if (testObj.fix) {
@@ -61,9 +61,9 @@ self.port.on("runTests", function() {
   runTests();
 });
 
-self.port.on("fixMatches", function() {
+self.port.on("fixIssues", function() {
   for (let prop in docTests) {
-    fixMatches(docTests[prop], prop);
+    fixIssues(docTests[prop], prop);
   }
 });
 
