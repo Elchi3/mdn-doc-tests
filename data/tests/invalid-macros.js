@@ -174,7 +174,7 @@ docTests.invalidMacros = {
 
   fix: function fixInvalidMacros(matches) {
     let reObsoleteMacros =
-        new RegExp("\{\{\s*(?:" + obsoleteMacros.join("|") + ").*?\}\}", "gi");
+        new RegExp("\\{\\{\\\s*(?:" + obsoleteMacros.join("|") + ").*?\\}\\}", "gi");
 
     matches.forEach(match => {
       if (!match.node) {
