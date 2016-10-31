@@ -18,7 +18,8 @@ exports["test doc wrongSyntaxClass"] = function testWrongSyntaxClass(assert, don
           msgParams: ["brush:js"],
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     },
     {
       str: 'foo<h2>Syntax</h2>\\n<pre class=\"brush:css\">syntax examples</pre>bar<h3>Formal syntax</h3>\\n<pre class=\"eval\">syntax</pre>baz<h2>Other section</h2>',
@@ -28,7 +29,8 @@ exports["test doc wrongSyntaxClass"] = function testWrongSyntaxClass(assert, don
           msgParams: ["eval"],
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     }
   ];
 

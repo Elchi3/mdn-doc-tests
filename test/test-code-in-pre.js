@@ -29,7 +29,8 @@ exports["test doc codeInPre"] = function testSummaryHeading(assert, done) {
           msg: '<code>some code with\nline break</code>',
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     }
   ];
 

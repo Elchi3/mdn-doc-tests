@@ -19,7 +19,8 @@ exports["test doc htmlComments"] = function testHTMLComments(assert, done) {
           msg: '<!-- hello \\n world -->',
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     }
   ];
 

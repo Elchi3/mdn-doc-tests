@@ -29,7 +29,8 @@ exports["test doc nameAttribute"] = function testNameAttributes(assert, done) {
           msg: 'name="baz"',
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     }
   ];
 

@@ -34,6 +34,24 @@ exports["test doc invalidMacros"] = function testInvalidMacros(assert, done) {
           msgParams: ['{{ languages( { "ja": "Ja/Browser_chrome_tests" } ) }}'],
           type: ERROR
         }
+      ],
+      expectedAfterFixing: [
+        {
+          msg: '{{invalidmacroname}}',
+          type: WARNING
+        },
+        {
+          msg: '{{invalidmacroname(123456)}}',
+          type: WARNING
+        },
+        {
+          msg: '{{invalidmacroname("some page")}}',
+          type: WARNING
+        },
+        {
+          msg: '{{invalidmacroname(\'font-weight\', \'@font\')}}',
+          type: WARNING
+        }
       ]
     }
   ];

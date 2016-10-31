@@ -42,7 +42,8 @@ exports["test doc incorrectlyWrappedSidebarMacros"] = function testIncorrectlyWr
           msgParams: ["{{CSSRef}}", "p"],
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     },
     {
       str: '<span>{{ APIRef("Some API") }}</span>',
@@ -52,7 +53,8 @@ exports["test doc incorrectlyWrappedSidebarMacros"] = function testIncorrectlyWr
           msgParams: ["{{ APIRef(\"Some API\") }}", "span"],
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     }
   ];
 

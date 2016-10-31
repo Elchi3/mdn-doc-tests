@@ -40,6 +40,12 @@ exports["test doc emptyElements"] = function testEmptyElements(assert, done) {
           msg: '<td><br></td>',
           type: WARNING
         }
+      ],
+      expectedAfterFixing: [
+        {
+          msg: '<td><br></td>',
+          type: WARNING
+        }
       ]
     }
   ];

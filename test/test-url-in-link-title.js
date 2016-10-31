@@ -38,7 +38,8 @@ exports["test doc urlInLinkTitle"] = function testHTTPLinks(assert, done) {
           msg: '<a href="/en-US/docs/Mozilla" title="/En/Mozilla">Mozilla</a>',
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     }
   ];
 

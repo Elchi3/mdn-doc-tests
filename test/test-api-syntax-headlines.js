@@ -26,6 +26,16 @@ exports["test doc apiSyntaxHeadlines"] = function testSummaryHeading(assert, don
           msg: "invalid_headline_order",
           type: ERROR
         }
+      ],
+      expectedAfterFixing: [
+        {
+          msg: "invalid_headline_order",
+          type: ERROR
+        },
+        {
+          msg: "invalid_headline_order",
+          type: ERROR
+        }
       ]
     }
   ];

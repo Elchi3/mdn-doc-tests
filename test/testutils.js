@@ -55,9 +55,31 @@ exports.runTests = function runTests(assert, done, name, desc, url, tests) {
   
             if (expected[i].msgParams) {
               assert.deepEqual(match.msgParams, expected[i].msgParams,
-                               "Error message params for " + desc + " match must be correct");
+                  "Error message params for " + desc + " match must be correct");
             }
           });
+
+          // Check whether the issues were fixed as expected
+          if (testObj.expectedAfterFixing) {
+            let matches = testObj.errorsAfterFixing;
+            let expected = testObj.expectedAfterFixing;
+
+            assert.equal(matches.length, expected.length,
+                         "Number of " + desc + " matches after fixing must be " + expected.length);
+
+            matches.forEach((match, i) => {
+              assert.equal(match.msg, expected[i].msg,
+                  "Error message for " + desc + " match after fixing must be correct");
+
+              assert.equal(match.type, expected[i].type,
+                  "Error type for " + desc + " match after fixing must be correct");
+
+              if (expected[i].msgParams) {
+                assert.deepEqual(match.msgParams, expected[i].msgParams,
+                    "Error message params for " + desc + " match after fixing must be correct");
+              }
+            });
+          }
 
           resultCount++;
         }

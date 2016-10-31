@@ -10,6 +10,14 @@ tests.forEach(test => {
     let matches = testObj.check(rootElement);
     testObj.errors = matches;
     testObj.expected = test.expected;
+
+    if (test.expectedAfterFixing) {
+      testObj.fix(matches);
+      let matchesAfterFixing = testObj.check(rootElement);
+      testObj.errorsAfterFixing = matchesAfterFixing;
+      testObj.expectedAfterFixing = test.expectedAfterFixing;
+    }
   }
+
   self.port.emit("processTestResult", testObj, self.options.name);
 });

@@ -22,6 +22,12 @@ exports["test doc spanCount"] = function testSpanElements(assert, done) {
           msg: '<span><dt>foobar</dt></span>',
           type: ERROR
         }
+      ],
+      expectedAfterFixing: [
+        {
+          msg: '<span class="foo" style="font:10px">bar</span>',
+          type: ERROR
+        }
       ]
     }
   ];
