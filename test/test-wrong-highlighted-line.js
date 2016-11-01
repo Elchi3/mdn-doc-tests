@@ -69,7 +69,8 @@ exports["test doc wrongHighlightedLine"] = function testWrongHighlightedLines(as
           msgParams: ["6", "3", " 1, 3 - 6 ,2 "],
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     }
   ];
 

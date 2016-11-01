@@ -38,7 +38,7 @@ docTests.wrongHighlightedLine = {
         let numbersAndRanges = match[1].split(",");
         let lineCount = presWithHighlighting[i].innerHTML.split(/<br\s*\/?>|\n/gi).length;
 
-        numbersAndRanges.forEach((numberOrRange, i, numbersAndRanges) => {
+        numbersAndRanges.forEach((numberOrRange) => {
           let start;
           let end;
           try {
