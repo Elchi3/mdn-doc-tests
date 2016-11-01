@@ -4,18 +4,23 @@ exports["test doc apiSyntaxHeadlines"] = function testSummaryHeading(assert, don
   const tests = [
     {
       str: '<h2 id="Syntax">Syntax</h2>' +
-           '<h3>Errors</h3>' +
+           '<h3>Exceptions thrown</h3>' +
            '<h3>Returns</h3>' +
-           '<h3>Parameters</h3>',
+           '<h3>Arguments</h3>',
       expected: [
         {
           msg: "invalid_headline_name",
-          msgParams: ["Errors"],
+          msgParams: ["Exceptions thrown"],
           type: ERROR
         },
         {
           msg: "invalid_headline_name",
           msgParams: ["Returns"],
+          type: ERROR
+        },
+        {
+          msg: "invalid_headline_name",
+          msgParams: ["Arguments"],
           type: ERROR
         },
         {
@@ -37,6 +42,32 @@ exports["test doc apiSyntaxHeadlines"] = function testSummaryHeading(assert, don
           type: ERROR
         }
       ]
+    },
+    {
+      str: '<h2 id="Syntax">Syntax</h2>' +
+           '<h3>Return value</h3>' +
+           '<h3>Errors</h3>',
+      expected: [
+        {
+          msg: "invalid_headline_name",
+          msgParams: ["Errors"],
+          type: ERROR
+        }
+      ],
+      expectedAfterFixing: []
+    },
+    {
+      str: '<h2 id="Syntax">Syntax</h2>' +
+           '<h3>Return value</h3>' +
+           '<h3>Errors thrown</h3>',
+      expected: [
+        {
+          msg: "invalid_headline_name",
+          msgParams: ["Errors thrown"],
+          type: ERROR
+        }
+      ],
+      expectedAfterFixing: []
     }
   ];
 
