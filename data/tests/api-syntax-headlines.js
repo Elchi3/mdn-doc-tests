@@ -13,12 +13,13 @@
  *  expects the headlines to be <h3> elements under a <h2>Syntax</h2> section.
  */
 
-const disallowedNames = new Map([["returns", "Return value"], ["errors", "Exceptions"],
+const disallowedNames = new Map([["arguments", "Parameters"], ["returns", "Return value"],
+    ["exceptions thrown", "Exceptions"], ["errors", "Exceptions"],
     ["errors thrown", "Exceptions"]]);
 const validOrder = [
-  new Set(["parameters"]),
+  new Set(["parameters", "arguments"]),
   new Set(["return value", "returns"]),
-  new Set(["exceptions", "errors", "errors thrown"])
+  new Set(["exceptions", "exceptions thrown", "errors", "errors thrown"])
 ];
 
 docTests.apiSyntaxHeadlines = {
