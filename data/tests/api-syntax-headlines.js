@@ -13,16 +13,19 @@
  *  expects the headlines to be <h3> elements under a <h2>Syntax</h2> section.
  */
 
+const disallowedNames = new Map([["returns", "Return value"], ["errors", "Exceptions"],
+    ["errors thrown", "Exceptions"]]);
+const validOrder = [
+  new Set(["parameters"]),
+  new Set(["return value", "returns"]),
+  new Set(["exceptions", "errors", "errors thrown"])
+];
+
 docTests.apiSyntaxHeadlines = {
   name: "api_syntax_headlines",
   desc: "api_syntax_headlines_desc",
+
   check: function checkAPISyntaxHeadlines(rootElement) {
-    const disallowedNames = new Set(["returns", "errors", "errors thrown"]);
-    const validOrder = [
-      new Set(["parameters"]),
-      new Set(["return value", "returns"]),
-      new Set(["exceptions", "errors", "errors thrown"])
-    ];
     let headlines = rootElement.getElementsByTagName("h2");
     let syntaxSection = null;
     let order = [];
@@ -34,26 +37,27 @@ docTests.apiSyntaxHeadlines = {
     }
 
     if (syntaxSection) {
-      let subHeadings = [];
+      let subHeadingElements = [];
       let element = syntaxSection.nextSibling;
       while (element && element.localName !== "h2") {
         if (element.localName === "h3") {
-          subHeadings.push(element.textContent);
+          subHeadingElements.push(element);
         }
         element = element.nextSibling;
       }
-      for (let i = 0; i < subHeadings.length; i++) {
-        let subHeading = subHeadings[i];
+      for (let i = 0; i < subHeadingElements.length; i++) {
+        let subHeading = subHeadingElements[i].textContent.toLowerCase();
         for (let j = 0; j < validOrder.length; j++) {
           let heading = validOrder[j];
-          if (heading.has(subHeading.toLowerCase())) {
+          if (heading.has(subHeading)) {
             order.push(j);
           }
         }
-        if (disallowedNames.has(subHeading.toLowerCase())) {
+        if (disallowedNames.has(subHeading)) {
           matches.push({
+            node: subHeadingElements[i],
             msg: "invalid_headline_name",
-            msgParams: [subHeadings[i]],
+            msgParams: [subHeadingElements[i].textContent],
             type: ERROR
           });
         }
@@ -71,5 +75,15 @@ docTests.apiSyntaxHeadlines = {
     }
 
     return matches;
+  },
+
+  fix: function fixAPISyntaxHeadlines(matches) {
+    matches.forEach(match => {
+      switch (match.msg) {
+        case "invalid_headline_name":
+          match.node.textContent = disallowedNames.get(match.node.textContent.toLowerCase());
+          break;
+      }
+    });
   }
 };

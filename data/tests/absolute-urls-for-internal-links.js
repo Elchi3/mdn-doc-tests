@@ -11,6 +11,8 @@
  *  about:blank as URL.
  */
 
+const reAbsoluteURL = /^(?:https?:)?\/\/developer\.mozilla\.org(?=\/)/i;
+
 docTests.absoluteURLsForInternalLinks = {
   name: "absolute_urls_for_internal_links",
   desc: "absolute_urls_for_internal_links_desc",
@@ -19,8 +21,9 @@ docTests.absoluteURLsForInternalLinks = {
     let matches = [];
     for (let i = 0; i < links.length; i++) {
       let href = links[i].getAttribute("href");
-      if (href && href.match(/(?:https?:)?\/\/developer\.mozilla\.org\//i)) {
+      if (href && href.match(reAbsoluteURL)) {
         matches.push({
+          node: links[i],
           msg: links[i].outerHTML,
           type: WARNING
         });
@@ -28,5 +31,14 @@ docTests.absoluteURLsForInternalLinks = {
     }
 
     return matches;
+  },
+
+  fix: function fixAbsoluteURLsForInternalLinks(matches) {
+    matches.forEach(match => {
+      let href = match.node.getAttribute("href");
+      let relativeURL = href.replace(reAbsoluteURL, "");
+      match.node.setAttribute("href", relativeURL);
+      match.node.setAttribute("data-cke-saved-href", relativeURL);
+    });
   }
 };

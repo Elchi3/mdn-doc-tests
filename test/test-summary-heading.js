@@ -24,7 +24,8 @@ exports["test doc summaryHeading"] = function testSummaryHeading(assert, done) {
           msg: '<h3 id="Summary">Summary</h3>',
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     }
   ];
 

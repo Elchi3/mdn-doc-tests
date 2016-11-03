@@ -11,6 +11,7 @@
 docTests.spanCount = {
   name: "span_elements",
   desc: "span_elements_desc",
+
   check: function checkSpanCount(rootElement) {
     let spanElements = rootElement.querySelectorAll("span:not(.seoSummary)");
     let matches = [];
@@ -24,11 +25,21 @@ docTests.spanCount = {
       }
 
       matches.push({
+        node: node,
         msg: node.outerHTML,
         type: ERROR
       })
     }
 
     return matches;
+  },
+
+  fix: function fixSpanCount(matches) {
+    matches.forEach(match => {
+      // Remove element in case it is unstyled
+      if (!match.node.getAttribute("id") && !match.node.getAttribute("class") && !match.node.getAttribute("style")) {
+        match.node.remove();
+      }
+    });
   }
 };

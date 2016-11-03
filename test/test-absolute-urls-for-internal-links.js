@@ -22,7 +22,8 @@ exports["test doc absoluteURLsForInternalLinks"] = function testAbsoluteURLsForI
           msg: '<a href="//developer.mozilla.org/en-US/docs/some/page">Anchor</a>',
           type: WARNING
         }
-      ]
+      ],
+      expectedAfterFixing: []
     }
   ];
 

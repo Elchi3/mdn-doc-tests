@@ -16,7 +16,8 @@ exports["test doc emptyBrackets"] = function testEmptyBrackets(assert, done) {
           msg: '{{bar()}}',
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     }
   ];
 

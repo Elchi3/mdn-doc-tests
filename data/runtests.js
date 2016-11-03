@@ -24,7 +24,7 @@ function initializeKeyEventHandler() {
 
 function runTest(testObj, id, rootElement) {
   // Only run the test suite if there's a root element
-  //(e.g. when in source view there's no root element set)
+  // (e.g. when in source view there's no root element set)
   if (rootElement) {
     let contentTest = testObj.check(rootElement);
     testObj.errors = contentTest;
@@ -32,10 +32,24 @@ function runTest(testObj, id, rootElement) {
   }
 };
 
+let fixIssues = function(testObj, id) {
+  // Only run the fixes if there's a root element
+  // (e.g. when in source view there's no root element set)
+  if (testObj.fix) {
+    testObj.fix(testObj.errors);
+
+    // Run test again to update its results
+    let iframe = document.querySelector("iframe.cke_wysiwyg_frame");
+    let rootElement = iframe.contentDocument.body;
+    runTest(testObj, id, rootElement);
+  }
+};
+
 function runTests() {
   let iframe = document.querySelector("iframe.cke_wysiwyg_frame");
   if (iframe) {
     let rootElement = iframe.contentDocument.body;
+
     for (let prop in docTests) {
       runTest(docTests[prop], prop, rootElement);
     }
@@ -45,6 +59,12 @@ function runTests() {
 
 self.port.on("runTests", function() {
   runTests();
+});
+
+self.port.on("fixIssues", function() {
+  for (let prop in docTests) {
+    fixIssues(docTests[prop], prop);
+  }
 });
 
 window.addEventListener("load", function injectIFrame() {

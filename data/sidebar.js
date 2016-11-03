@@ -64,6 +64,9 @@ addon.port.on("showTestResult", function(test, id, prefs) {
     if (prefs.autoExpandErrors && status !== "ok") {
       testElem.getElementsByClassName("errors")[0].classList.add("show");
     }
+
+    let fixIssuesButton = document.getElementById("fixIssues");
+    fixIssuesButton.classList.add("show");
   }
 
   let errors = testElem.getElementsByClassName("errors")[0];
@@ -148,6 +151,9 @@ function runTests() {
   addon.port.emit("runTests");
 }
 
+function fixIssues() {
+  addon.port.emit("fixIssues");
+}
 window.addEventListener("DOMContentLoaded", function loadTestSuite() {
   window.removeEventListener("DOMContentLoaded", loadTestSuite);
 
@@ -158,6 +164,9 @@ window.addEventListener("DOMContentLoaded", function loadTestSuite() {
   let runTestsButton = document.getElementById("btn-runtests");
   runTestsButton.addEventListener("click", runTests);
 
+  let fixIssuesButton = document.getElementById("fixIssues");
+  fixIssuesButton.addEventListener("click", fixIssues);
+  
   let tests = document.getElementById("tests");
   tests.addEventListener("click", (evt) => {
     let testHeading = getParentByClassName(evt.originalTarget, "testHeading");

@@ -9,6 +9,10 @@
  *  whitelisted are marked as warnings.
  */
 
+const obsoleteMacros = [
+  "languages"
+];
+
 docTests.invalidMacros = {
   name: "invalid_macros",
   desc: "invalid_macros_desc",
@@ -133,10 +137,6 @@ docTests.invalidMacros = {
       "xulelem"
     ];
 
-    const obsoleteMacros = [
-      "languages"
-    ];
-
     let treeWalker = document.createTreeWalker(
         rootElement,
         NodeFilter.SHOW_TEXT,
@@ -152,13 +152,14 @@ docTests.invalidMacros = {
       let reMacroName = /\{\{\s*([^\(\}\s]+).*?\}\}/g;
       let macroNameMatch = reMacroName.exec(treeWalker.currentNode.textContent);
       while (macroNameMatch) {
-        if (obsoleteMacros.indexOf(macroNameMatch[1].toLowerCase()) !== -1) {
+        if (obsoleteMacros.includes(macroNameMatch[1].toLowerCase())) {
           matches.push({
+            node: treeWalker.currentNode,
             msg: "obsolete_macro",
             msgParams: [macroNameMatch[0]],
             type: ERROR
           });
-        } else if (allowedMacros.indexOf(macroNameMatch[1].toLowerCase()) === -1) {
+        } else if (!allowedMacros.includes(macroNameMatch[1].toLowerCase())) {
           matches.push({
             msg: macroNameMatch[0],
             type: WARNING
@@ -169,5 +170,20 @@ docTests.invalidMacros = {
     }
 
     return matches;
-  }
-};
+  },
+
+  fix: function fixInvalidMacros(matches) {
+    let reObsoleteMacros =
+        new RegExp("\\{\\{\\\s*(?:" + obsoleteMacros.join("|") + ").*?\\}\\}", "gi");
+
+    matches.forEach(match => {
+      if (!match.node) {
+        return;
+      }
+
+      match.node.textContent = match.node.textContent.replace(reObsoleteMacros, "");
+      if (match.node.parentNode.textContent.match(/^(\s|&nbsp;)*$/)) {
+        match.node.parentNode.remove();
+      }
+    });
+}};

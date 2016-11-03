@@ -21,7 +21,8 @@ exports["test doc exampleColonHeading"] = function testExampleColonHeading(asser
           msg: '<h2 id="Example:_Foo">Example: Foo</h2>',
           type: ERROR
         }
-      ]
+      ],
+      expectedAfterFixing: []
     }
   ];
 

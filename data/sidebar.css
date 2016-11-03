@@ -27,9 +27,15 @@ h2 {
   font-size: 1em;
 }
 
-#btn-runtests {
+button {
+  min-width: 100px;
   max-width: fit-content;
   max-width: -moz-fit-content;
+}
+
+#fixIssues {
+  margin-top: 10px;
+  display: none;
 }
 
 #summary {
@@ -169,6 +175,7 @@ li {
   background-image: var(--match-highlighted-background);
 }
 
+#fixIssues.show,
 .show {
-  display: inherit;
+  display: block;
 }

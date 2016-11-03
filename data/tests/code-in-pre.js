@@ -17,11 +17,21 @@ docTests.codeInPre = {
 
     for (let i = 0; i < codesInPres.length; i++) {
       matches.push({
+        node: codesInPres[i],
         msg: codesInPres[i].outerHTML,
         type: ERROR
       });
     }
 
     return matches;
+  },
+  fix: function fixCodeInPre(matches) {
+    matches.forEach(match => {
+      let children = new DocumentFragment();
+      for(let i = 0; i < match.node.childNodes.length; i++) {
+        children.appendChild(match.node.childNodes[i].cloneNode(true));
+      }
+      match.node.parentNode.replaceChild(children, match.node);
+    });
   }
 };
