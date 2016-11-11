@@ -47,6 +47,10 @@ exports.runTests = function runTests(assert, done, name, desc, url, tests) {
                        "Number of " + desc + " matches must be " + expected.length);
 
           matches.forEach((match, i) => {
+            if (!expected[i]) {
+              return;
+            }
+
             assert.equal(match.msg, expected[i].msg,
                 "Error message for " + desc + " match must be correct");
   
