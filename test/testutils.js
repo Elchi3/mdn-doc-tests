@@ -42,20 +42,21 @@ exports.runTests = function runTests(assert, done, name, desc, url, tests) {
         if (testObj) {
           let matches = testObj.errors;
           let expected = testObj.expected;
+          let testMessage = `${desc} - test ${testObj.index}: `;
 
           assert.equal(matches.length, expected.length,
-                       "Number of " + desc + " matches must be " + expected.length);
+              testMessage + "Number of matches must be " + expected.length);
 
           matches.forEach((match, i) => {
             assert.equal(match.msg, expected[i].msg,
-                "Error message for " + desc + " match must be correct");
+                testMessage + "Error message for match must be correct");
   
             assert.equal(match.type, expected[i].type,
-                "Error type for " + desc + " match must be correct");
+                testMessage + "Error type for match must be correct");
   
             if (expected[i].msgParams) {
               assert.deepEqual(match.msgParams, expected[i].msgParams,
-                  "Error message params for " + desc + " match must be correct");
+                  testMessage + "Error message params for match must be correct");
             }
           });
 
@@ -65,18 +66,18 @@ exports.runTests = function runTests(assert, done, name, desc, url, tests) {
             let expected = testObj.expectedAfterFixing;
 
             assert.equal(matches.length, expected.length,
-                         "Number of " + desc + " matches after fixing must be " + expected.length);
+                testMessage + "Number of matches after fixing must be " + expected.length);
 
             matches.forEach((match, i) => {
               assert.equal(match.msg, expected[i].msg,
-                  "Error message for " + desc + " match after fixing must be correct");
+                  testMessage + "Error message for match after fixing must be correct");
 
               assert.equal(match.type, expected[i].type,
-                  "Error type for " + desc + " match after fixing must be correct");
+                  testMessage + "Error type for match after fixing must be correct");
 
               if (expected[i].msgParams) {
                 assert.deepEqual(match.msgParams, expected[i].msgParams,
-                    "Error message params for " + desc + " match after fixing must be correct");
+                    testMessage + "Error message params for match after fixing must be correct");
               }
             });
           }

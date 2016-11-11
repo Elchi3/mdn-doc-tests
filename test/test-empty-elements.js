@@ -50,7 +50,7 @@ exports["test doc emptyElements"] = function testEmptyElements(assert, done) {
     }
   ];
 
-  runTests(assert, done, "emptyElements", "empty elements", url, tests);
+  runTests(assert, done, "emptyElements", "Empty elements", url, tests);
 };
 
 require("sdk/test").run(exports);

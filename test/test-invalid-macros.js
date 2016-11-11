@@ -56,7 +56,7 @@ exports["test doc invalidMacros"] = function testInvalidMacros(assert, done) {
     }
   ];
 
-  runTests(assert, done, "invalidMacros", "invalid macros", url, tests);
+  runTests(assert, done, "invalidMacros", "Invalid macros", url, tests);
 };
 
 require("sdk/test").run(exports);

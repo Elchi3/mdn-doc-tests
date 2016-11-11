@@ -74,7 +74,7 @@ exports["test doc wrongHighlightedLine"] = function testWrongHighlightedLines(as
     }
   ];
 
-  runTests(assert, done, "wrongHighlightedLine", "wrong highlighted line", url, tests);
+  runTests(assert, done, "wrongHighlightedLine", "Wrong highlighted line", url, tests);
 };
 
 require("sdk/test").run(exports);

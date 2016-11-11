@@ -23,7 +23,7 @@ exports["test doc lineLengthInPre"] = function testSummaryHeading(assert, done) 
     }
   ];
 
-  runTests(assert, done, "lineLengthInPre", "too long line", url, tests);
+  runTests(assert, done, "lineLengthInPre", "Too long line", url, tests);
 };
 
 require("sdk/test").run(exports);

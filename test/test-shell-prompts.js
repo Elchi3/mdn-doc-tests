@@ -38,7 +38,7 @@ exports["test doc shellPrompts"] = function testShellPrompts(assert, done) {
     }
   ];
 
-  runTests(assert, done, "shellPrompts", "shell prompts in code samples", url, tests);
+  runTests(assert, done, "shellPrompts", "Shell prompts in code samples", url, tests);
 };
 
 require("sdk/test").run(exports);

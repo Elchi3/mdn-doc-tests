@@ -38,7 +38,7 @@ exports["test doc articleLength"] = function testArticleLength(assert, done) {
     }
   ];
 
-  runTests(assert, done, "articleLength", "article length", url, tests);
+  runTests(assert, done, "articleLength", "Article length", url, tests);
 };
 
 require("sdk/test").run(exports);

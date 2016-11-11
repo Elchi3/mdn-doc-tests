@@ -24,7 +24,7 @@ exports["test doc htmlComments"] = function testHTMLComments(assert, done) {
     }
   ];
 
-  runTests(assert, done, "htmlComments", "HTML comment", url, tests);
+  runTests(assert, done, "htmlComments", "HTML comments", url, tests);
 };
 
 require("sdk/test").run(exports);

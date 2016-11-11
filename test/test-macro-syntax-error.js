@@ -109,7 +109,7 @@ exports["test doc macroSyntaxError"] = function testMacroSyntaxErrors(assert, do
     }
   ];
 
-  runTests(assert, done, "macroSyntaxError", "macro syntax error", url, tests);
+  runTests(assert, done, "macroSyntaxError", "Macro syntax error", url, tests);
 };
 
 require("sdk/test").run(exports);

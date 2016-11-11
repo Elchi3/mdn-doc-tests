@@ -29,7 +29,7 @@ exports["test doc differentLocaleLinks"] = function testDifferentLocaleLinks(ass
     }
   ];
 
-  runTests(assert, done, "differentLocaleLinks", "different locale links", url, tests);
+  runTests(assert, done, "differentLocaleLinks", "Different locale links", url, tests);
 };
 
 require("sdk/test").run(exports);

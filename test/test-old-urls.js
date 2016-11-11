@@ -18,7 +18,7 @@ exports["test doc oldURLs"] = function testOldURLs(assert, done) {
     }
   ];
 
-  runTests(assert, done, "oldURLs", "'/en/' link", url, tests);
+  runTests(assert, done, "oldURLs", "'/en/' links", url, tests);
 };
 
 require("sdk/test").run(exports);

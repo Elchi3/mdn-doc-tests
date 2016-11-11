@@ -16,7 +16,7 @@ exports["test doc httpLinks"] = function testHTTPLinks(assert, done) {
     }
   ];
 
-  runTests(assert, done, "httpLinks", "HTTP link", url, tests);
+  runTests(assert, done, "httpLinks", "HTTP links", url, tests);
 };
 
 require("sdk/test").run(exports);

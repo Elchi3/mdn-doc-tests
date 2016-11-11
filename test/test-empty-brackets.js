@@ -21,7 +21,7 @@ exports["test doc emptyBrackets"] = function testEmptyBrackets(assert, done) {
     }
   ];
 
-  runTests(assert, done, "emptyBrackets", "empty brackets", url, tests);
+  runTests(assert, done, "emptyBrackets", "Empty brackets", url, tests);
 };
 
 require("sdk/test").run(exports);

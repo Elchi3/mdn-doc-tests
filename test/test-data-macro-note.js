@@ -27,7 +27,7 @@ exports["test doc dataMacroNote"] = function testDataMacroNote(assert, done) {
     }
   ];
 
-  runTests(assert, done, "dataMacroNote", "data macro note", url, tests);
+  runTests(assert, done, "dataMacroNote", "Data macro note", url, tests);
 };
 
 require("sdk/test").run(exports);

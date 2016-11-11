@@ -18,7 +18,7 @@ exports["test doc fontElements"] = function testFontElements(assert, done) {
     }
   ];
 
-  runTests(assert, done, "fontElements", "<font>", url, tests);
+  runTests(assert, done, "fontElements", "<font> elements", url, tests);
 };
 
 require("sdk/test").run(exports);
