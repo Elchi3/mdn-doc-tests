@@ -29,7 +29,7 @@ exports["test doc summaryHeading"] = function testSummaryHeading(assert, done) {
     }
   ];
 
-  runTests(assert, done, "summaryHeading", "summary heading", url, tests);
+  runTests(assert, done, "summaryHeading", "Summary heading", url, tests);
 };
 
 require("sdk/test").run(exports);

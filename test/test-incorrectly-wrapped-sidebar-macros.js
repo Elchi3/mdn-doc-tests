@@ -58,7 +58,7 @@ exports["test doc incorrectlyWrappedSidebarMacros"] = function testIncorrectlyWr
     }
   ];
 
-  runTests(assert, done, "incorrectlyWrappedSidebarMacros", "incorrectly wrapped sidebar macros",
+  runTests(assert, done, "incorrectlyWrappedSidebarMacros", "Incorrectly wrapped sidebar macros",
       url, tests);
 };
 

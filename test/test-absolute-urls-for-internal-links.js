@@ -27,7 +27,7 @@ exports["test doc absoluteURLsForInternalLinks"] = function testAbsoluteURLsForI
     }
   ];
 
-  runTests(assert, done, "absoluteURLsForInternalLinks", "absolute URLs for internal links", url, tests);
+  runTests(assert, done, "absoluteURLsForInternalLinks", "Absolute URLs for internal links", url, tests);
 };
 
 require("sdk/test").run(exports);

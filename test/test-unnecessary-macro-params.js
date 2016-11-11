@@ -23,7 +23,7 @@ exports["test doc unnecessaryMacroParams"] = function testUnnecessaryMacroParams
     }
   ];
 
-  runTests(assert, done, "unnecessaryMacroParams", "unnecessary macro params", url, tests);
+  runTests(assert, done, "unnecessaryMacroParams", "Unnecessary macro params", url, tests);
 };
 
 require("sdk/test").run(exports);

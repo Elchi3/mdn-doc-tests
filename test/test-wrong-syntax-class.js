@@ -34,7 +34,7 @@ exports["test doc wrongSyntaxClass"] = function testWrongSyntaxClass(assert, don
     }
   ];
 
-  runTests(assert, done, "wrongSyntaxClass", "syntax box class", url, tests);
+  runTests(assert, done, "wrongSyntaxClass", "Syntax box class", url, tests);
 };
 
 require("sdk/test").run(exports);

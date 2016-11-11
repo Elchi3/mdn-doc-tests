@@ -4,12 +4,14 @@ let testObj = docTests[self.options.name];
 let rootElement = document.createElement("div");
 let tests = JSON.parse(self.options.tests);
 
-tests.forEach(test => {
+tests.forEach((test, i) => {
   rootElement.innerHTML = test.str;
   if (testObj) {
+    testObj.index = i + 1;
+    testObj.expected = test.expected;
+
     let matches = testObj.check(rootElement);
     testObj.errors = matches;
-    testObj.expected = test.expected;
 
     if (test.expectedAfterFixing) {
       testObj.fix(matches);

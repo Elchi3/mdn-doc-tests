@@ -32,7 +32,7 @@ exports["test doc spanCount"] = function testSpanElements(assert, done) {
     }
   ];
 
-  runTests(assert, done, "spanCount", "<span>", url, tests);
+  runTests(assert, done, "spanCount", "<span> elements", url, tests);
 };
 
 require("sdk/test").run(exports);
