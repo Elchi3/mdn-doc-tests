@@ -97,6 +97,7 @@ docTests.invalidMacros = {
       "mathmlelement",
       "mathmlref",
       "next",
+      "no_tag_omission",
       "non-standard_header",
       "non-standard_inline",
       "noscript_inline",
