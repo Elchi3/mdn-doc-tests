@@ -21,7 +21,8 @@ docTests.differentLocaleLinks = {
       if (href) {
         let [, linkDomain, linkLocale] = href.match(/^(?:https?:\/\/(.+?))?\/([^\/]+)/i) ||
             [null, null, null];
-        if (linkLocale && linkLocale.toLowerCase() !== pageLocale.toLowerCase() &&
+        if (linkLocale && !linkLocale.startsWith("@") &&
+            linkLocale.toLowerCase() !== pageLocale.toLowerCase() &&
             (!linkDomain || linkDomain === pageDomain)) {
           matches.push({
             msg: "link_using_wrong_locale",
