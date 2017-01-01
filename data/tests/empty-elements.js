@@ -17,8 +17,9 @@ docTests.emptyElements = {
         NodeFilter.SHOW_ELEMENT,
         {
           acceptNode: (node) => {
-            // matching self-closing elements and excluding them
+            // matching self-closing elements and td elements and excluding them
             if(!node.localName.match(/^link|track|param|area|command|col|base|meta|hr|source|img|keygen|br|wbr|input$/i) &&
+                !node.localName.match(/^td$/i) &&
                 node.textContent.match(/^(?:&nbsp;|\s|\n)*$/)) {
 
               // Exclude new paragraph helper
